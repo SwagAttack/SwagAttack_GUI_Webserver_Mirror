@@ -4,28 +4,24 @@
 }
 
 <body>
-    <table>
-        <tr>
-            <td>
-                <label> Username: </label>
-                <input type="text" name="UserTextBox" />
-            </td>
-        </tr>
 
-        <tr>
-            <td>
-                <label> Password: </label>
-                <input type="password" name="PassTextBox" />
-            </td>
-        </tr>
+<form>
+    <div class="form-group">
+        <label for="Username">Username:</label>
+        <input type="text" class="form-control" id="Username">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd">
+    </div>
+    <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+    </div>
 
-        <tr>
-            <td>
-                <button> Log Ind</button>
-                <button> Opret Konto</button>
-            </td>
-        </tr>
-    </table>
+    <button type="button" class="btn btn-default">Opret Konto</button>
+    <button type="button" class="btn btn-default">Log Ind</button>
+
+</form>
 
 </body>
 
