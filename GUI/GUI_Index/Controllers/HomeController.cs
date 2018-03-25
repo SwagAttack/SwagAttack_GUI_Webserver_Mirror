@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using GUI_Index.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,14 +12,28 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller
     {
+        public  static List<User> UserList {get; set; }
+
         public IActionResult LogInd()
         {
+            if (UserList == null)
+                UserList = new List<User>();
+
             return View();
         }
 
-        public IActionResult LogIndTryk()
+        [HttpPost]
+        public IActionResult LogInd(User user)
         {
-            return View("PostLogInd");
+            foreach (User item in UserList)
+            {
+                if (item.Username == user.Username && item.Password == user.Password)
+                {
+                    return View("PostLogInd");
+                }
+
+            }
+            return View("LogInd");
         }
 
         public IActionResult OpretKonto()
@@ -26,9 +41,23 @@ namespace GUI_Index.Controllers
             return View();
         }
 
-        public IActionResult NyKonto()
+        [HttpPost]
+        public IActionResult OpretKonto(User user)
         {
-            return View("LogInd");
+            try
+            {
+                
+                UserList.Add(user);
+                return RedirectToAction("LogInd");
+            }
+            catch 
+            {
+                return RedirectToAction("OpretKonto");
+            }
+            
+
+
+            return RedirectToAction("LogInd");
         }
 
         public IActionResult PostLogInd()

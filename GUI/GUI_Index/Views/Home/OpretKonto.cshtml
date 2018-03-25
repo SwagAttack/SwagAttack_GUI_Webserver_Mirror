@@ -1,4 +1,4 @@
-﻿
+﻿@model GUI_Index.Models.User
 @{
     ViewData["Title"] = "OpretKonto";
 }
@@ -14,46 +14,48 @@
 
     <div class="row">
         <div class="absolute-center is-responsive">
-            <form>
-                <div class="form-group row">
-                    <label for="givenName" class="col-sm-2 col-form-label">Fornavn</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="givenName" placeholder="E.g. 'Vladimir'">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="lastName" class="col-sm-2 col-form-label">Efternavn</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="lastName" placeholder="E.g. 'Putin'">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="brugernavn_" class="col-sm-2 col-form-label">Brugernavn</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="brugernavn_" placeholder="E.g. 'swagmeister5000'">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="email_" class="col-sm-2 col-form-label">E-mail</label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="email_" placeholder="E.g. 'swag@swagattack.com'">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="password_" class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="password_" placeholder="Something unguessable...">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-10 offset-sm-2">
-                        <div class=".btn-group-vertical">
-                            <button type="button" class="btn-post" onclick="location.href='@Url.Action("NyKonto", "Home")'">Opret konto</button>
-                            <button type="button" class="btn-post" onclick="location.href='@Url.Action("LogInd", "Home")'">Tilbage</button>
+            
+                <form method="post" formaction="@Url.Action("OpretKonto", "Home")" >
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Fornavn</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="GivenName" placeholder="E.g. 'Vladimir'">
                         </div>
                     </div>
-                </div>
-            </form>
+                    <div class="form-group row">
+                        <label for="LastName" class="col-sm-2 col-form-label">Efternavn</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="LastName" placeholder="E.g. 'Putin'">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Username" class="col-sm-2 col-form-label">Brugernavn</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Username" placeholder="E.g. 'swagmeister5000'">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Email" class="col-sm-2 col-form-label">E-mail</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" name="Email" placeholder="E.g. 'swag@swagattack.com'">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Password" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" name="Password" placeholder="Something unguessable...">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10 offset-sm-2">
+                            <div class=".btn-group-vertical">
+                                <button type="submit" class="btn-post" >Opret konto</button>
+                                <button type="button" class="btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Tilbage</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+      
         </div>
     </div>
 </div>
