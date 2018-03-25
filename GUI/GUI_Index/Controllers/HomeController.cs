@@ -26,9 +26,9 @@ namespace GUI_Index.Controllers
             return View();
         }
 
-        public IActionResult NyKonto(User user)
+        public IActionResult NyKonto()
         {
-            return View("LogInd",User);
+            return View("LogInd");
         }
 
         public IActionResult PostLogInd()
