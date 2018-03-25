@@ -44,11 +44,27 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult OpretKonto(User user)
         {
+            bool flag = true;
             try
             {
+                //ugly fix for no data storage
+                if (UserList.Count != 0)
+                {
+                    foreach (User item in UserList)
+                    {
+                        if (item.Username == user.Username && item.Password == user.Password)
+                        {
+                            flag = false;
+                        }
+
+                    }
+                }
+                if (flag)
+                {
+                    UserList.Add(user);
+                    return RedirectToAction("LogInd");
+                }
                 
-                UserList.Add(user);
-                return RedirectToAction("LogInd");
             }
             catch 
             {
@@ -57,7 +73,7 @@ namespace GUI_Index.Controllers
             
 
 
-            return RedirectToAction("LogInd");
+            return RedirectToAction("OpretKonto");
         }
 
         public IActionResult PostLogInd()
