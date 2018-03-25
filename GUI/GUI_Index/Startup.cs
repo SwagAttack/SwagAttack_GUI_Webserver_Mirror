@@ -43,7 +43,7 @@ namespace GUI_Index
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=OpretKonto}/{id?}");
+                    template: "{controller=Home}/{action=LogInd}/{id?}");
             });
         }
     }
