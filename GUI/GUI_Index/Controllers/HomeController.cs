@@ -15,6 +15,10 @@ namespace GUI_Index.Controllers
             return View();
         }
 
+        public IActionResult LogInd()
+        {
+            return View();
+        }
         
     }
 }
