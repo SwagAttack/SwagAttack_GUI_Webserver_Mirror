@@ -11,10 +11,6 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller
     {
-
-        
-
-
         public IActionResult LogInd()
         {
             return View();
