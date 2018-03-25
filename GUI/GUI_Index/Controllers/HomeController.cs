@@ -10,15 +10,21 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public IActionResult LogInd()
         {
             return View();
         }
-        
+
+        public IActionResult OpretKonto()
+        {
+            return View();
+        }
+
+        public IActionResult PostLogInd()
+        {
+            return View();
+        }
+
     }
 }
