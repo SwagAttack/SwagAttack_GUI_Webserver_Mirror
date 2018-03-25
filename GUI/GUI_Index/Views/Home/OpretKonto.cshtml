@@ -3,5 +3,57 @@
     ViewData["Title"] = "OpretKonto";
 }
 
-<h2>OpretKonto</h2>
+<style>    label {
+         font-weight: bold;
+         display: block;
+     }
+</style>
 
+<body>
+<div class="container">
+    <h2 align="center">OpretKonto</h2>
+    <div class="row">
+        <div class="absolute-center is-responsive">
+            <form>
+                <div class="form-group row">
+                    <label for="givenName" class="col-sm-2 col-form-label">Fornavn</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="givenName" placeholder="E.g. 'Vladimir'">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-2 col-form-label">Efternavn</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="lastName" placeholder="E.g. 'Putin'">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="brugernavn_" class="col-sm-2 col-form-label">Brugernavn</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="brugernavn_" placeholder="E.g. 'swagmeister5000'">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email_" class="col-sm-2 col-form-label">E-mail</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="email_" placeholder="E.g. 'swag@swagattack.com'">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password_" class="col-sm-2 col-form-label">Password</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" id="password_" placeholder="Something unguessable...">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <div class="btn-group-vertical">
+                            <button type="submit" class="btn btn-primary">Opret konto</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
