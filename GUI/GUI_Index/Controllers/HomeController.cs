@@ -29,7 +29,7 @@ namespace GUI_Index.Controllers
             {
                 if (item.Username == user.Username && item.Password == user.Password)
                 {
-                    return View("PostLogInd");
+                    return View("PostLogInd",item);
                 }
 
             }
@@ -76,8 +76,9 @@ namespace GUI_Index.Controllers
             return RedirectToAction("OpretKonto");
         }
 
-        public IActionResult PostLogInd()
+        public IActionResult PostLogInd(User user)
         {
+            
             return View();
         }
 
