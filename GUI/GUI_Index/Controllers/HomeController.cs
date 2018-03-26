@@ -30,7 +30,7 @@ namespace GUI_Index.Controllers
             string res = nyBruger.logInUser(user);
             var sendUser = client.SendString(res);
 
-            if (sendUser)
+            if (sendUser == "ok")
             {
                 return View("PostLogInd", user);
             }
@@ -55,7 +55,7 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult OpretKonto(User user)
         {
-            bool flag = true;
+            //bool flag = true;
             try
             {
 	            SwagClient client = new SwagClient("127.0.0.1");
@@ -64,15 +64,14 @@ namespace GUI_Index.Controllers
 
                 if (client.SendString(res) == "ok")
                 {
-                    //Do something if answer is true
+                    //Do something if user is allowed to be created.
                     return RedirectToAction("LogInd");
                 }
-                else if (client.SendString(res) == "not")
-                {
-                    return RedirectToAction("OpretKonto");
-                }
+                return RedirectToAction("OpretKonto");
+               
+                
 
-
+                
                 //ugly fix for no data storage
                 //			if (UserList.Users.Count != 0)
                 //            {
