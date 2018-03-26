@@ -64,23 +64,34 @@ namespace TestTcpServer
 					line += ch;
 
 				Console.WriteLine("{0} recieved ", line);
-				
-				IUser item = JsonConvert.DeserializeObject<User>(line);
+				try
+				{
+					IUser item = JsonConvert.DeserializeObject<User>(line);
 
-				string reply = "";
-				//ack
-				if (item.GivenName == "Jasper")
-				{
-					reply = "not";
+					string reply = "";
+					//ack
+					if (item.GivenName == "Jasper")
+					{
+						reply = "not";
+					}
+					else
+					{
+						reply = "ok";
+					}
+
+					System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+					stream.Write(encoding.GetBytes(reply), 0, reply.Length);
+					stream.WriteByte(0);
 				}
-				else
+				catch
 				{
-					reply = "ok";
+					string reply = "not";
+					System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+					stream.Write(encoding.GetBytes(reply), 0, reply.Length);
+					stream.WriteByte(0);
 				}
 				
-				System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-				stream.Write(encoding.GetBytes(reply), 0, reply.Length);
-				stream.WriteByte(0);
+
 				// Shutdown and end connection
 				tcpclient.Close();
 			}
