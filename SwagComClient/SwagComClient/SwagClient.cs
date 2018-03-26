@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
@@ -32,14 +33,9 @@ namespace ClassLibrary1
 
 		  
 			    Console.WriteLine($"Sending {input}");
-
-			    //Converting string to byte
-			   // UTF8Encoding encoding = new UTF8Encoding();
-			   // Byte[] data = encoding.GetBytes(input);
-
-
+			
 				// Sending Input bytes to server 
-				 writeTextTCP(stream, input);
+				 SendTextTCP(stream, input);
 
 			///	stream.Write(data, 0, data.Length);
 
@@ -61,7 +57,16 @@ namespace ClassLibrary1
 		    return false;
 		}
 
-	    private static void writeTextTCP(NetworkStream outToServer, String line)
+	    public string RecieveString()
+	    {
+		    TcpClient client = new TcpClient(_serverAddr, PORT);
+		    NetworkStream stream = client.GetStream();
+
+			return ReadTcp(stream);
+		  
+	    }
+
+		private static void SendTextTCP(NetworkStream outToServer, String line)
 	    {
 		    System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
 		    outToServer.Write(encoding.GetBytes(line), 0, line.Length);
@@ -82,15 +87,22 @@ namespace ClassLibrary1
 
 	    private void LogLine(string input)
 	    {
-		    var path = System.IO.Path.GetDirectoryName(
-			    System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
-			using (System.IO.StreamWriter file =
-				new System.IO.StreamWriter(@"log.txt") )
+		   
+		    DateTime timeStamp = DateTime.Now;
+			
+			string path = @"log.txt";
+			if (!File.Exists(path))
 			{
-				foreach (var lines in input)
+				// Create a file to write to.
+				using (StreamWriter sw = File.CreateText(path))
 				{
-					file.Write(lines);
+					sw.WriteLine($" {timeStamp}: Log created");
+
 				}
+			}
+			using (StreamWriter file = File.AppendText(path))
+			{
+				file.WriteLine($"{timeStamp}: {input}");
 			}
 			
 	    }
