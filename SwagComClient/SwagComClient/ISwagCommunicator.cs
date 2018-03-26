@@ -8,7 +8,7 @@ namespace ClassLibrary1
 {
 	public interface ISwagCommunicator
 	{
-		bool SendString(string input);
+		string SendString(string input);
 		
 	}
 }
