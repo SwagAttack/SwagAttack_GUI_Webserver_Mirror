@@ -26,6 +26,12 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult LogInd(User user)
         {
+            SwagClient client = new SwagClient("adr");
+            JSONConverter nyBruger = null;
+            string res = nyBruger.logInUser(user);
+            client.SendString(res);
+
+
             foreach (User item in UserList.Users)
             {
                 if (item.Username == user.Username && item.Password == user.Password)
