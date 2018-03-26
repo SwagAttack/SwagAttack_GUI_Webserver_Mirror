@@ -12,12 +12,12 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller
     {
-        public  static List<User> UserList {get; set; }
+
 
         public IActionResult LogInd()
         {
-            if (UserList == null)
-                UserList = new List<User>();
+            if (UserList.Users == null)
+                UserList.Users = new List<User>();
 
             return View();
         }
@@ -25,7 +25,7 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult LogInd(User user)
         {
-            foreach (User item in UserList)
+            foreach (User item in UserList.Users)
             {
                 if (item.Username == user.Username && item.Password == user.Password)
                 {
@@ -48,9 +48,9 @@ namespace GUI_Index.Controllers
             try
             {
                 //ugly fix for no data storage
-                if (UserList.Count != 0)
+                if (UserList.Users.Count != 0)
                 {
-                    foreach (User item in UserList)
+                    foreach (User item in UserList.Users)
                     {
                         if (item.Username == user.Username && item.Password == user.Password)
                         {
@@ -61,7 +61,7 @@ namespace GUI_Index.Controllers
                 }
                 if (flag)
                 {
-                    UserList.Add(user);
+                    UserList.Users.Add(user);
                     return RedirectToAction("LogInd");
                 }
                 
@@ -80,6 +80,12 @@ namespace GUI_Index.Controllers
         {
             
             return View();
+        }
+
+        public IActionResult UserListView()
+        {
+            var model = UserList.Users;
+            return View(model);
         }
 
     }
