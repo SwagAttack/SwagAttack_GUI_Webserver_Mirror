@@ -69,13 +69,13 @@ namespace TestTcpServer
 
 				string reply = "";
 				//ack
-				if (item.GivenName != "Jasper")
+				if (item.GivenName == "Jasper")
 				{
-					reply = "ok";
+					reply = "not";
 				}
 				else
 				{
-					reply = "not";
+					reply = "ok";
 				}
 				
 				System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
