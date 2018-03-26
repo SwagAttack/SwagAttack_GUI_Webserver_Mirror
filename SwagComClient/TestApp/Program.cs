@@ -16,9 +16,9 @@ namespace TestApp
 			//SwagClient sC = new SwagClient("10.0.0.1");
 			SwagClient sC = new SwagClient("127.0.0.1");
 
-			bool test = sC.SendString("test");
+			var test = sC.SendString("test");
 
-			if (test)
+			if (test == "ok")
 			{
 				Console.WriteLine("Test = true");
 			}

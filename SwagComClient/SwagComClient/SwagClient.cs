@@ -24,7 +24,7 @@ namespace ClassLibrary1
 
 		}
 		
-	    public bool SendString(string input)
+	    public string SendString(string input)
 	    {
 		    TcpClient client = new TcpClient(_serverAddr, PORT);
 
@@ -46,15 +46,16 @@ namespace ClassLibrary1
 		    //log the line as string. 
 			LogLine($" sending: {input}");
 
-				if (ack == "ok")
-				{
-					Console.WriteLine("send succes");
-					LogLine("send succes");
-					return true;
+			if (ack == "ok")
+			{
+				Console.WriteLine("send succes");
+				LogLine("send succes");
+			}
+			else { 
+				Console.WriteLine("send failed");
+				LogLine("send failed");
 				}
-		    Console.WriteLine("send failed");
-			LogLine("send failed");
-		    return false;
+			return ack;
 		}
 
 	    public string RecieveString()
@@ -72,6 +73,7 @@ namespace ClassLibrary1
 		    outToServer.Write(encoding.GetBytes(line), 0, line.Length);
 		    outToServer.WriteByte(0);
 	    }
+
 		private static String ReadTcp(NetworkStream stream)
 	    {
 		    char ch;
