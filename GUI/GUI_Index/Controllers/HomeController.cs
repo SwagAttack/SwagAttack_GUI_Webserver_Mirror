@@ -14,11 +14,10 @@ namespace GUI_Index.Controllers
     public class HomeController : Controller
     {
 
-
         public IActionResult LogInd()
         {
-            if (UserList.Users == null)
-                UserList.Users = new List<User>();
+            //if (UserList.Users == null)
+            //    UserList.Users = new List<User>();
 
             return View();
         }
@@ -29,17 +28,22 @@ namespace GUI_Index.Controllers
             SwagClient client = new SwagClient("127.0.0.1");
             JSONConverter nyBruger = new JSONConverter();
             string res = nyBruger.logInUser(user);
-            client.SendString(res);
+            var sendUser = client.SendString(res);
 
-
-            foreach (User item in UserList.Users)
+            if (sendUser)
             {
-                if (item.Username == user.Username && item.Password == user.Password)
-                {
-                    return View("PostLogInd",item);
-                }
-
+                return View("PostLogInd", user);
             }
+
+            //foreach (User item in UserList.Users)
+            //{
+            //    if (item.Username == user.Username && item.Password == user.Password)
+            //    {
+            //        return View("PostLogInd",item);
+            //    }
+
+            //}
+
             return View("LogInd");
         }
 
@@ -57,49 +61,55 @@ namespace GUI_Index.Controllers
 	            SwagClient client = new SwagClient("127.0.0.1");
 	            JSONConverter nyBruger = new JSONConverter();
 	            string res = nyBruger.newUser(user);
-	            client.SendString(res);
 
-				//ugly fix for no data storage
-				if (UserList.Users.Count != 0)
+                if (client.SendString(res) == "ok")
                 {
-                    foreach (User item in UserList.Users)
-                    {
-                        if (item.Username == user.Username && item.Password == user.Password)
-                        {
-                            flag = false;
-                        }
-
-                    }
-                }
-
-                if (flag)
-                {
-                    UserList.Users.Add(user);
+                    //Do something if answer is true
                     return RedirectToAction("LogInd");
                 }
-                
+                else if (client.SendString(res) == "not")
+                {
+                    return RedirectToAction("OpretKonto");
+                }
+
+
+                //ugly fix for no data storage
+                //			if (UserList.Users.Count != 0)
+                //            {
+                //                foreach (User item in UserList.Users)
+                //                {
+                //                    if (item.Username == user.Username && item.Password == user.Password)
+                //                    {
+                //                        flag = false;
+                //                    }
+                //                }
+                //            }
+
+                //if (flag)
+                //{
+                //    UserList.Users.Add(user);
+                //    return RedirectToAction("LogInd");
+                //}
+
             }
+
             catch 
             {
                 return RedirectToAction("OpretKonto");
             }
             
-
-
-            return RedirectToAction("OpretKonto");
         }
 
         public IActionResult PostLogInd(User user)
         {
-            
             return View();
         }
 
-        public IActionResult UserListView()
-        {
-            var model = UserList.Users;
-            return View(model);
-        }
+        //public IActionResult UserListView()
+        //{
+        //    var model = UserList.Users;
+        //    return View(model);
+        //}
 
     }
 }
