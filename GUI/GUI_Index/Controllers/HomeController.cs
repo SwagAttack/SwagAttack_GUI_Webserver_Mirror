@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using ClassLibrary1;
 using GUI_Index.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -59,6 +60,7 @@ namespace GUI_Index.Controllers
 
                     }
                 }
+
                 if (flag)
                 {
                     UserList.Users.Add(user);

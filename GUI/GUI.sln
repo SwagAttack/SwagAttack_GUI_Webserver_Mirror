@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI_Index", "GUI_Index\GUI_Index.csproj", "{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwagCommunicatorLib", "..\SwagComClient\SwagComClient\SwagCommunicatorLib.csproj", "{C1D9D8E3-0619-4AEA-9C79-7D05071EEF4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1D9D8E3-0619-4AEA-9C79-7D05071EEF4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D9D8E3-0619-4AEA-9C79-7D05071EEF4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D9D8E3-0619-4AEA-9C79-7D05071EEF4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D9D8E3-0619-4AEA-9C79-7D05071EEF4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
