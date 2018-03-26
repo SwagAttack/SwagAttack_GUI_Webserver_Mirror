@@ -26,8 +26,8 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult LogInd(User user)
         {
-            SwagClient client = new SwagClient("adr");
-            JSONConverter nyBruger = null;
+            SwagClient client = new SwagClient("127.0.0.1");
+            JSONConverter nyBruger = new JSONConverter();
             string res = nyBruger.logInUser(user);
             client.SendString(res);
 
@@ -54,8 +54,13 @@ namespace GUI_Index.Controllers
             bool flag = true;
             try
             {
-                //ugly fix for no data storage
-                if (UserList.Users.Count != 0)
+	            SwagClient client = new SwagClient("127.0.0.1");
+	            JSONConverter nyBruger = new JSONConverter();
+	            string res = nyBruger.newUser(user);
+	            client.SendString(res);
+
+				//ugly fix for no data storage
+				if (UserList.Users.Count != 0)
                 {
                     foreach (User item in UserList.Users)
                     {

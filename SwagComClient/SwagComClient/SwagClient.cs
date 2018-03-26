@@ -85,11 +85,11 @@ namespace ClassLibrary1
 		    var path = System.IO.Path.GetDirectoryName(
 			    System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
 			using (System.IO.StreamWriter file =
-				new System.IO.StreamWriter(@"{path}\log.txt") )
+				new System.IO.StreamWriter(@"log.txt") )
 			{
 				foreach (var lines in input)
 				{
-					file.WriteLine(lines);
+					file.Write(lines);
 				}
 			}
 			

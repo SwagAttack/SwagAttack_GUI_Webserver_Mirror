@@ -18,8 +18,8 @@ namespace TestTcpServer
 		const int PORT = 9000;
 
 		//The IpAdress
-		IPAddress localAddr = IPAddress.Parse("10.0.0.1");
-
+		//IPAddress localAddr = IPAddress.Parse("10.0.0.1");
+		IPAddress localAddr = IPAddress.Parse("127.0.0.1");
 
 		/// <summary>
 		/// The BUFSIZE
@@ -60,16 +60,16 @@ namespace TestTcpServer
 				while ((ch = (char)stream.ReadByte()) != 0)
 					line += ch;
 
-				Console.WriteLine("{0} recieved", line);
+				Console.WriteLine("{0} recieved ", line);
 
 				//ack
-				if (line == "test")
-				{
+				//if (line == "test")
+				//{
 					string reply = "ok";
 					System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
 					stream.Write(encoding.GetBytes(reply), 0, reply.Length);
 					stream.WriteByte(0);
-				}
+				//}
 				// Shutdown and end connection
 				tcpclient.Close();
 			}

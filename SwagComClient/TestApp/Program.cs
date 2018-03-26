@@ -13,8 +13,8 @@ namespace TestApp
 		static void Main(string[] args)
 		{
 			Console.WriteLine("Test app started");
-			//TcpClient client = new TcpClient("10.0.0.2", 9000);
-			SwagClient sC = new SwagClient("10.0.0.1");
+			//SwagClient sC = new SwagClient("10.0.0.1");
+			SwagClient sC = new SwagClient("127.0.0.1");
 
 			bool test = sC.SendString("test");
 
