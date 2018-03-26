@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace TestTcpServer
 {
@@ -61,15 +64,23 @@ namespace TestTcpServer
 					line += ch;
 
 				Console.WriteLine("{0} recieved ", line);
+				
+				IUser item = JsonConvert.DeserializeObject<User>(line);
 
+				string reply = "";
 				//ack
-				//if (line == "test")
-				//{
-					string reply = "ok";
-					System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
-					stream.Write(encoding.GetBytes(reply), 0, reply.Length);
-					stream.WriteByte(0);
-				//}
+				if (item.GivenName != "Jasper")
+				{
+					reply = "ok";
+				}
+				else
+				{
+					reply = "not";
+				}
+				
+				System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+				stream.Write(encoding.GetBytes(reply), 0, reply.Length);
+				stream.WriteByte(0);
 				// Shutdown and end connection
 				tcpclient.Close();
 			}
