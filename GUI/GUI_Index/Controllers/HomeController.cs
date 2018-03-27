@@ -16,40 +16,38 @@ namespace GUI_Index.Controllers
 
         public IActionResult LogInd()
         {
-            //if (UserList.Users == null)
-            //    UserList.Users = new List<User>();
-
-            return View();
+            return View("LogInd");
         }
 
         [HttpPost]
         public IActionResult LogInd(User user)
         {
-            SwagClient client = new SwagClient("127.0.0.1");
-            JSONConverter nyBruger = new JSONConverter();
-            string res = nyBruger.logInUser(user);
-            var sendUser = client.SendString(res);
-
-            if (sendUser == "ok")
+            try
             {
-                return View("PostLogInd", user);
+                SwagClient client = new SwagClient("127.0.0.1");
+                JSONConverter nyBruger = new JSONConverter();
+                string res = nyBruger.logInUser(user);
+                var sendUser = client.SendString(res);
+                if (sendUser == "ok")
+                {
+                    return RedirectToAction("PostLogInd", user);
+                }
+
+
+                
+            }
+            catch (Exception e)
+            {
+               
             }
 
-            //foreach (User item in UserList.Users)
-            //{
-            //    if (item.Username == user.Username && item.Password == user.Password)
-            //    {
-            //        return View("PostLogInd",item);
-            //    }
-
-            //}
 
             return View("LogInd");
         }
 
         public IActionResult OpretKonto()
         {
-            return View();
+            return View("OpretKonto");
         }
 
         [HttpPost]
@@ -68,27 +66,7 @@ namespace GUI_Index.Controllers
                     return RedirectToAction("LogInd");
                 }
                 return RedirectToAction("OpretKonto");
-               
-                
 
-                
-                //ugly fix for no data storage
-                //			if (UserList.Users.Count != 0)
-                //            {
-                //                foreach (User item in UserList.Users)
-                //                {
-                //                    if (item.Username == user.Username && item.Password == user.Password)
-                //                    {
-                //                        flag = false;
-                //                    }
-                //                }
-                //            }
-
-                //if (flag)
-                //{
-                //    UserList.Users.Add(user);
-                //    return RedirectToAction("LogInd");
-                //}
 
             }
 
@@ -101,14 +79,8 @@ namespace GUI_Index.Controllers
 
         public IActionResult PostLogInd(User user)
         {
-            return View();
+            return View("PostLogInd");
         }
-
-        //public IActionResult UserListView()
-        //{
-        //    var model = UserList.Users;
-        //    return View(model);
-        //}
 
     }
 }
