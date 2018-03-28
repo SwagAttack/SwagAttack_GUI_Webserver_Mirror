@@ -26,7 +26,7 @@ namespace GUI_Index.Controllers
             {
                 SwagClient client = new SwagClient("127.0.0.1");
                 JSONConverter nyBruger = new JSONConverter();
-                string res = nyBruger.logInUser(user);
+                string res = nyBruger.LogInUser(user);
                 var sendUser = client.SendString(res);
                 if (sendUser == "ok")
                 {
@@ -58,7 +58,7 @@ namespace GUI_Index.Controllers
             {
 	            SwagClient client = new SwagClient("127.0.0.1");
 	            JSONConverter nyBruger = new JSONConverter();
-	            string res = nyBruger.newUser(user);
+	            string res = nyBruger.NewUser(user);
 
                 if (client.SendString(res) == "ok")
                 {

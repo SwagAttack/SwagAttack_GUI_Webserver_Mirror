@@ -7,13 +7,13 @@ namespace GUI_Index
     public class JSONConverter
     {
 
-        public string newUser(User newJas)
+        public string NewUser(User newJas)
         {
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(newJas);
             return jsonString;
         }
 
-        public string logInUser(User login)
+        public string LogInUser(User login)
         {
             var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(login);
             return jsonString;
