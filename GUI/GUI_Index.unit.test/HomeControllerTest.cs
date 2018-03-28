@@ -1,11 +1,9 @@
-﻿using NUnit.Framework;
-using GUI_Index.Controllers;
-using GUI_Index.Interfaces;
+﻿using GUI_Index.Controllers;
 using GUI_Index.Models;
 using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
 
-
-namespace ClassLibrary1
+namespace GUI_Index.unit.test
 {
     [TestFixture]
     public class HomeControllerTest
