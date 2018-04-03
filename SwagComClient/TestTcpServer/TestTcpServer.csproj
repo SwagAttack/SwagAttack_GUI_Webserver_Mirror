@@ -55,12 +55,16 @@
     <Compile Include="IUser.cs" />
     <Compile Include="TestTcpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="ValidationThrower.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\gameserver\PersistanceLayer\DocumentDB\DBInterface\DBInterface.csproj">
+      <Project>{f89847de-91bc-43be-93f9-ed3a44994a0f}</Project>
+      <Name>DBInterface</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
