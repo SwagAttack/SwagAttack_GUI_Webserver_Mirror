@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ClassLibrary1;
+using GUI_Index;
+using GUI_Index.Interfaces;
 using GUI_Index.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,13 +26,21 @@ namespace GUI_Index.Controllers
         {
             try
             {
-                SwagClient client = new SwagClient("127.0.0.1");
-                JSONConverter nyBruger = new JSONConverter();
-                string res = nyBruger.LogInUser(user);
-                var sendUser = client.SendString(res);
-                if (sendUser == "ok")
+                //SwagClient client = new SwagClient("127.0.0.1");
+                //JSONConverter nyBruger = new JSONConverter();
+                //string res = nyBruger.LogInUser(user);
+                
+
+                var sendUser = SwagCommunication.GetUserAsync<User>(user.Username,user.Password);
+
+
+                //var sendUser = client.SendString(res);
+
+                sendUser.Wait();
+                var tmp = sendUser.Result;
+                if (sendUser.Result != null)
                 {
-                    return RedirectToAction("PostLogInd", user);
+                    return RedirectToAction("PostLogInd", tmp);
                 }
 
 
@@ -38,7 +48,7 @@ namespace GUI_Index.Controllers
             }
             catch (Exception e)
             {
-               
+                var tmp = e.GetBaseException().Message;
             }
 
 
@@ -51,30 +61,45 @@ namespace GUI_Index.Controllers
         }
 
         [HttpPost]
-        public IActionResult OpretKonto(User user)
+        public IActionResult  OpretKonto(User user)
         {
             //bool flag = true;
             try
             {
-	            SwagClient client = new SwagClient("127.0.0.1");
-	            JSONConverter nyBruger = new JSONConverter();
-	            string res = nyBruger.NewUser(user);
+                //SwagClient client = new SwagClient("127.0.0.1");
+                //JSONConverter nyBruger = new JSONConverter();
+                //string res = nyBruger.NewUser(user);
 
-                if (client.SendString(res) == "ok")
+                
+
+
+                var sendUser = SwagCommunication.CreateUserAsync(user).Result;
+               
+                
+                if (sendUser != null)
                 {
                     //Do something if user is allowed to be created.
                     return RedirectToAction("LogInd");
                 }
+
+                // if (client.SendString(res) == "ok")
+                // {
+                //Do something if user is allowed to be created.
+                //     return RedirectToAction("LogInd");
+                // }
                 return RedirectToAction("OpretKonto");
-
-
             }
 
-            catch 
+
+
+            catch(Exception e)
             {
+                
+                var stuff = e.GetBaseException().Message;
+                Console.WriteLine(e.GetBaseException().Message);
                 return RedirectToAction("OpretKonto");
             }
-            
+
         }
 
         public IActionResult PostLogInd(User user)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GUI_Index;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ namespace GUI_Index
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
