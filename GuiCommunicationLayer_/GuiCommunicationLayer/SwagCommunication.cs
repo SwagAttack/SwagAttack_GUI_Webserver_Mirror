@@ -14,7 +14,7 @@ namespace GuiCommunicationLayer
     {
 		private static HttpClient _client = new HttpClient();
 
-	    private static string ApiUsers = "api/User/";
+	    private static string ApiUsers = "/api/User/";
 
 		/// <summary>
 		/// Ctor for swagCommunication

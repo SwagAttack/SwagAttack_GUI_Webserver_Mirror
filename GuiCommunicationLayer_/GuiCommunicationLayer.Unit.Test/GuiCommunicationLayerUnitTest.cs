@@ -13,7 +13,7 @@ namespace GuiCommunicationLayer.Unit.Test
 		[SetUp]
 		public void Init()
 		{
-			_uut = new SwagCommunication("https://f7f2fec5-c272-427f-af39-98ad7b43220a.mock.pstmn.io/");
+			_uut = new SwagCommunication("https://f7f2fec5-c272-427f-af39-98ad7b43220a.mock.pstmn.io");
 			testUser = new User();
 
 			testUser.Email = "test@testsen.dk";
