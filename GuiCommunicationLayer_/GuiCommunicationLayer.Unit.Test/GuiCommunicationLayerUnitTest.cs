@@ -10,26 +10,29 @@ namespace GuiCommunicationLayer.Unit.Test
 	{
 
         //link to MockServer created via Postman
-	    private string url = "https://f7f2fec5-c272-427f-af39-98ad7b43220a.mock.pstmn.io/";
+	    private static string url = "https://f7f2fec5-c272-427f-af39-98ad7b43220a.mock.pstmn.io/";
 
-        private SwagCommunication _uut;
+        private SwagCommunication _uut = new SwagCommunication(url);
+
 		private User testUser;
+
+        private User wrongTestUser;
+
 		[SetUp]
 		public void Init()
-		{
-			_uut = new SwagCommunication(url);
-			testUser = new User();
-
-			testUser.Email = "test@testsen.dk";
-			testUser.GivenName = "Hr";
-			testUser.LastName = "testsen";
-			testUser.Password = "12345678o";
-			testUser.Username = "TheTestMan";
-
+		{;
+		    testUser = new User
+		    {
+		        Email = "test@testsen.dk",
+		        GivenName = "Hr",
+		        LastName = "testsen",
+		        Password = "12345678o",
+		        Username = "TheTestMan"
+		    };
 		}
 
 		[Test]
-		public void CreateUserAsync_Correct()
+		public void CreateUserAsync_Correct_ReturnsTestUserURL()
 		{
 			//Arrange
 
@@ -40,36 +43,59 @@ namespace GuiCommunicationLayer.Unit.Test
 			Assert.That(uut.ToString(), Is.EqualTo(url + "api/user/" + testUser.Username + "/"+ testUser.Password));
 		}
 
-		[Test]
-		public void GetUserAsync_Correct()
+	    [Test]
+	    public void CreateUserAsync_Correct_ReturnsExeption()
+	    {
+	        //Arrange
+
+	        //Act
+	        var uut = SwagCommunication.CreateUserAsync(testUser).Result;
+
+	        //Assert
+	        Assert.That(uut.ToString(), Is.EqualTo(url + "api/user/" + testUser.Username + "/" + testUser.Password));
+	    }
+
+        [Test]
+		public void GetUserAsync_Correct_ReturnsTestUser()
 		{
 			//Arrange
 
 			//Act
-			var url = SwagCommunication.GetUserAsync(testUser.Username, testUser.Password);
-		    url.Wait();
+			var url = SwagCommunication.GetUserAsync(testUser.Username, testUser.Password).Result;
 
 
 			//Asserts
-			Assert.That(url.Result.Email, Is.EqualTo(testUser.Email));
-		    Assert.That(url.Result.Username, Is.EqualTo(testUser.Username));
-		    Assert.That(url.Result.GivenName, Is.EqualTo(testUser.GivenName));
-		    Assert.That(url.Result.LastName, Is.EqualTo(testUser.LastName));
-		    Assert.That(url.Result.Password, Is.EqualTo(testUser.Password));
+			Assert.That(url.Email, Is.EqualTo(testUser.Email));
+		    Assert.That(url.Username, Is.EqualTo(testUser.Username));
+		    Assert.That(url.GivenName, Is.EqualTo(testUser.GivenName));
+		    Assert.That(url.LastName, Is.EqualTo(testUser.LastName));
+		    Assert.That(url.Password, Is.EqualTo(testUser.Password));
         }
 
-		[Test]
+	    [Test]
+	    public void GetUserAsync_DoesntExist_ReturnNullObject()
+	    {
+	        //Arrange
+
+	        //Act
+	        var url = SwagCommunication.GetUserAsync(testUser.Username, "WRONG").Result;
+
+
+	        //Asserts
+	        Assert.That(url, Is.EqualTo(null));
+	    }
+
+        [Test]
 		public void UpdateUserAsync_Correct()
 		{
 			//Arrange
-			User testUser2 = testUser;
-			testUser2.Password = "12345678i";
+			testUser.Password = "12345678i";
 			
 			//Act
-			var reply = SwagCommunication.UpdateUserAsync(testUser, testUser2.Password).Result;
+			var reply = SwagCommunication.UpdateUserAsync(testUser, testUser.Password).Result;
 			
 			//Assert
-			Assert.That(reply, Is.EqualTo(testUser2));
+			Assert.That(reply, Is.EqualTo(testUser));
 		}
 
 	}

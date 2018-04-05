@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -31,6 +32,7 @@ namespace GuiCommunicationLayer
 	    {
 		    HttpResponseMessage response = await _client.PostAsJsonAsync(
 			    ApiUsers, user);
+            
 		    response.EnsureSuccessStatusCode();
 
 		    // return URI of the created resource.
@@ -49,7 +51,7 @@ namespace GuiCommunicationLayer
 		    User user = null;
 
 		    HttpResponseMessage respondHttpResponseMessage = await _client.GetAsync(path);
-
+            
 		    //Set user to respond if responds seuccesfully recieved. 
 		    if (respondHttpResponseMessage.IsSuccessStatusCode)
 		    {

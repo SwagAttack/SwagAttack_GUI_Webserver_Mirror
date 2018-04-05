@@ -30,7 +30,7 @@ namespace GUI_Index
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        public static async Task<Uri> CreateUserAsync(User user)
+        public static async Task<Uri> CreateUserAsync(IUser user)
         {
 
             
@@ -47,7 +47,7 @@ namespace GUI_Index
         /// </summary>
         /// <param name="username"> Username of user to get</param>
         /// <returns></returns>
-        public static async Task<object> GetUserAsync<IUser>(string username, string password)
+        public static async Task<User> GetUserAsync(string username, string password)
         {
             string path = ApiUsers + username + "/" + password;
 
@@ -57,28 +57,17 @@ namespace GUI_Index
             //Set user to respond if responds seuccesfully recieved. 
             if (respondHttpResponseMessage.IsSuccessStatusCode)
             {
-                IUser user = await respondHttpResponseMessage.Content.ReadAsAsync<IUser>();
+                User user = await respondHttpResponseMessage.Content.ReadAsAsync<User>();
                 return user;
             }
             else
             {
-                return null;
+                return default(User);
             }
 
             //return user that will be null if nothing recived
         }
 
-        //public static async Task<T> UpdateUserAsync(string username, string password)
-        //{
-        //    HttpResponseMessage response = await _client.PutAsJsonAsync(
-        //        ApiUsers + username + "/" + password, user);
-        //    response.EnsureSuccessStatusCode();
-
-        //    //make object out of response to check if correct transmided
-        //    user = await response.Content.ReadAsAsync<T>();
-        //    return user;
-        //    //test
-        //}
 
         public static async Task<HttpStatusCode> DeleteProductAsync(string username)
         {

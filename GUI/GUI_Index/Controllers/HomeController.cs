@@ -31,7 +31,7 @@ namespace GUI_Index.Controllers
                 //string res = nyBruger.LogInUser(user);
                 
 
-                var sendUser = SwagCommunication.GetUserAsync<User>(user.Username,user.Password);
+                var sendUser = SwagCommunication.GetUserAsync(user.Username,user.Password);
 
 
                 //var sendUser = client.SendString(res);
