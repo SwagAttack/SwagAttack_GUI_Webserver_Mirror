@@ -14,7 +14,7 @@ namespace GuiCommunicationLayer
     {
 		private static HttpClient _client = new HttpClient();
 
-	    private static string ApiUsers = "/api/User/";
+	    private static string ApiUsers = "api/User/";
 
 		/// <summary>
 		/// Ctor for swagCommunication
@@ -43,17 +43,17 @@ namespace GuiCommunicationLayer
 	    /// </summary>
 	    /// <param name="username"> Username of user to get</param>
 	    /// <returns></returns>
-	     public static async Task<IUser> GetUserAsync(string username, string password)
+	     public static async Task<User> GetUserAsync(string username, string password)
 		{
-			string path = ApiUsers + username +"/" + password;
-		    IUser user = null;
+			string path = "api/user/" + username +"/" + password;
+		    User user = null;
 
 		    HttpResponseMessage respondHttpResponseMessage = await _client.GetAsync(path);
 
 		    //Set user to respond if responds seuccesfully recieved. 
 		    if (respondHttpResponseMessage.IsSuccessStatusCode)
 		    {
-			    user = await respondHttpResponseMessage.Content.ReadAsAsync<IUser>();
+			    user = await respondHttpResponseMessage.Content.ReadAsAsync<User>();
 		    }
 
 		    //return user that will be null if nothing recived
