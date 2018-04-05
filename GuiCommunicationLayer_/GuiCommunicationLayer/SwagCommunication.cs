@@ -14,7 +14,7 @@ namespace GuiCommunicationLayer
     {
 		private static HttpClient _client = new HttpClient();
 
-	    private static string ApiUsers = "/api/User/";
+	    private static string ApiUsers = "api/User/";
 
 		/// <summary>
 		/// Ctor for swagCommunication
@@ -60,10 +60,12 @@ namespace GuiCommunicationLayer
 		    return user;
 		}
 
-	    public static async Task<IUser> UpdateUserAsync(IUser user)
+	    public static async Task<IUser> UpdateUserAsync(IUser user, string Newpassword)
 	    {
+		    string tempPassword = user.password;
+		    user.password = Newpassword;
 		    HttpResponseMessage response = await _client.PutAsJsonAsync(
-			    ApiUsers + user.username +"/" + user.password, user);
+			    ApiUsers + user.username +"/" + tempPassword, user);
 		    response.EnsureSuccessStatusCode();
 
 			//make object out of response to check if correct transmided
