@@ -5,14 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using GUI_Index;
 using GUI_Index.Interfaces;
-using GUI_Index.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TemporaryDomainLayer;
 
 
 namespace GUI_Index.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller, IHomeController
     {
 
         public IActionResult LogInd()

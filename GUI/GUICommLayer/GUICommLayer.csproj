@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TemporaryDoainLayer\TemporaryDomainLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="GUI_Index">
       <HintPath>..\GUI_Index\bin\Release\netcoreapp2.0\GUI_Index.dll</HintPath>
     </Reference>

@@ -22,7 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GUICommLayer\GUICommLayer.csproj" />
+    <ProjectReference Include="..\TemporaryDoainLayer\TemporaryDomainLayer.csproj" />
   </ItemGroup>
 
 </Project>

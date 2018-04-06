@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using GUI_Index.Interfaces;
-using GUI_Index.Models;
 using NUnit.Framework;
+using TemporaryDomainLayer;
 
 namespace GUI_Index.unit.test
 {

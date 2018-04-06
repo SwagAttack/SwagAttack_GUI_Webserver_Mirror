@@ -1,7 +1,7 @@
 ﻿using GUI_Index.Controllers;
-using GUI_Index.Models;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using TemporaryDomainLayer;
 
 namespace GUI_Index.unit.test
 {

@@ -6,8 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using GUI_Index.Interfaces;
-using GUI_Index.Models;
+using TemporaryDomainLayer;
 
 //strongly inspired by https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
