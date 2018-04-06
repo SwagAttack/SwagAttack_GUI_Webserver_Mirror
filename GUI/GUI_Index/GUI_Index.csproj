@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SwagComClient\SwagComClient\SwagCommunicatorLib.csproj" />
+    <ProjectReference Include="..\GUICommLayer\GUICommLayer.csproj" />
   </ItemGroup>
 
 </Project>

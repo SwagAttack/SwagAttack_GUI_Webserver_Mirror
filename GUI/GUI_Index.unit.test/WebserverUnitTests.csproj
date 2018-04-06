@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GUICommLayer\GUICommLayer.csproj" />
     <ProjectReference Include="..\GUI_Index\GUI_Index.csproj" />
   </ItemGroup>
 
