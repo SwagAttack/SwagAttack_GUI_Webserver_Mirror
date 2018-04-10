@@ -9,13 +9,4 @@
     <PackageReference Include="SwagAttack_Models" Version="1.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="GUI_Index">
-      <HintPath>..\GUI_Index\bin\Release\netcoreapp2.0\GUI_Index.dll</HintPath>
-    </Reference>
-    <Reference Include="Models">
-      <HintPath>..\..\..\..\..\Desktop\gameserver\DomainLayer\DomainLayer\Models\bin\Debug\netcoreapp2.0\Models.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
