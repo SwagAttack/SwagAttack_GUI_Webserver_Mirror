@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using GUICommLayer;
 using GUI_Index;
 using GUI_Index.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +16,11 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller, IHomeController
     {
-
+        private SwagCommunication swag_;
+        public HomeController(ISwagCommunication somuchswag)
+        {
+            swag_ = (SwagCommunication) somuchswag;
+        }
         public IActionResult LogInd()
         {
             return View("LogInd");
@@ -26,7 +31,7 @@ namespace GUI_Index.Controllers
         {
             try
             {
-                var sendUser = SwagCommunication.GetUserAsync(user.Username,user.Password);
+                var sendUser = swag_.GetUserAsync(user.Username,user.Password);
                 
                 sendUser.Wait();
                 var tmp = sendUser.Result;
@@ -55,7 +60,7 @@ namespace GUI_Index.Controllers
         {
             //try
             //{
-                var sendUser = SwagCommunication.CreateUserAsync(user);
+                var sendUser = swag_.CreateUserAsync(user);
                 sendUser.Wait();
                 if (sendUser.Result != null)
                 {
