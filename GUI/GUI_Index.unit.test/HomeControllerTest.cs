@@ -1,7 +1,7 @@
 ﻿using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Models.User;
 using NUnit.Framework;
-using TemporaryDomainLayer;
 
 namespace GUI_Index.unit.test
 {
@@ -14,7 +14,6 @@ namespace GUI_Index.unit.test
             var uut = new HomeController();
             var result = uut.LogInd() as ViewResult;
             
-
             Assert.AreEqual("LogInd", result.ViewName);
         }
 
@@ -24,8 +23,7 @@ namespace GUI_Index.unit.test
             var uut = new HomeController();
             var wrongUser = new User();
             var result = uut.LogInd(wrongUser) as ViewResult;
-
-
+            
             Assert.AreEqual("LogInd", result.ViewName);
         }
 
@@ -43,8 +41,8 @@ namespace GUI_Index.unit.test
         public void HomeControllerOpretIncorrectUser_ViewNameCorrect()
         {
             var uut = new HomeController();
-            var wrongUser = new User(){Username="Patrick"};
-            var result =(RedirectToActionResult) uut.OpretKonto(wrongUser);
+            var wrongUser = new User(){Username="PatrickBjerregaard"};
+            var result =uut.OpretKonto(wrongUser) as RedirectToActionResult;
 
 
             Assert.AreEqual("OpretKonto", result.ActionName);
@@ -54,7 +52,7 @@ namespace GUI_Index.unit.test
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
             var uut = new HomeController();
-            var result = uut.PostLogInd(new User(){Username="Patrick"}) as ViewResult;
+            var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
 
 
             Assert.AreEqual("PostLogInd", result.ViewName);

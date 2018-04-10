@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Models">
+      <HintPath>..\..\..\..\..\Desktop\gameserver\DomainLayer\DomainLayer\Models\bin\Debug\netcoreapp2.0\Models.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using GUI_Index.Interfaces;
+using Models.Interfaces;
+using Models.User;
 using NUnit.Framework;
-using TemporaryDomainLayer;
 
 namespace GUI_Index.unit.test
 {
@@ -14,7 +15,7 @@ namespace GUI_Index.unit.test
             //link to MockServer created via Postman
             private static string url = "https://f7f2fec5-c272-427f-af39-98ad7b43220a.mock.pstmn.io/";
 
-            private SwagCommunication _uut = new SwagCommunication(url);
+           // private SwagCommunication _uut = new SwagCommunication(url);
 
             private User testUser;
 
@@ -26,7 +27,7 @@ namespace GUI_Index.unit.test
                 
                 testUser = new User
                 {
-                    id = "test@testsen.dk",
+                    Email = "test@testsen.dk",
                     GivenName = "Hr",
                     LastName = "testsen",
                     Password = "12345678o",

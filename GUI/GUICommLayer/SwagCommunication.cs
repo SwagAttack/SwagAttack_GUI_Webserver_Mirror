@@ -6,8 +6,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using TemporaryDomainLayer;
-
+using Models.Interfaces;
+using Models.User;
 //strongly inspired by https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
 namespace GUI_Index
@@ -16,7 +16,7 @@ namespace GUI_Index
     {
         private static HttpClient _client = new HttpClient();
 
-        private static string ApiUsers = "/api/User/";
+        private static string ApiUsers = "api/User/";
 
         /// <summary>
         /// Ctor for swagCommunication
@@ -34,8 +34,8 @@ namespace GUI_Index
 
             
             HttpResponseMessage response = await _client.PostAsJsonAsync(
-                "api/user/", user);
-            response.EnsureSuccessStatusCode();
+                "api/User", user);
+            //response.EnsureSuccessStatusCode();
             // return URI of the created resource.
             return response.Headers.Location;
         }
