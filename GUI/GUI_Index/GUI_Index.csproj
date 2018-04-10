@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="SwagAttack_Models" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,12 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GUICommLayer\GUICommLayer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Models">
-      <HintPath>..\..\..\..\..\Desktop\gameserver\DomainLayer\DomainLayer\Models\bin\Debug\netcoreapp2.0\Models.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
