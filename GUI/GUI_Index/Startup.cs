@@ -19,8 +19,8 @@ namespace GUI_Index
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<ISwagCommunication, SwagCommunication>();
-            //SwagCommunication client = new SwagCommunication("http://swagattkapi.azurewebsites.net/");
+            services.AddSingleton<ISwagCommunication>(s => new SwagCommunication("https://swagattkapi.azurewebsites.net/"));
+            //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

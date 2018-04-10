@@ -73,9 +73,5 @@ namespace GUI_Index
 
             return response.StatusCode;
         }
-
-
     }
-
-
 }
