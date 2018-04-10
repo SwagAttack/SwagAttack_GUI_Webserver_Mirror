@@ -16,10 +16,10 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller, IHomeController
     {
-        private SwagCommunication swag_;
+        private SwagCommunication _swag;
         public HomeController(ISwagCommunication somuchswag)
         {
-            swag_ = (SwagCommunication) somuchswag;
+            _swag = (SwagCommunication) somuchswag;
         }
         public IActionResult LogInd()
         {
@@ -31,7 +31,7 @@ namespace GUI_Index.Controllers
         {
             try
             {
-                var sendUser = swag_.GetUserAsync(user.Username,user.Password);
+                var sendUser = _swag.GetUserAsync(user.Username,user.Password);
                 
                 sendUser.Wait();
                 var tmp = sendUser.Result;
@@ -60,7 +60,7 @@ namespace GUI_Index.Controllers
         {
             //try
             //{
-                var sendUser = swag_.CreateUserAsync(user);
+                var sendUser = _swag.CreateUserAsync(user);
                 sendUser.Wait();
                 if (sendUser.Result != null)
                 {

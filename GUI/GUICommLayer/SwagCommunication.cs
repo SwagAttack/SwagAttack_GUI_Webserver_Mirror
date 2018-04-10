@@ -17,6 +17,7 @@ namespace GUI_Index
     public class SwagCommunication : ISwagCommunication
     {
         private static HttpClient _client = new HttpClient();
+        
 
         private static string ApiUsers = "api/User/";
 

@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GUICommLayer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
+
 namespace GUI_Index
 {
     public class Startup
@@ -19,8 +22,12 @@ namespace GUI_Index
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddTransient<ISwagCommunication, SwagCommunication>();
-            //SwagCommunication client = new SwagCommunication("http://swagattkapi.azurewebsites.net/");
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
+            services.AddSingleton<ISwagCommunication>(s => new SwagCommunication("https://swagattkapi.azurewebsites.net/"));
+            //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +44,9 @@ namespace GUI_Index
             }
 
             app.UseStaticFiles();
+
+            var options = new RewriteOptions().AddRedirectToHttps();
+            app.UseRewriter(options);
 
             app.UseMvc(routes =>
             {

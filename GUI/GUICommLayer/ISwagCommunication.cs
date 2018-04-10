@@ -9,7 +9,7 @@ using Models.User;
 
 namespace GUICommLayer
 {
-    interface ISwagCommunication
+    public interface ISwagCommunication
     {
         Task<Uri> CreateUserAsync(IUser user);
         Task<User> GetUserAsync(string username, string password);

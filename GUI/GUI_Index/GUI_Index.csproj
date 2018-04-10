@@ -5,6 +5,7 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
+    <UserSecretsId>fd8f5cc8-5092-40c2-bbf2-9b674fa6cb0a</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,6 +15,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.4" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="SwagAttack_Models" Version="1.0.0" />
