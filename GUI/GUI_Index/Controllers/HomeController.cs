@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models.Interfaces;
 using Models.User;
 
+
 namespace GUI_Index.Controllers
 {
     public class HomeController : Controller, IHomeController
@@ -45,6 +46,7 @@ namespace GUI_Index.Controllers
                 var tmp = e.GetBaseException().Message;
             }
 
+
             return View("LogInd");
         }
 
@@ -77,16 +79,6 @@ namespace GUI_Index.Controllers
         public IActionResult PostLogInd(User user)
         {
             return View("PostLogInd");
-        }
-
-        public IActionResult Lobby()
-        {
-            return View("Lobby");
-        }
-
-        public IActionResult TilslutLobby()
-        {
-            return View("TilslutLobby");
         }
 
     }
