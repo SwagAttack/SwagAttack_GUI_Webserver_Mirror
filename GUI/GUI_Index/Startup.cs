@@ -26,7 +26,7 @@ namespace GUI_Index
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
-            services.AddSingleton<ISwagCommunication>(s => new SwagCommunication("https://swagattkapi.azurewebsites.net/"));
+            services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
         }
 

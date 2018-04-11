@@ -1,42 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using GUICommLayer;
 using Models.Interfaces;
 using Models.User;
+
 //strongly inspired by https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
-namespace GUI_Index
+namespace GUICommLayer
 {
     public class SwagCommunication : ISwagCommunication
     {
-        private static readonly HttpClient _client = new HttpClient();
-        public static HttpClient Client => _client;
 
-        private static string ApiUsers = "api/User/";
+        private static readonly HttpClient _client = new HttpClient();
+
+        private static string _apiUsers = "api/User/";
+
+        private static SwagCommunication _swagCom;
+
+        public static SwagCommunication GetInstance(string uri)
+        {
+            if (_swagCom == null)
+            {
+                _swagCom = new SwagCommunication(uri);
+            }
+            return _swagCom;
+        }
 
         /// <summary>
         /// Ctor for swagCommunication
         /// </summary>
         /// <param name="uri">Uri with port like: "http://localhost:50244/"</param>
-        public SwagCommunication(string uri)
+        private SwagCommunication(string uri)
         {
-            Client.BaseAddress = new Uri(uri);
-            Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _client.BaseAddress = new Uri(uri);
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         public async Task<Uri> CreateUserAsync(IUser user)
         {
             HttpResponseMessage response = await _client.PostAsJsonAsync(
                 "api/User", user);
-            //response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
             // return URI of the created resource.
             return response.Headers.Location;
         }
@@ -48,7 +54,7 @@ namespace GUI_Index
         /// <returns></returns>
         public async Task<User> GetUserAsync(string username, string password)
         {
-            string path = ApiUsers + username + "/" + password;
+            string path = _apiUsers + username + "/" + password;
 
 
             HttpResponseMessage respondHttpResponseMessage = await _client.GetAsync(path);
@@ -71,7 +77,7 @@ namespace GUI_Index
         public async Task<HttpStatusCode> DeleteProductAsync(string username)
         {
             HttpResponseMessage response = await _client.DeleteAsync(
-                ApiUsers + username);
+                _apiUsers + username);
 
             return response.StatusCode;
         }
