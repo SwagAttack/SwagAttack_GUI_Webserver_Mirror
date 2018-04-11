@@ -9,6 +9,7 @@ namespace GUI_Index.unit.test
     [TestFixture]
     public class TestTest
     {
+        private int dank = 0;
         private ISwagCommunication _swag = new SwagCommunication("http://swagattkapi.azurewebsites.net/");
 
         [Test]
