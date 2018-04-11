@@ -1,22 +1,17 @@
-﻿using System;
-using GUICommLayer;
-using GUI_Index.Controllers;
+﻿using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Models.User;
-using NSubstitute;
 using NUnit.Framework;
 
-namespace WebserverUnitTests
+namespace GUI_Index.unit.test
 {
     [TestFixture]
     public class HomeControllerTest
     {
-        private ISwagCommunication FakeSwagCommunication = Substitute.For<ISwagCommunication>();
-
         [Test]
         public void HomeControllerLogInd_ViewNameCorrect()
         {
-            var uut = new HomeController(FakeSwagCommunication);
+            var uut = new HomeController();
 
             var result = uut.LogInd() as ViewResult;
             
@@ -26,7 +21,7 @@ namespace WebserverUnitTests
         [Test]
         public void HomeControllerLogIndWithIncorrectUser_ViewNameCorrect()
         {
-            var uut = new HomeController(FakeSwagCommunication);
+            var uut = new HomeController();
             var wrongUser = new User();
             var result = uut.LogInd(wrongUser) as ViewResult;
             
@@ -36,31 +31,27 @@ namespace WebserverUnitTests
         [Test]
         public void HomeControllerOpretKonto_ViewNameCorrect()
         {
-            var uut = new HomeController(FakeSwagCommunication);
+            var uut = new HomeController();
             var result = uut.OpretKonto() as ViewResult;
-
 
             Assert.AreEqual("OpretKonto", result.ViewName);
         }
 
         [Test]
-        public void HomeControllerOpretIncorrectUser_ExceptionThrownFromDomainLayer()
+        public void HomeControllerOpretIncorrectUser_ViewNameCorrect()
         {
-            var uut = new HomeController(FakeSwagCommunication);
-            
-            Assert.Throws<ArgumentException>(() =>
-            {
-                var wrongUser = new User() { Username = "†gagge1233121" };
-                var result = uut.OpretKonto(wrongUser) as RedirectToActionResult;
-            });
+            var uut = new HomeController();
+            var wrongUser = new User(){Username="PatrickBjerregaard"};
+            var result =uut.OpretKonto(wrongUser) as RedirectToActionResult;
+
+            Assert.AreEqual("OpretKonto", result.ActionName);
         }
 
         [Test]
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
-            var uut = new HomeController(FakeSwagCommunication);
+            var uut = new HomeController();
             var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
-
 
             Assert.AreEqual("PostLogInd", result.ViewName);
         }
