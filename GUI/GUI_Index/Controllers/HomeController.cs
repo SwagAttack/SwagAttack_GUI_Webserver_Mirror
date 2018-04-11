@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using GUICommLayer;
-using GUI_Index;
 using GUI_Index.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models.Interfaces;
 using Models.User;
-
 
 namespace GUI_Index.Controllers
 {
