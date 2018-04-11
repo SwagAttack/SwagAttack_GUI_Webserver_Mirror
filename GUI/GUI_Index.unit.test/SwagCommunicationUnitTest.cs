@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GUICommLayer;
 using GUI_Index.Interfaces;
 using Models.Interfaces;
 using Models.User;
@@ -10,21 +11,20 @@ namespace GUI_Index.unit.test
 {
     class SwagCommunicationUnitTest
     {
-        
-
             //link to MockServer created via Postman
             private static string url = "https://f7f2fec5-c272-427f-af39-98ad7b43220a.mock.pstmn.io/";
 
            // private SwagCommunication _uut = new SwagCommunication(url);
 
             private User testUser;
+            private User testUser2;
 
             private IUser wrongTestUser;
 
             [SetUp]
             public void Init()
             {
-                
+
                 testUser = new User
                 {
                     Email = "test@testsen.dk",
@@ -41,7 +41,7 @@ namespace GUI_Index.unit.test
                 //Arrange
 
                 //Act
-                var uut = SwagCommunication.CreateUserAsync(testUser).Result;
+                var uut = SwagCommunication.GetInstance(url).CreateUserAsync(testUser).Result;
 
                 //Assert
                 Assert.That(uut.ToString(), Is.EqualTo(url + "api/user/" + testUser.Username + "/" + testUser.Password));
@@ -53,7 +53,7 @@ namespace GUI_Index.unit.test
                 //Arrange
 
                 //Act
-                var uut = SwagCommunication.CreateUserAsync(testUser).Result;
+                var uut = SwagCommunication.GetInstance(url).CreateUserAsync(testUser).Result;
 
                 //Assert
                 Assert.That(uut.ToString(), Is.EqualTo(url + "api/user/" + testUser.Username + "/" + testUser.Password));
@@ -65,10 +65,10 @@ namespace GUI_Index.unit.test
                 //Arrange
 
                 //Act
-                var url = SwagCommunication.GetUserAsync(testUser.Username, testUser.Password).Result;
+                var uut = SwagCommunication.GetInstance(url).GetUserAsync(testUser.Username, testUser.Password).Result;
                 
                 //Asserts
-                Assert.That(url.ToString(), Is.EqualTo(testUser.ToString()));
+                Assert.That(uut.ToString(), Is.EqualTo(testUser.ToString()));
             }
 
             [Test]
@@ -77,11 +77,11 @@ namespace GUI_Index.unit.test
                 //Arrange
 
                 //Act
-                var url = SwagCommunication.GetUserAsync(testUser.Username, "WRONG").Result;
+                var uut = SwagCommunication.GetInstance(url).GetUserAsync(testUser.Username, "WRONG").Result;
 
 
                 //Asserts
-                Assert.That(url, Is.EqualTo(null));
+                Assert.That(uut, Is.EqualTo(null));
             }
 
             

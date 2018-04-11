@@ -19,7 +19,7 @@ namespace GUI_Index.Controllers
         private SwagCommunication _swag;
         public HomeController(ISwagCommunication somuchswag)
         {
-            _swag = (SwagCommunication) somuchswag;
+            _swag = somuchswag as SwagCommunication;
         }
         public IActionResult LogInd()
         {
@@ -58,8 +58,8 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult  OpretKonto(User user)
         {
-            //try
-            //{
+            try
+            {
                 var sendUser = _swag.CreateUserAsync(user);
                 sendUser.Wait();
                 if (sendUser.Result != null)
@@ -68,16 +68,12 @@ namespace GUI_Index.Controllers
                 }
                 return RedirectToAction("OpretKonto");
 
-            //}
+            }
 
-            //catch (Exception e)
-            //{
-            //    var stuff = e.GetBaseException().Message;
-            //    return RedirectToAction("OpretKonto");
-
-            //}
-            //return RedirectToAction("OpretKonto");
-
+            catch (ArgumentException e)
+            {
+                return RedirectToAction("OpretKonto");
+            }
         }
 
         public IActionResult PostLogInd(User user)

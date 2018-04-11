@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.1" />
+    <PackageReference Include="NSubstitute" Version="3.1.0" />
     <PackageReference Include="NUnit" Version="3.10.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="SwagAttack_Models" Version="1.0.0" />
@@ -21,12 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GUICommLayer\GUICommLayer.csproj" />
     <ProjectReference Include="..\GUI_Index\GUI_Index.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Models">
-      <HintPath>..\..\..\..\..\Desktop\gameserver\DomainLayer\DomainLayer\Models\bin\Debug\netcoreapp2.0\Models.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>

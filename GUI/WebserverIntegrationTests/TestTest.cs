@@ -1,21 +1,23 @@
-﻿using GUICommLayer;
+﻿using System;
+using GUICommLayer;
 using GUI_Index;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Models.User;
 using NUnit.Framework;
+using NSubstitute;
 
 namespace WebserverIntegrationTests
 {
     [TestFixture]
     public class TestTest
     {
-        private ISwagCommunication _swag = new SwagCommunication("http://swagattkapi.azurewebsites.net/");
-
+        private string url = "https://swagattkapi.azurewebsites.net/";
         [Test]
         public void HomeControllerLogInd_ViewNameCorrect()
         {
-            var uut = new HomeController(_swag);
+            var uut = new HomeController(SwagCommunication.GetInstance(url));
             var result = uut.LogInd() as ViewResult;
             
             Assert.AreEqual("LogInd", result.ViewName);
@@ -24,7 +26,7 @@ namespace WebserverIntegrationTests
         [Test]
         public void HomeControllerLogIndWithIncorrectUser_ViewNameCorrect()
         {
-            var uut = new HomeController(_swag);
+            var uut = new HomeController(SwagCommunication.GetInstance(url));
             var wrongUser = new User();
             var result = uut.LogInd(wrongUser) as ViewResult;
             
@@ -34,7 +36,7 @@ namespace WebserverIntegrationTests
         [Test]
         public void HomeControllerOpretKonto_ViewNameCorrect()
         {
-            var uut = new HomeController(_swag);
+            var uut = new HomeController(SwagCommunication.GetInstance(url));
             var result = uut.OpretKonto() as ViewResult;
 
 
@@ -44,18 +46,19 @@ namespace WebserverIntegrationTests
         [Test]
         public void HomeControllerOpretIncorrectUser_ViewNameCorrect()
         {
-            var uut = new HomeController(_swag);
-            var wrongUser = new User(){Username="PatrickBjerregaard"};
-            var result =uut.OpretKonto(wrongUser) as RedirectToActionResult;
+            var uut = new HomeController(SwagCommunication.GetInstance(url));
 
-
-            Assert.AreEqual("OpretKonto", result.ActionName);
+            Assert.Throws<AggregateException>(() =>
+            {
+                var wrongUser = new User() { Username = "PatrickBjerregaard" };
+                var result = uut.OpretKonto(wrongUser) as RedirectToActionResult;
+            });
         }
 
         [Test]
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
-            var uut = new HomeController(_swag);
+            var uut = new HomeController(SwagCommunication.GetInstance(url));
             var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
 
 
