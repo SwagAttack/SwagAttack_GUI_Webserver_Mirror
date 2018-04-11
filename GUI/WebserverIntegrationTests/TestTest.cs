@@ -3,10 +3,8 @@ using GUICommLayer;
 using GUI_Index;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Models.User;
 using NUnit.Framework;
-using NSubstitute;
 
 namespace WebserverIntegrationTests
 {
