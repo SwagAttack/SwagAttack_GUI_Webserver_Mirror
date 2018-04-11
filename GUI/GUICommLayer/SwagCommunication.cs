@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,8 +17,8 @@ namespace GUI_Index
 {
     public class SwagCommunication : ISwagCommunication
     {
-        private static HttpClient _client = new HttpClient();
-        
+        private static readonly HttpClient _client = new HttpClient();
+        public static HttpClient Client => _client;
 
         private static string ApiUsers = "api/User/";
 
@@ -27,9 +28,9 @@ namespace GUI_Index
         /// <param name="uri">Uri with port like: "http://localhost:50244/"</param>
         public SwagCommunication(string uri)
         {
-            _client.BaseAddress = new Uri(uri);
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            Client.BaseAddress = new Uri(uri);
+            Client.DefaultRequestHeaders.Accept.Clear();
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
         public async Task<Uri> CreateUserAsync(IUser user)
         {

@@ -1,15 +1,15 @@
 ﻿using GUICommLayer;
+using GUI_Index;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Models.User;
 using NUnit.Framework;
 
-namespace GUI_Index.unit.test
+namespace WebserverIntegrationTests
 {
     [TestFixture]
     public class TestTest
     {
-        private int dank = 10;
         private ISwagCommunication _swag = new SwagCommunication("http://swagattkapi.azurewebsites.net/");
 
         [Test]
