@@ -34,7 +34,6 @@ namespace GUI_Index.unit.test
             var uut = new HomeController();
             var result = uut.OpretKonto() as ViewResult;
 
-
             Assert.AreEqual("OpretKonto", result.ViewName);
         }
 
@@ -45,7 +44,6 @@ namespace GUI_Index.unit.test
             var wrongUser = new User(){Username="PatrickBjerregaard"};
             var result =uut.OpretKonto(wrongUser) as RedirectToActionResult;
 
-
             Assert.AreEqual("OpretKonto", result.ActionName);
         }
 
@@ -54,7 +52,6 @@ namespace GUI_Index.unit.test
         {
             var uut = new HomeController();
             var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
-
 
             Assert.AreEqual("PostLogInd", result.ViewName);
         }
