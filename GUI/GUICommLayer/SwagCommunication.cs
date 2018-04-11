@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Models.Interfaces;
 using Models.User;
 
-
 //strongly inspired by https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 
 namespace GUICommLayer
