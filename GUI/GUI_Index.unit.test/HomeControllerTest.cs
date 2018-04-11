@@ -12,6 +12,7 @@ namespace GUI_Index.unit.test
         public void HomeControllerLogInd_ViewNameCorrect()
         {
             var uut = new HomeController();
+
             var result = uut.LogInd() as ViewResult;
             
             Assert.AreEqual("LogInd", result.ViewName);
