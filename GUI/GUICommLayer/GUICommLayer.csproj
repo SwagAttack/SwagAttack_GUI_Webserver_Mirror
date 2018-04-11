@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.4" />
-    <PackageReference Include="SwagAttack_Application" Version="1.0.0" />
+    <PackageReference Include="SwagAttack_Models" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
