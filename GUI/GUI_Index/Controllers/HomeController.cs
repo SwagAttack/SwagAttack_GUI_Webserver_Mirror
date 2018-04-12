@@ -73,5 +73,14 @@ namespace GUI_Index.Controllers
             return View("PostLogInd");
         }
 
+        public IActionResult Lobby()
+        {
+            return View("Lobby");
+        }
+        public IActionResult TilslutLobby()
+        {
+            return View("TilslutLobby");
+        }
+
     }
 }
