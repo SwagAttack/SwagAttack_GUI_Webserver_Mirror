@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using GUICommLayer;
 using GUI_Index.Interfaces;
-using Models.Interfaces;
-using Models.User;
 using NUnit.Framework;
-
+using Domain.Interfaces;
+using Domain.Models;
 namespace GUI_Index.unit.test
 {
     class SwagCommunicationUnitTest

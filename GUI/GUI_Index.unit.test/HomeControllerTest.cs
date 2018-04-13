@@ -2,9 +2,9 @@
 using GUICommLayer;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Models.User;
 using NSubstitute;
 using NUnit.Framework;
+using Domain.Models;
 
 namespace WebserverUnitTests
 {

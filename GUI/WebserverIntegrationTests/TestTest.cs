@@ -3,12 +3,11 @@ using GUICommLayer;
 using GUI_Index;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
-using Models.User;
 using NUnit.Framework;
+using Domain.Models;
 
 namespace WebserverIntegrationTests
 {
-	private int lort = 0;
     [TestFixture]
     public class TestTest
     {
