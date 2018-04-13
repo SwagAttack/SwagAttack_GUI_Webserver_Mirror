@@ -8,6 +8,7 @@ using NUnit.Framework;
 
 namespace WebserverIntegrationTests
 {
+	private int lort = 0;
     [TestFixture]
     public class TestTest
     {
