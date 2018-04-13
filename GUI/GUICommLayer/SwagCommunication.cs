@@ -3,8 +3,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using Models.Interfaces;
-using Models.User;
+using Domain.Interfaces;
+using Domain.Models;
 
 //strongly inspired by https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
 

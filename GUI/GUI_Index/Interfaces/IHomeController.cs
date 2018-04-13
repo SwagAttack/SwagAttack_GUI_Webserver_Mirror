@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Models.Interfaces;
-using Models.User;
 
 namespace GUI_Index.Interfaces
 {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using Models.Interfaces;
-using Models.User;
+using Domain.Interfaces;
+using Domain.Models;
 
 namespace GUICommLayer
 {

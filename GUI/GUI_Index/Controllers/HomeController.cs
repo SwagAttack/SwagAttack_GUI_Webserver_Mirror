@@ -1,8 +1,8 @@
 ﻿using System;
+using Domain.Models;
 using GUICommLayer;
 using GUI_Index.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Models.User;
 
 namespace GUI_Index.Controllers
 {
