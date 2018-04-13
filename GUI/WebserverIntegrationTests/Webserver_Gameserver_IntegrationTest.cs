@@ -9,7 +9,7 @@ using Domain.Models;
 namespace WebserverIntegrationTests
 {
     [TestFixture]
-    public class TestTest
+    public class WebserverGameserverIntegrationTest
     {
         private string url = "https://swagattkapi.azurewebsites.net/";
         [Test]
