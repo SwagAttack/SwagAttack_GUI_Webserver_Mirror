@@ -3,10 +3,14 @@
 
 //lobby oprettet til liste LobbyList
 connection.on("OprettetLobby", (LobbyName) => {
-    const encodedMsg = LobbyName;
-    const li = document.createElement("li");
-    li.textContent = encodedMsg;
-    document.getElementById("LobbyList").appendChild(li);
+
+    var button = document.createElement("button");
+    button.innerText = LobbyName;
+    button.class = "btn btn-post";
+
+    button.onclick = function onclick() {location.href = "Lobby"};
+
+    document.getElementById("LobbyList").appendChild(button);
 });
 
 //opret lobby knap
