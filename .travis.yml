@@ -1,0 +1,11 @@
+language: csharp
+solution: GUI/GUI.sln
+mono: latest
+dotnet: 2.0.0
+script:
+- dotnet restore
+install:
+- nuget restore GUI/GUI.sln
+- nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+- dotnet build GUI/GUI.sln
