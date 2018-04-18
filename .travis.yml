@@ -7,10 +7,13 @@ before_install:
 - sudo apt install nunit-console
 install:
 - nuget restore GUI/GUI.sln
+- nuget install NUnit.Runners -OutputDirectory ../testrunner
 script:
 - cd ..
 - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror
 - dotnet build SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
 - dotnet build SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
-- nunit-console ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll
-- nunit-console ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll
+- mono ./testrunner/NUnit.Runners.*/tools/nunit-console.exe ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll
+- mono ./testrunner/NUnit.Runners.*/tools/nunit-console.exe ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll
+#- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll
+#- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll
