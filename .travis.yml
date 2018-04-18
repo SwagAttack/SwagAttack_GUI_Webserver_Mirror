@@ -4,9 +4,9 @@ dotnet: 2.0.0
 script:
 - dotnet restore
 install:
-- nuget restore SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
+- nuget restore GUI/GUI.sln
 script:
 - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror
 - dotnet build SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
-- dotnet build SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
+- dotnet build GUI/GUI.sln
 - travis_wait dotnet vstest ./**/**/*.Test.*/bin/Debug/netcoreapp2.0/*tests.dll
