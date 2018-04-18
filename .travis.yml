@@ -4,7 +4,7 @@ dotnet: 2.0.0
 script:
 - dotnet restore
 before_install:
-- sudo apt-get install nunit-console
+- sudo apt install nunit-console
 install:
 - nuget restore GUI/GUI.sln
 script:
