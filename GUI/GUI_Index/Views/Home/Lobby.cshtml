@@ -8,50 +8,8 @@
     <h2>Lobby</h2>
 
     <div class="container">
-        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Log Ud</button>
+        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("TilslutLobby", "Home")'">Tilbage</button>
 
-        <div class="form-group left-Align">
-            @Html.Label("Brugernavn:")
-            <div class="col-md-2 textColorBlack">
-                @Html.Value("Username")
-            </div>
-
-            @Html.Label("Fornavn:")
-            <div class="col-md-2 textColorBlack">
-                @Html.Value("GivenName")
-            </div>
-
-            @Html.Label("Efternavn:")
-            <div class="col-md-2 textColorBlack">
-                @Html.Value("LastName")
-            </div>
-
-            @Html.Label("Email:")
-            <div class="col-md-2 textColorBlack">
-                @Html.Value("Email")
-            </div>
-
-        </div>
-
-        <form method="post">
-            <div class="absolute-center is-responsive">
-                <div class="btn-group-vertical">
-                    <button type="button" class="btn btn-post">
-                        Mine Aktive Spil
-                    </button>
-                    <div class="divider"></div>
-                    <br />
-                    <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("TilslutLobby", "Home")'">
-                        Tilslut Lobby
-                    </button>
-                    <div class="divider"></div>
-                    <br />
-                    <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("Lobby", "Home")'">
-                        Opret Lobby
-                    </button>
-                </div>
-            </div>
-        </form>
     </div>
 
 </body>
