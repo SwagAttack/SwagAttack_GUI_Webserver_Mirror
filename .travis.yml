@@ -7,14 +7,10 @@ before_install:
 - sudo apt install nunit-console
 install:
 - nuget restore GUI/GUI.sln
-- nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory ../testrunner
-- nuget install NUnit3TestAdapter -Version 3.10.0 -OutputDirectory ../testrunner
 script:
 - cd ..
 - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror
 - dotnet build SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
 - dotnet build SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
-- mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll
-- mono ./testrunner/NUnit.ConsoleRunner.3.2.0/tools/nunit3-console.exe ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll
-#- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll
-#- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll
+- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll --logger:"trx;LogFileName=testresults.trx" --ResultsDirectory:./TestRetults
+- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --logger:"trx;LogFileName=testresultz.trx" --ResultsDirectory:./TestRetults
