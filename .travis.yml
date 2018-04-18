@@ -12,8 +12,8 @@ script:
 - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror
 - dotnet build SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
 - dotnet build SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
-- dotnet test ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests --logger:"trx;LogFileName=testresults.trx" --ResultsDirectory:./TestRetults
-- dotnet test ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests --logger:"trx;LogFileName=testresultz.trx" --ResultsDirectory:./TestRetults
+- dotnet test ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests #--logger:"trx;LogFileName=testresults.trx" --ResultsDirectory:./TestRetults
+- dotnet test ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests #--logger:"trx;LogFileName=testresultz.trx" --ResultsDirectory:./TestRetults
 #deploy:
 #  provider: releases
 #  api_key: "mfadtiInujG8BQjk45kQBA"
