@@ -8,7 +8,7 @@ before_install:
 install:
 - nuget restore GUI/GUI.sln
 - nuget install NUnit.Runners -Version 3.2.0 -OutputDirectory ../testrunner
-- nuget install NUnit3TestAdapter -Version 3.10.0
+- nuget install NUnit3TestAdapter -Version 3.10.0 -OutputDirectory ../testrunner
 script:
 - cd ..
 - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror
