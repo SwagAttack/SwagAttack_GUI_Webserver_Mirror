@@ -1,0 +1,16 @@
+language: csharp
+mono: latest
+dotnet: 2.0.0
+script:
+- dotnet restore
+before_install:
+- sudo apt install nunit-console
+install:
+- nuget restore GUI/GUI.sln
+script:
+- cd ..
+- git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror
+- dotnet build SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
+- dotnet build SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
+- dotnet test ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests --logger:"trx;LogFileName=testresults.trx" --info --ResultsDirectory:./TestRetults
+- dotnet test ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests --logger:"trx;LogFileName=testresultz.trx" --info --ResultsDirectory:./TestRetults
