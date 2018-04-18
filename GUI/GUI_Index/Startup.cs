@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using GUICommLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
+using GUI_Index.Hubs;
 
 namespace GUI_Index
 {
@@ -28,6 +29,8 @@ namespace GUI_Index
             });
             services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,12 +51,18 @@ namespace GUI_Index
             var options = new RewriteOptions().AddRedirectToHttps();
             app.UseRewriter(options);
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<LobbyHub>("/LobbyHub");
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=LogInd}/{id?}");
             });
+
         }
     }
 }

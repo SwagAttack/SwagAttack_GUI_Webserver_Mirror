@@ -3,17 +3,18 @@
     ViewData["Title"] = "OpretKonto";
 }
 
-<style>    label {
-         font-weight: bold;
-         display: block;
-     }
+<style>
+    label {
+        font-weight: bold;
+        display: block;
+    }
 </style>
 
 <body>
-<div class="container">
-    <div class="row">
-        <div class="absolute-center is-responsive">
-                <form method="post" formaction="@Url.Action("OpretKonto", "Home")" >
+    <div class="container">
+        <div class="row">
+            <div class="absolute-center is-responsive">
+                <form method="post" formaction="@Url.Action("OpretKonto", "Home")">
                     <div class="form-group row">
                         <label for="GivenName" class="col-sm-2 col-form-label">Fornavn</label>
                         <div class="col-sm-10">
@@ -47,14 +48,15 @@
                     <div class="form-group row">
                         <div class="col-sm-10 offset-sm-2">
                             <div class=".btn-group-vertical">
-                                <button type="submit" class="btn btn-post" >Opret konto</button>
+                                <button type="submit" class="btn btn-post">Opret konto</button>
                                 <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Tilbage</button>
                             </div>
                         </div>
                     </div>
                 </form>
-      
+
+            </div>
         </div>
     </div>
-</div>
 </body>
+

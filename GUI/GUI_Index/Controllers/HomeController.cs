@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer;
 using GUI_Index.Interfaces;
@@ -9,10 +10,12 @@ namespace GUI_Index.Controllers
     public class HomeController : Controller, IHomeController
     {
         private SwagCommunication _swag;
+
         public HomeController(ISwagCommunication somuchswag)
         {
             _swag = somuchswag as SwagCommunication;
         }
+
         public IActionResult LogInd()
         {
             return View("LogInd");
@@ -23,21 +26,20 @@ namespace GUI_Index.Controllers
         {
             try
             {
-                var sendUser = _swag.GetUserAsync(user.Username,user.Password);
-                
+                var sendUser = _swag.GetUserAsync(user.Username, user.Password);
+
                 sendUser.Wait();
                 var tmp = sendUser.Result;
                 if (sendUser.Result != null)
                 {
                     return RedirectToAction("PostLogInd", tmp);
                 }
-                
+
             }
             catch (Exception e)
             {
                 var tmp = e.GetBaseException().Message;
             }
-
 
             return View("LogInd");
         }
@@ -48,7 +50,7 @@ namespace GUI_Index.Controllers
         }
 
         [HttpPost]
-        public IActionResult  OpretKonto(User user)
+        public IActionResult OpretKonto(User user)
         {
             try
             {
@@ -58,6 +60,7 @@ namespace GUI_Index.Controllers
                 {
                     return RedirectToAction("LogInd");
                 }
+
                 return RedirectToAction("OpretKonto");
 
             }
@@ -77,10 +80,17 @@ namespace GUI_Index.Controllers
         {
             return View("Lobby");
         }
+
         public IActionResult TilslutLobby()
         {
             return View("TilslutLobby");
         }
 
+        public IActionResult OpretLobby()
+        {
+            return View();
+
+        }
     }
 }
+
