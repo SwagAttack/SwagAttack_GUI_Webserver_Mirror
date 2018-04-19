@@ -13,8 +13,8 @@ script:
 - dotnet build SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
 - dotnet build SwagAttack_GUI_Webserver_Mirror/GUI/GUI.sln
 - dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests 
-- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests #--logger:"trx;LogFileName=testresultz.trx" --ResultsDirectory:./TestRetults
 - dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll 
+- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests #--logger:"trx;LogFileName=testresultz.trx" --ResultsDirectory:./TestRetults
 - dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll
 #deploy:
 #  provider: releases
