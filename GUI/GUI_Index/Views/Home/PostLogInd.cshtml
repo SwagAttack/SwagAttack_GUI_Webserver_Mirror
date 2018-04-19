@@ -38,9 +38,9 @@
                 </button>
                 <div class="divider"></div>
                 <br/>
-                <button type="button" class="btn btn-post"  onclick="location.href = '@Url.Action("TilslutLobby", "Home")'">
-                    Tilslut Lobby
-                </button>
+                
+                <a type="button" class="btn btn-post" asp-controller="Lobby" asp-route-username="@Html.Value("Brugernavn")" asp-action="TilslutLobby">Tilslut lobby</a>
+
                 <div class="divider"></div>
                 <br/>
                 <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("OpretLobby", "Home")'">

@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Domain.Interfaces.ILobby>
+@{
+    ViewData["Title"] = "Tilslut Lobby";
+}
+
+<body>
+
+    <div class="container">
+        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("PostLogInd", "Home")'">Tilbage</button>
+
+        <div class="form-group left-Align ingamebox">
+            @Html.Label("Brugernavn:")
+            <div class="col-md-3 textColorBlack">
+                @Html.Value("Username")
+            </div>
+
+            @Html.Label("Fornavn:")
+            <div class="col-md-3 textColorBlack">
+                @Html.Value("GivenName")
+            </div>
+
+            @Html.Label("Efternavn:")
+            <div class="col-md-3 textColorBlack">
+                @Html.Value("LastName")
+            </div>
+
+            @Html.Label("Email:")
+            <div class="col-md-3 textColorBlack">
+                @Html.Value("Email")
+            </div>
+        </div>
+    </div>
+</body>
