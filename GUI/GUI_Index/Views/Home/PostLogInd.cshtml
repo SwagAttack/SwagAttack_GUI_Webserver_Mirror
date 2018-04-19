@@ -12,6 +12,7 @@
         @Html.Label("Brugernavn:")
         <div class="col-md-3 textColorBlack">
             @Html.Value("Username")
+
         </div>
 
         @Html.Label("Fornavn:")
@@ -39,7 +40,7 @@
                 <div class="divider"></div>
                 <br/>
                 
-                <a type="button" class="btn btn-post" asp-controller="Lobby" asp-route-username="@Html.Value("Brugernavn")" asp-action="TilslutLobby">Tilslut lobby</a>
+                <a type="button" class="btn btn-post" asp-route-password="@Html.Value("Password")" asp-route-username="@Html.Value("Username")" asp-controller="Lobby"  asp-action="TilslutLobby">Tilslut lobby</a>
 
                 <div class="divider"></div>
                 <br/>
