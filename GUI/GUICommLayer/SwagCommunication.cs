@@ -73,8 +73,7 @@ namespace GUICommLayer
             //return user that will be null if nothing recived
         }
 
-
-        public async Task<HttpStatusCode> DeleteProductAsync(string username)
+        public async Task<HttpStatusCode> DeleteUserAsync(string username)
         {
             HttpResponseMessage response = await _client.DeleteAsync(
                 _apiUsers + username);
