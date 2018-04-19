@@ -7,16 +7,8 @@ using GUICommLayer.Interfaces;
 
 namespace GUICommLayer.Proxies
 {
-    class LobbyProxy : IProxy<ILobby>
+    public class LobbyProxy 
     {
-        public Task<Uri> CreateInstance()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ILobby RequestInstance()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
