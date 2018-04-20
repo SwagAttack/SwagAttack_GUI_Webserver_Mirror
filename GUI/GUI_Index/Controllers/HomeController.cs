@@ -5,6 +5,7 @@ using GUICommLayer;
 using GUICommLayer.Interfaces;
 using GUICommLayer.Proxies;
 using GUI_Index.Interfaces;
+using GUI_Index.Session;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GUI_Index.Controllers
@@ -34,6 +35,9 @@ namespace GUI_Index.Controllers
                 var tmp = sendUser.Result;
                 if (sendUser.Result != null)
                 {
+                    //set user to session
+                    SessionExtension.SetObjectAsJson(HttpContext.Session, "user", tmp);
+
                     return RedirectToAction("PostLogInd", tmp);
                 }
 
@@ -78,21 +82,7 @@ namespace GUI_Index.Controllers
             return View("PostLogInd");
         }
 
-        public IActionResult Lobby()
-        {
-            return View("Lobby");
-        }
-
-        public IActionResult TilslutLobby()
-        {
-            return View("TilslutLobby");
-        }
-
-        public IActionResult OpretLobby()
-        {
-            return View();
-
-        }
+       
     }
 }
 
