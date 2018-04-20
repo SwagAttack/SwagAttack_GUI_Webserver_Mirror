@@ -4,6 +4,6 @@ namespace GUICommLayer.Interfaces
 {
     public interface IClientWrapper
     {
-        HttpClient getInstance();
+        HttpClient GetInstance();
     }
 }

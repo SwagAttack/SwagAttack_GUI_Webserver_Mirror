@@ -11,9 +11,9 @@ namespace GUICommLayer.Proxies
 {
     public class UserProxy : IUserProxy
     {
-        private static IHttpClient _client;
+        private static IClientWrapper _client;
 
-        public UserProxy(IHttpClient client)
+        public UserProxy(IClientWrapper client)
         {
             _client = client;
         }
@@ -24,7 +24,7 @@ namespace GUICommLayer.Proxies
 
             var httpContent = new StringContent(jsonObject.ToString());
             
-            HttpResponseMessage response = await _client.getInstance().PostAsync("api/User", httpContent);
+            HttpResponseMessage response = await _client.GetInstance().PostAsync("api/User", httpContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -40,7 +40,7 @@ namespace GUICommLayer.Proxies
 
             var httpContent = new StringContent(jsonObject.ToString());
 
-            HttpResponseMessage response = await _client.getInstance().PostAsync("api/User/Login", httpContent);
+            HttpResponseMessage response = await _client.GetInstance().PostAsync("api/User/Login", httpContent);
 
             if (response.IsSuccessStatusCode)
             {

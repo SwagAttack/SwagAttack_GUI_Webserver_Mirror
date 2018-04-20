@@ -32,10 +32,10 @@ namespace GUI_Index
             });
 
             
-            services.AddSingleton(s => Client.GetInstance ());
+            services.AddSingleton(s => new Client().GetInstance());
             services.AddTransient<IUserProxy, UserProxy>(s =>
             {
-                return new UserProxy(Client.GetClientInstance());
+                return new UserProxy(new Client());
             });
             //services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
