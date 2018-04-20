@@ -5,60 +5,68 @@ using GUICommLayer;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
+using GUI_Index.Session;
+using GUI_Index.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GUI_Index.Controllers
 {
     public class LobbyController : Controller
     {
-        private static List<ILobby> lobbyList = new List<ILobby>(); // skal bindes sammen med hub når den kommer
+        private static List<ILobby> _lobbyList = new List<ILobby>(); // skal bindes sammen med hub når den kommer
         private SwagCommunication _swag;
 
         public LobbyController(ISwagCommunication somuchswag)
         {
             _swag = somuchswag as SwagCommunication;
+          
         }
 
-        public IActionResult CreateLobby(IUser adminUser)
+        public IActionResult OpretLobby()
         {
-            return View();
+            return View("OpretLobby");
         }
 
-        //save the lobby to controller 
         [HttpPost]
-        public async Task<IActionResult> CreateLobby([Bind("LobbyID,AdminName")] ILobby ConcreteLobby)
-        { 
-            lobbyList.Add(ConcreteLobby);
-            return RedirectToAction(nameof(Lobby));
-        }
-
-        public IActionResult TilslutLobby(string username,string password)
+        public IActionResult OpretLobby(LobbyViewModel lobby)
         {
 
-            //for test
-            IUser x = new User();
-            x.Email = "poul@poul.dk";
-            x.GivenName = "poul";
-            x.LastName = "poul";
-            x.Password = "1234asdsadsadsa";
-            x.Username = "adminPoul";
+            try
+            {
+                //find brugeren der har lavet lobby
+                User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+                //save as a lobby
+                ILobby nyLobby = new Lobby(currentUser);
+                nyLobby.Id = lobby.Id;
+                SessionExtension.SetObjectAsJson(HttpContext.Session, lobby.Id, nyLobby);
+                //add to the list
+                _lobbyList.Add(nyLobby);
+                return RedirectToAction("Lobby","Lobby",lobby);
 
-            ILobby y = new Lobby(x);
+            }
+            catch (ArgumentException e)
+            {
+                return RedirectToAction("OpretLobby");
+            }
             
-            y.Id = "lobbien";
-            lobbyList.Add(y);
-            return View(lobbyList);
         }
 
-        public IActionResult Lobby(string password, string username,string lobbyId)
+        public IActionResult TilslutLobby()
         {
-            //find the user lol
-            IUser user = _swag.GetUserAsync(username, password).Result;
-            //add user to the lobby
-            lobbyList.Find(x => x.Id == lobbyId).AddUser(user);
+            User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
 
-            //go to the lobby
-            return View(lobbyList.Find(x => x.Id == lobbyId));
+            return View(_lobbyList);
+        }
+
+        public IActionResult Lobby(LobbyViewModel lobbyId)
+        {
+            User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+            //add user to the lobby
+            _lobbyList.Find(x => x.Id == lobbyId.Id).AddUser(currentUser);
+
+            ////go to the lobby
+            return View(_lobbyList.Find(x => x.Id == lobbyId.Id));
         }
 
     }

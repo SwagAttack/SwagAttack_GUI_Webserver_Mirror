@@ -1,0 +1,30 @@
+﻿@model GUI_Index.ViewModels.LobbyViewModel
+
+@{
+    ViewData["Title"] = "OpretKonto";
+}
+
+<body>
+<div class="container">
+    <div class="row">
+        <form method="post" formaction="@Url.Action("OpretLobby", "Lobby")">
+            <div class="absolute-center is-responsive">
+                <div class="form-group">
+                    <label for="Id">Id:</label>
+                    <input type="text" class="form-control" name="Id">
+                </div>
+                <div class="btn-group-vertical">
+
+                    <button type="submit" class="btn btn-primary">Opret</button>
+                    <div class="divider"></div>
+                    <br />
+                    <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">
+                        find en lobby
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+

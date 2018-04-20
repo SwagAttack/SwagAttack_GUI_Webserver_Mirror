@@ -3,6 +3,7 @@ using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer;
 using GUI_Index.Interfaces;
+using GUI_Index.Session;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GUI_Index.Controllers
@@ -10,7 +11,7 @@ namespace GUI_Index.Controllers
     public class HomeController : Controller, IHomeController
     {
         private SwagCommunication _swag;
-
+        
         public HomeController(ISwagCommunication somuchswag)
         {
             _swag = somuchswag as SwagCommunication;
@@ -32,6 +33,8 @@ namespace GUI_Index.Controllers
                 var tmp = sendUser.Result;
                 if (sendUser.Result != null)
                 {
+                    //set user to session
+                    SessionExtension.SetObjectAsJson(HttpContext.Session,"user",tmp);
                     return RedirectToAction("PostLogInd", tmp);
                 }
 
