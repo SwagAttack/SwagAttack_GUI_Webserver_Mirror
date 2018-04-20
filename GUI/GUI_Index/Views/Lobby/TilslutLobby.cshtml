@@ -1,0 +1,30 @@
+﻿@using GUI_Index.ViewModels
+@model IEnumerable<Domain.Interfaces.ILobby>
+@{
+    ViewData["Title"] = "Tilslut Lobby";
+}
+
+<body>
+    <div class="container">
+        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("PostLogInd", "Home")'">Tilbage</button>
+
+        <div class="form-group left-Align ingamebox">
+            <table>
+                <th>Lobbies online</th>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                           @{
+                               LobbyViewModel viewModel = new LobbyViewModel();
+                               viewModel.Id = item.Id; 
+                           }
+                            <a type="button" class="btn btn-post" asp-controller="Lobby" asp-action="Lobby" asp-route-lobbyId="@viewModel">@Html.DisplayFor(modelItem => item.Id)</a>
+                        </td>
+
+                     </tr>
+                }
+            </table>
+        </div>
+    </div>
+</body>

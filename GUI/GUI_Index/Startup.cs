@@ -41,6 +41,8 @@ namespace GUI_Index
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
 
             services.AddSignalR();
+            services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +57,7 @@ namespace GUI_Index
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseSession();
             app.UseStaticFiles();
 
             var options = new RewriteOptions().AddRedirectToHttps();
