@@ -2,6 +2,8 @@
 using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer;
+using GUICommLayer.Interfaces;
+using GUICommLayer.Proxies;
 using GUI_Index.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +11,11 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller, IHomeController
     {
-        private SwagCommunication _swag;
+        private UserProxy _proxy;
 
-        public HomeController(ISwagCommunication somuchswag)
+        public HomeController(IUserProxy userProxy)
         {
-            _swag = somuchswag as SwagCommunication;
+            _proxy = userProxy as UserProxy;
         }
 
         public IActionResult LogInd()
@@ -26,7 +28,7 @@ namespace GUI_Index.Controllers
         {
             try
             {
-                var sendUser = _swag.GetUserAsync(user.Username, user.Password);
+                var sendUser = _proxy.RequestInstanceAsync(user.Username, user.Password);
 
                 sendUser.Wait();
                 var tmp = sendUser.Result;
@@ -54,7 +56,7 @@ namespace GUI_Index.Controllers
         {
             try
             {
-                var sendUser = _swag.CreateUserAsync(user);
+                var sendUser = _proxy.CreateInstanceAsync(user);
                 sendUser.Wait();
                 if (sendUser.Result != null)
                 {

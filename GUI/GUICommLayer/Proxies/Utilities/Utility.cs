@@ -14,8 +14,9 @@ namespace GUICommLayer.Proxies.Utilities
 
                 jobject.Add("auth", JObject.FromObject(dict));
             }
-
-            jobject.Add("val", JObject.FromObject(obj));
+            if(obj != null)
+                jobject.Add("val", JObject.FromObject(obj));
+            
 
             return jobject;
         }

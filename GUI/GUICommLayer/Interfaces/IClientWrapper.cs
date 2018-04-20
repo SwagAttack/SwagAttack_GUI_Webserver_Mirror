@@ -2,7 +2,7 @@
 
 namespace GUICommLayer.Interfaces
 {
-    public interface IHttpClient
+    public interface IClientWrapper
     {
         HttpClient getInstance();
     }

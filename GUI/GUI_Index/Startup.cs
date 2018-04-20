@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using GUICommLayer;
+using GUICommLayer.Interfaces;
+using GUICommLayer.Proxies;
+using GUICommLayer.Proxies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using GUI_Index.Hubs;
@@ -27,7 +30,14 @@ namespace GUI_Index
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
-            services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
+
+            
+            services.AddSingleton(s => Client.GetInstance ());
+            services.AddTransient<IUserProxy, UserProxy>(s =>
+            {
+                return new UserProxy(Client.GetClientInstance());
+            });
+            //services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
 
             services.AddSignalR();
