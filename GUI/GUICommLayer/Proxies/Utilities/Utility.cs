@@ -8,15 +8,18 @@ namespace GUICommLayer.Proxies.Utilities
         public static JObject ComposeJson<T>(string username, string password, T obj)
         {
             var jobject = new JObject();
+            Dictionary<string,string> dict = null;
             if (username != null && password != null)
             {
-                var dict = new Dictionary<string, string> {{"Username", username}, {"Password", password}};
+                dict = new Dictionary<string, string> {{"Username", username}, {"Password", password}};
 
                 jobject.Add("auth", JObject.FromObject(dict));
             }
-            if(obj != null)
+
+            if (obj != null)
                 jobject.Add("val", JObject.FromObject(obj));
-            
+            else
+                jobject.Add("val", JObject.FromObject(dict));
 
             return jobject;
         }

@@ -34,9 +34,9 @@ namespace GUICommLayer.Proxies
             return null;
         }
 
-        public static async Task<IUser> RequestInstance(string username, string password, IUser user = null)
+        public static async Task<IUser> RequestInstance(string username, string password )
         {
-            var jsonObject = Utilities.Utility.ComposeJson(username, password, user);
+            var jsonObject = Utilities.Utility.ComposeJson<IUser>(username, password, null);
 
             var httpContent = new StringContent(jsonObject.ToString());
 

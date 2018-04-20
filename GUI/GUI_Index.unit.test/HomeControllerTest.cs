@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NUnit.Framework;
 using Domain.Models;
+using GUICommLayer.Interfaces;
 
 namespace WebserverUnitTests
 {
     [TestFixture]
     public class HomeControllerTest
     {
-        private ISwagCommunication FakeSwagCommunication = Substitute.For<ISwagCommunication>();
+        private IUserProxy FakeSwagCommunication = Substitute.For<IUserProxy>();
 
         [Test]
         public void HomeControllerLogInd_ViewNameCorrect()
