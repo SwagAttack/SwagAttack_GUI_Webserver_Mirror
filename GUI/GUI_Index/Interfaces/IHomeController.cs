@@ -22,18 +22,18 @@ namespace GUI_Index.Interfaces
         /// <returns></returns>
         IActionResult LogInd(User user);
         
-        /// <summary>
-        /// OpretKontoView
-        /// </summary>
-        /// <returns></returns>
-        IActionResult OpretKonto();
+        ///// <summary>
+        ///// OpretKontoView
+        ///// </summary>
+        ///// <returns></returns>
+        //IActionResult OpretKonto();
 
         /// <summary>
         /// Opret konto pushed
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        IActionResult OpretKonto(User user);
+       // IActionResult OpretKonto(User user);
 
         /// <summary>
         /// PostLogIndView
