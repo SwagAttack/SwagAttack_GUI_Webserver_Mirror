@@ -14,7 +14,7 @@ namespace GUI_Index.Controllers
 {
     public class LobbyController : Controller
     {
-        private static List<ILobby> _lobbyList = new List<ILobby>(); // skal bindes sammen med hub når den kommer
+        private static List<ILobby> _lobbyList = new List<ILobby>();
         private UserProxy _proxy;
 
         public LobbyController(IUserProxy userProxy)
