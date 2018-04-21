@@ -5,6 +5,8 @@ using GUICommLayer;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
+using GUICommLayer.Interfaces;
+using GUICommLayer.Proxies;
 using GUI_Index.Session;
 using GUI_Index.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -15,12 +17,11 @@ namespace GUI_Index.Controllers
     public class LobbyController : Controller
     {
         private static List<ILobby> _lobbyList = new List<ILobby>(); // skal bindes sammen med hub når den kommer
-        private SwagCommunication _swag;
+        private UserProxy _proxy;
 
-        public LobbyController(ISwagCommunication somuchswag)
+        public LobbyController(IUserProxy userProxy)
         {
-            _swag = somuchswag as SwagCommunication;
-          
+            _proxy = userProxy as UserProxy;
         }
 
         public IActionResult OpretLobby()
