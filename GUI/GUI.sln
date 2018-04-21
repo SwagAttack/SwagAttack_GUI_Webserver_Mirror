@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebserverIntegrationTests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\..\SwagAttack_Gameserver_Mirror\GameServer\Domain\Domain.csproj", "{29378BF1-57B3-477D-A669-ED4C8FF47C50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUICommLayerUnitTests", "GUICommLayerUnitTests\GUICommLayerUnitTests.csproj", "{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{29378BF1-57B3-477D-A669-ED4C8FF47C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29378BF1-57B3-477D-A669-ED4C8FF47C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29378BF1-57B3-477D-A669-ED4C8FF47C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
