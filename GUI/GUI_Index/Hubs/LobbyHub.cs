@@ -12,13 +12,14 @@ namespace GUI_Index.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            await this.Clients.All.SendAsync("Connect");
+            await this.Clients.Others.SendAsync("Connect");
+            
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             //tell all that somebody disconnected, refresh pages.
-            Clients.All.SendAsync("Disconnect").Wait();
+            Clients.Others.SendAsync("Disconnect").Wait();
         }
 
         //when navigating to the lobby, join a lobby group.

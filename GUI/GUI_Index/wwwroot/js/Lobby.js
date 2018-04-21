@@ -5,7 +5,7 @@ connection.on("Connect", () => {
     const li = document.createElement("li");
     li.textContent = encodedMsg;
     document.getElementById("Messages").appendChild(li);
-    location.reload(forceRedraw);
+    location.reload();
 });
 
 connection.on("Disconnect", () => {
