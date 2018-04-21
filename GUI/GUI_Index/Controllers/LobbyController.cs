@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using GUICommLayer;
-using System.Threading.Tasks;
-using Domain.Interfaces;
+﻿using Domain.Interfaces;
 using Domain.Models;
-using GUICommLayer.Interfaces;
-using GUICommLayer.Proxies;
 using GUI_Index.Session;
 using GUI_Index.ViewModels;
+using GUICommLayer.Interfaces;
+using GUICommLayer.Proxies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace GUI_Index.Controllers
 {
@@ -58,6 +55,13 @@ namespace GUI_Index.Controllers
             User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
 
             return View(_lobbyList);
+        }
+
+        [HttpPost]
+        public IActionResult TilslutLobby(LobbyViewModel model)
+        {
+            string id = model.Id;
+            return RedirectToAction("Lobby", model);
         }
 
         public IActionResult Lobby(LobbyViewModel lobbyId)

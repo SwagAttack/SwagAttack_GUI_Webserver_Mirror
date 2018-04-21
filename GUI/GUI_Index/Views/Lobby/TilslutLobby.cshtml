@@ -15,11 +15,16 @@
                 {
                     <tr>
                         <td>
-                           @{
-                               LobbyViewModel viewModel = new LobbyViewModel();
-                               viewModel.Id = item.Id; 
-                           }
-                            <a type="button" class="btn btn-post" asp-controller="Lobby" asp-action="Lobby" asp-route-lobbyId="@viewModel">@Html.DisplayFor(modelItem => item.Id)</a>
+                            <form method="post" formaction="@Url.Action("TilslutLobby", "Lobby")">
+                                <div class="absolute-center is-responsive">
+                                    <div class="form-group">
+                                        <input type="hidden" name="Id" class="form-control" value="@item.Id"/>
+                                    </div>
+
+                                        <button type="submit" class="btn btn-primary">@item.Id</button>
+                                    
+                                </div>
+                            </form> 
                         </td>
 
                      </tr>
