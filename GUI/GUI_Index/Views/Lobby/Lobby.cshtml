@@ -1,30 +1,65 @@
 ﻿@using Domain.Interfaces
+@using Domain.Models
+@using GUI_Index.Session
+@using Microsoft.AspNetCore.Http
 @model Domain.Interfaces.ILobby
 @{
     ViewData["Title"] = "Tilslut Lobby";
 }
-
 <body>
     <div class="container">
-        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("PostLogInd", "Home")'">Tilbage</button>
+        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">Ud af lobby</button>
 
         <div class="form-group left-Align ingamebox">
             Mangler implementering af SignalR.
             <table>
-                <th>Users in Lobby: </th>            
+                <th>Users in Lobby: </th>
                 @if (Model.Usernames.Count > 0)
+            {
+                foreach (var usernames in Model.Usernames)
                 {
-                    foreach (var usernames in Model.Usernames)
-                     {
-                         <tr>
-                             <td>
-                                 @usernames;
-                             </td>
-                         </tr>
-                     }
-                }
-
+                    <tr>
+                        <td>
+                            @usernames;
+                        </td>
+                    </tr>
+            }
+        }
             </table>
         </div>
+
+        <div class="form-group right-Align ingamebox">
+            <table>
+                <th>Some nice additional info</th>
+                <tr>
+                    <td>
+                        <i>Admin of the lobby: </i> <b> @Model.AdminUserName;</b>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+        
+        @{
+            string user = SessionExtension.GetObjectFromJson<User>(Context.Request.HttpContext.Session, "user").Username;
+        }
+        hello: @user
+        <form method="post" formaction="@Url.Action("Lobby", "Lobby")">
+            <div class="absolute-center is-responsive">
+                <div class="form-group">
+                    <input type="hidden" class="form-control" name="Id">
+                </div>
+                <div class="btn-group-vertical">
+
+                    <button type="submit" class="btn btn-primary">Start spil</button>
+                    <div class="divider"></div>
+                    <br />
+                    <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">
+                        find anden lobby
+                    </button>
+                </div>
+            </div>
+        </form>
+
     </div>
 </body>
