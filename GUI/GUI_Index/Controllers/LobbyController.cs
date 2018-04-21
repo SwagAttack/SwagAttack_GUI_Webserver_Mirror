@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GUI_Index.Controllers
 {
@@ -60,15 +61,17 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult TilslutLobby(LobbyViewModel model)
         {
-            string id = model.Id;
             return RedirectToAction("Lobby", model);
         }
 
         public IActionResult Lobby(LobbyViewModel lobbyId)
         {
             User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
-            //add user to the lobby
-            _lobbyList.Find(x => x.Id == lobbyId.Id).AddUser(currentUser);
+            //add user to the lobby if it isent on list already.
+            if (!_lobbyList.Find(x => x.Id == lobbyId.Id).Usernames.Any(x => x.Contains(currentUser.Username)))
+            {
+                _lobbyList.Find(x => x.Id == lobbyId.Id).AddUser(currentUser);
+            }
 
             ////go to the lobby
             return View(_lobbyList.Find(x => x.Id == lobbyId.Id));
