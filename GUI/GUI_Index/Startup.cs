@@ -25,13 +25,13 @@ namespace GUI_Index
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+         
             services.AddMvc();
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
-            
             services.AddSingleton(s => new Client().GetInstance());
             services.AddTransient<IUserProxy, UserProxy>(s =>
             {
@@ -40,9 +40,10 @@ namespace GUI_Index
             //services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
 
-            services.AddSignalR();
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +58,7 @@ namespace GUI_Index
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseSession();
             app.UseStaticFiles();
 
@@ -65,7 +67,7 @@ namespace GUI_Index
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<LobbyHub>("/LobbyHub");
+                routes.MapHub<LobbyHub>("/Hubs/LobbyHub");
             });
 
             app.UseMvc(routes =>

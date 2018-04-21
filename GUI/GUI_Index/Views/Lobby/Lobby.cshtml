@@ -7,77 +7,81 @@
     ViewData["Title"] = "Tilslut Lobby";
 }
 <body>
-<div class="container">
+    <div class="container">
 
-    <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">Ud af lobby</button>
+        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">Ud af lobby</button>
 
-    <div class="form-group left-Align ingamebox">
-        Mangler implementering af SignalR.
-        <table>
-            <th>Users in Lobby: </th>
-            @if (Model.Usernames.Count > 0)
-            {
-                foreach (var usernames in Model.Usernames)
+        <div class="form-group left-Align ingamebox">
+            Mangler implementering af SignalR.
+            <table>
+                <th>Users in Lobby: </th>
+                @if (Model.Usernames.Count > 0)
                 {
-                    <tr>
-                        <td>
-                            @usernames;
-                        </td>
-                    </tr>
+                    foreach (var usernames in Model.Usernames)
+                    {
+                        <tr>
+                            <td>
+                                @usernames;
+                            </td>
+                        </tr>
+                    }
                 }
-            }
-        </table>
+            </table>
+        </div>
+
+        <div class="form-group right-Align ingamebox">
+            <table>
+                <th>Some nice additional info</th>
+                <tr>
+                    <td>
+                        <i>Admin of the lobby: </i> <b> @Model.AdminUserName;</b>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+
+        @{
+            string user = SessionExtension.GetObjectFromJson<User>(Context.Request.HttpContext.Session, "user").Username;
+        }
+
+        <form method="post" formaction="@Url.Action("Lobby", "Lobby")">
+            <table>
+                <tr>
+                    <div class="top-Align">
+                        <div id="center-Text">
+                            Hello: @user <br />
+                            Welcome to: @Model.Id
+                        </div>
+                        This is a chat .. possibly lol
+                        <ul id="Messages"></ul>
+
+                    </div>
+
+                </tr>
+
+                <tr>
+                    <div class="absolute-center is-responsive">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="Id">
+                        </div>
+                        <div class="btn-group-vertical">
+
+                            <button type="submit" class="btn btn-primary">Start spil</button>
+                            <div class="divider"></div>
+                            <br />
+                            <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">
+                                find anden lobby
+                            </button>
+                        </div>
+                    </div>
+                </tr>
+            </table>
+
+        </form>
+
     </div>
 
-    <div class="form-group right-Align ingamebox">
-        <table>
-            <th>Some nice additional info</th>
-            <tr>
-                <td>
-                    <i>Admin of the lobby: </i> <b> @Model.AdminUserName;</b>
-                </td>
-
-            </tr>
-        </table>
-    </div>
-
-    @{
-        string user = SessionExtension.GetObjectFromJson<User>(Context.Request.HttpContext.Session, "user").Username;
-    }
-
-    <form method="post" formaction="@Url.Action("Lobby", "Lobby")">
-        <table >
-            <tr >
-                <div class="top-Align">
-                    <div id="center-Text">
-                        Hello: @user <br/>
-                        Welcome to: @Model.Id
-                    </div>
-                    This is a chat .. possibly lol
-
-                </div>
-                
-            </tr>
-
-            <tr>
-                <div class="absolute-center is-responsive">
-                    <div class="form-group">
-                        <input type="hidden" class="form-control" name="Id">
-                    </div>
-                    <div class="btn-group-vertical">
-
-                        <button type="submit" class="btn btn-primary">Start spil</button>
-                        <div class="divider"></div>
-                        <br/>
-                        <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">
-                            find anden lobby
-                        </button>
-                    </div>
-                </div>
-            </tr>
-        </table>
-
-    </form>
-
-</div>
 </body>
+<script src="~/lib/signalr.js"></script>
+<script src="~/js/Lobby.js"></script>
