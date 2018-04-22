@@ -77,5 +77,24 @@ namespace GUI_Index.Controllers
             return View(_lobbyList.Find(x => x.Id == lobbyId.Id));
         }
 
+        public IActionResult ForladLobby(string lobbyId)
+        {
+            User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+            _lobbyList.Find(x => x.Id == lobbyId).RemoveUser(currentUser);
+
+            //need method to check if its admin, and update a new admin.
+            if (_lobbyList.Find(x => x.Id == lobbyId).AdminUserName == currentUser.Username)
+            {
+                _lobbyList.Find(x=> x.Id == lobbyId).UpdateAdmin();
+            }
+
+            //remove lobby if empty
+            if (_lobbyList.Find(x => x.Id == lobbyId).Usernames.Any())
+            {
+                _lobbyList.RemoveAt(_lobbyList.FindIndex(x => x.Id == lobbyId));
+            }
+            return RedirectToAction("TilslutLobby");
+        }
+
     }
 }
