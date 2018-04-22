@@ -13,7 +13,6 @@ namespace WebserverIntegrationTests
     [TestFixture]
     public class WebserverGameserverIntegrationTest
     {
-        private string url = "https://swagattkapi.azurewebsites.net/";
         [Test]
         public void HomeControllerLogInd_ViewNameCorrect()
         {
