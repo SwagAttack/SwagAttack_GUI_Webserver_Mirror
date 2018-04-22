@@ -50,32 +50,32 @@ namespace GUI_Index.Controllers
             return View("LogInd");
         }
 
-        public IActionResult OpretKonto()
-        {
-            return View("OpretKonto");
-        }
+        //public IActionResult OpretKonto()
+        //{
+        //    return View("OpretKonto");
+        //}
 
-        [HttpPost]
-        public IActionResult OpretKonto(User user)
-        {
-            try
-            {
-                var sendUser = _proxy.CreateInstanceAsync(user);
-                sendUser.Wait();
-                if (sendUser.Result != null)
-                {
-                    return RedirectToAction("LogInd");
-                }
+        //[HttpPost]
+        //public IActionResult OpretKonto(User user)
+        //{
+        //    try
+        //    {
+        //        var sendUser = _proxy.CreateInstanceAsync(user);
+        //        sendUser.Wait();
+        //        if (sendUser.Result != null)
+        //        {
+        //            return RedirectToAction("LogInd");
+        //        }
 
-                return RedirectToAction("OpretKonto");
+        //        return RedirectToAction("OpretKonto");
 
-            }
+        //    }
 
-            catch (ArgumentException e)
-            {
-                return RedirectToAction("OpretKonto");
-            }
-        }
+        //    catch (ArgumentException e)
+        //    {
+        //        return RedirectToAction("OpretKonto");
+        //    }
+        //}
 
         public IActionResult PostLogInd(User user)
         {
