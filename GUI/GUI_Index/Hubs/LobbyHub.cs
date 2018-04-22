@@ -19,7 +19,8 @@ namespace GUI_Index.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            this.Clients.Caller.SendAsync("Disconnect").Wait();
+
+            this.Clients.All.SendAsync("Disconnect").Wait();
         }
         public async Task SendMessageAsync(string user,string message)
         {
