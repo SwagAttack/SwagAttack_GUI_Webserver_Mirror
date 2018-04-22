@@ -18,15 +18,21 @@ connection.on("OnConnectedUser",
 
         const newText = document.createTextNode(user);
         newcell.appendChild(newText);
-    });
+    }); 
 
 connection.on("Disconnect", () => {
-    const encodedMsg = document.getElementById("LobbyUser").textContent;
-    const li = document.createElement("li");
-    li.textContent = "User: " + encodedMsg + " Signed Off!";
-    document.getElementById("Messages").appendChild(li);
     //location.reload();
+    var encodedMsg = document.getElementById("LobbyUser").textContent;
+    connection.invoke("OnDisconnectedUserAsync", encodedMsg);
 });
+
+connection.on("OnDisconnectedUser",
+    (user) => {
+        const li = document.createElement("li");
+        li.textContent = "User: " + user + " Signed Off!";
+        document.getElementById("Messages").appendChild(li);
+        
+    });
 
 document.getElementById("sendButton").addEventListener("click", event => {
     const user = document.getElementById("LobbyUser").textContent;

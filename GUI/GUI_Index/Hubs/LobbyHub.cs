@@ -19,7 +19,7 @@ namespace GUI_Index.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            this.Clients.Others.SendAsync("Disconnect").Wait();
+            this.Clients.Caller.SendAsync("Disconnect").Wait();
         }
         public async Task SendMessageAsync(string user,string message)
         {
@@ -30,6 +30,11 @@ namespace GUI_Index.Hubs
         public async Task OnConnectedUserAsync(string username)
         {
             await this.Clients.Others.SendAsync("OnConnectedUser", username);
+        }
+
+        public async Task OnDisconnectedUserAsync(string username)
+        {
+            await this.Clients.Others.SendAsync("OnDisconnectedUser", username);
         }
     }
 }
