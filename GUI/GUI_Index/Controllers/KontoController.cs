@@ -53,7 +53,7 @@ namespace GUI_Index.Controllers
 
 				}
 
-				catch (ArgumentException e)
+				catch (ArgumentException)
 				{
 					return RedirectToAction("OpretKonto", "Konto");
 				}

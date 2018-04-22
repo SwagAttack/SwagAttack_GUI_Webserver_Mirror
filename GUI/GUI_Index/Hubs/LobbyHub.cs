@@ -14,13 +14,13 @@ namespace GUI_Index.Hubs
         
         public override async Task OnConnectedAsync()
         {
-            this.Clients.Caller.SendAsync("Connect").Wait();
+           await this.Clients.Caller.SendAsync("Connect");
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
 
-            this.Clients.All.SendAsync("Disconnect").Wait();
+            await this.Clients.All.SendAsync("Disconnect");
         }
         public async Task SendMessageAsync(string user,string message)
         {

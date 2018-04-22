@@ -33,27 +33,27 @@ namespace WebserverIntegrationTests
             Assert.AreEqual("LogInd", result.ViewName);
         }
 
-        [Test]
-        public void HomeControllerOpretKonto_ViewNameCorrect()
-        {
-            var uut = new HomeController(new UserProxy(new Client()));
-            var result = uut.OpretKonto() as ViewResult;
+        //[Test]
+        //public void KontoControllerOpretKonto_ViewNameCorrect()
+        //{
+        //    var uut = new KontoController(new UserProxy(new Client()));
+        //    var result = uut.OpretKonto() as ViewResult;
 
 
-            Assert.AreEqual("OpretKonto", result.ViewName);
-        }
+        //    Assert.AreEqual("OpretKonto", result.ViewName);
+        //}
 
-        [Test]
-        public void HomeControllerOpretIncorrectUser_ViewNameCorrect()
-        {
-            var uut = new HomeController(new UserProxy(new Client()));
+        //[Test]
+        //public void KontoControllerOpretIncorrectUser_ViewNameCorrect()
+        //{
+        //    var uut = new KontoController(new UserProxy(new Client()));
 
-            Assert.Throws<AggregateException>(() =>
-            {
-                var wrongUser = new User() { Username = "PatrickBjerregaard" };
-                var result = uut.OpretKonto(wrongUser) as RedirectToActionResult;
-            });
-        }
+        //    Assert.Throws<AggregateException>(() =>
+        //    {
+        //        var wrongUser = new User() { Username = "PatrickBjerregaard" };
+        //        var result = uut.OpretKonto(wrongUser) as RedirectToActionResult;
+        //    });
+        //}
 
         [Test]
         public void HomeControllerPostLogInd_ViewNameCorrect()

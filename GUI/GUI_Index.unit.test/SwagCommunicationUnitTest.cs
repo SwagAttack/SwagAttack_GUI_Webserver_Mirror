@@ -16,9 +16,6 @@ namespace GUI_Index.unit.test
            // private SwagCommunication _uut = new SwagCommunication(url);
 
             private User testUser;
-            private User testUser2;
-
-            private IUser wrongTestUser;
 
             [SetUp]
             public void Init()

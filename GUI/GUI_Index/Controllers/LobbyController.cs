@@ -36,15 +36,17 @@ namespace GUI_Index.Controllers
                 //find brugeren der har lavet lobby
                 User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
                 //save as a lobby
-                ILobby nyLobby = new Lobby(currentUser);
-                nyLobby.Id = lobby.Id;
+                ILobby nyLobby = new Lobby(currentUser)
+                {
+                    Id = lobby.Id
+                };
                 SessionExtension.SetObjectAsJson(HttpContext.Session, lobby.Id, nyLobby);
                 //add to the list
                 _lobbyList.Add(nyLobby);
                 return RedirectToAction("Lobby","Lobby",lobby);
 
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return RedirectToAction("OpretLobby");
             }
