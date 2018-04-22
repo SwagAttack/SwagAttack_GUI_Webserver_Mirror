@@ -31,6 +31,7 @@ namespace GUI_Index.Controllers
 			{ 
 				var user = new User
 				{
+					Username = vm.Username,
 					Email = vm.Email,
 					GivenName = vm.GivenName,
 					LastName = vm.LastName,
