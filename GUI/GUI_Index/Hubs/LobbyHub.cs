@@ -21,16 +21,10 @@ namespace GUI_Index.Hubs
         {
             await this.Clients.Others.SendAsync("Disconnect");
         }
-
-        //when navigating to the lobby, join a lobby group.
-        public async Task JoinRoom(string LobbyName)
+        public async Task SendMessage(string user,string message)
         {
-            await this.Groups.AddAsync(Context.ConnectionId, LobbyName);
-        }
-
-        public async Task LeaveRoom(string LobbyName)
-        {
-            await this.Groups.RemoveAsync(Context.ConnectionId, LobbyName);
+            await this.Clients.All.SendAsync("ReceiveMessage",user, message);
+            //x.LogNew(user, message);
         }
 
     }
