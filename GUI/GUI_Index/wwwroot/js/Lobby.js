@@ -9,6 +9,10 @@ connection.on("Connect", () => {
 });
 
 connection.on("Disconnect", () => {
+    const encodedMsg = document.getElementById("LobbyUser").textContent;
+    const li = document.createElement("li");
+    li.textContent = "User: " + encodedMsg + " Signed Off!";
+    document.getElementById("Messages").appendChild(li);
     //location.reload();
 });
 

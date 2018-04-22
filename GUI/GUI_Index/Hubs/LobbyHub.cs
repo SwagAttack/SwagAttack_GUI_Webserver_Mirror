@@ -14,7 +14,7 @@ namespace GUI_Index.Hubs
         
         public override async Task OnConnectedAsync()
         {
-            await this.Clients.All.SendAsync("Connect");
+            await this.Clients.Others.SendAsync("Connect");
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
