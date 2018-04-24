@@ -20,7 +20,7 @@ namespace GUI_Index.Controllers
 		[HttpGet]
         public IActionResult OpretKonto()
         {
-	        return View();
+	        return View("OpretKonto");
         }
 
 	    [HttpPost]
