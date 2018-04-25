@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer.Interfaces;
@@ -19,7 +20,7 @@ namespace WebserverUnitTests
 	class KontoControllerUnitTest
     {
 	    private readonly IUserProxy _fakeUserProxy = Substitute.For<IUserProxy>();
-	    private RegistorViewModel RVM;
+	    private RegistorViewModel _rvm;
 
 	    private KontoController _uut;
 
@@ -28,7 +29,7 @@ namespace WebserverUnitTests
 	    {
 			_uut = new KontoController(_fakeUserProxy);
 
-			RVM = new RegistorViewModel()
+			_rvm = new RegistorViewModel()
 		    {
 			    Username = "TestTango200",
 			    Email = "test@tango.dk",
@@ -45,7 +46,7 @@ namespace WebserverUnitTests
 	    {
 			var result = _uut.OpretKonto() as ViewResult;
 
-		    Assert.AreEqual("OpretKonto", result);
+		    Assert.AreEqual("OpretKonto", result.ViewName);
 		}
 
 	    [Test]
@@ -53,15 +54,22 @@ namespace WebserverUnitTests
 	    {
 			//Arrange
 
-			User savedUser = null;
-		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
+			User savedUser = new User()
+			{
+				Username = "TestTango200",
+				Email = "pretest@Anothoer.dk",
+				GivenName = "test",
+				LastName = "tango",
+				Password = "tangoPassword",
+			};
+		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser.Email = x.Email));
 
 			//Ack
-			_uut.OpretKonto(RVM);
+			_uut.OpretKonto(_rvm);
 		    //Assert
-		    
-		    Assert.That(savedUser.Email, Is.EqualTo(RVM.Email));
+		    Assert.That(savedUser.Email, Is.EqualTo(_rvm.Email));
 	    }
+
 	    [Test]
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_GivenName()
 	    {
@@ -71,10 +79,10 @@ namespace WebserverUnitTests
 		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
 
 		    //Ack
-		    _uut.OpretKonto(RVM);
+		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.GivenName, Is.EqualTo(RVM.GivenName));
+		    Assert.That(savedUser.GivenName, Is.EqualTo(_rvm.GivenName));
 	    }
 
 	    [Test]
@@ -86,10 +94,10 @@ namespace WebserverUnitTests
 		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
 
 		    //Ack
-		    _uut.OpretKonto(RVM);
+		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.LastName, Is.EqualTo(RVM.LastName));
+		    Assert.That(savedUser.LastName, Is.EqualTo(_rvm.LastName));
 	    }
 
 	    [Test]
@@ -101,10 +109,10 @@ namespace WebserverUnitTests
 		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
 
 		    //Ack
-		    _uut.OpretKonto(RVM);
+		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.Username, Is.EqualTo(RVM.Username));
+		    Assert.That(savedUser.Username, Is.EqualTo(_rvm.Username));
 	    }
 	    [Test]
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_Password()
@@ -115,10 +123,10 @@ namespace WebserverUnitTests
 		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
 
 		    //Ack
-		    _uut.OpretKonto(RVM);
+		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.Password, Is.EqualTo(RVM.Password));
+		    Assert.That(savedUser.Password, Is.EqualTo(_rvm.Password));
 	    }
 
 
