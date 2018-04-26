@@ -34,7 +34,7 @@ namespace GUI_Index.Controllers
             try
             {
                 //find brugeren der har lavet lobby
-                User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+                var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
                 //save as a lobby
                 ILobby nyLobby = new Lobby(currentUser)
                 {
@@ -55,7 +55,7 @@ namespace GUI_Index.Controllers
 
         public IActionResult TilslutLobby()
         {
-            User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+            var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
 
             return View(_lobbyList);
         }
@@ -68,7 +68,7 @@ namespace GUI_Index.Controllers
 
         public IActionResult Lobby(LobbyViewModel lobbyId)
         {
-            User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+            var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
             //add user to the lobby if it isent on list already.
             if (!_lobbyList.Find(x => x.Id == lobbyId.Id).Usernames.Any(x => x.Contains(currentUser.Username)))
             {
@@ -81,7 +81,7 @@ namespace GUI_Index.Controllers
 
         public IActionResult ForladLobby(string lobbyId)
         {
-            User currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+            var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
             _lobbyList.Find(x => x.Id == lobbyId).RemoveUser(currentUser);
 
             //need method to check if its admin, and update a new admin.
