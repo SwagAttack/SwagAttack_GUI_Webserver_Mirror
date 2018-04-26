@@ -13,11 +13,13 @@ namespace GUICommLayer.Proxies.Utilities
 
         private Uri _uri = new Uri("https://swagattackapi.azurewebsites.net/");
 
-        public HttpClient GetInstance()
+        public HttpClient GetInstance(string uri = null)
         {
             if (_httpClient == null)
             {
-                _httpClient = new System.Net.Http.HttpClient
+                if(uri != null) _uri = new Uri(uri);
+                var handler = new HttpClientHandler(){ AllowAutoRedirect = true };
+                _httpClient = new HttpClient(handler)
                 {
                     BaseAddress = _uri
                 };
