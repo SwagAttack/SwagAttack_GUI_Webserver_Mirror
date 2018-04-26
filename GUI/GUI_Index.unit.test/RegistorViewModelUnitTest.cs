@@ -110,7 +110,7 @@ namespace WebserverUnitTests
 		//Less than 8
 		[TestCase("Pass", false)]
 		//More than 8
-		[TestCase("Passwordword", true)]
+		[TestCase("tangoPassword", true)]
 		public void Password(string password, bool localresult)
 		{
 			_uut.Password = password;
