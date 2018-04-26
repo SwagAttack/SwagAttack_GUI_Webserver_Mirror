@@ -10,11 +10,11 @@ namespace GUI_Index.Controllers
 {
     public class KontoController : Controller
     {
-	    private UserProxy _proxy;
+	    private IUserProxy _proxy;
 
 	    public KontoController(IUserProxy userProxy)
 	    {
-		    _proxy = userProxy as UserProxy;
+		    _proxy = userProxy;
 	    }
 
 		[HttpGet]

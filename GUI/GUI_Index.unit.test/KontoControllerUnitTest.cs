@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
+
 //https://dotnetliberty.com/index.php/2016/01/04/how-to-unit-test-asp-net-5-mvc-6-modelstate/
 
 
@@ -19,25 +21,35 @@ namespace WebserverUnitTests
 	[TestFixture]
 	class KontoControllerUnitTest
     {
-	    private readonly IUserProxy _fakeUserProxy = Substitute.For<IUserProxy>();
+	    private IUserProxy _fakeUserProxy;
 	    private RegistorViewModel _rvm;
+	    private User _savedUser;
 
-	    private KontoController _uut;
+
+		private KontoController _uut;
 
 	    [SetUp]
 	    public void Init()
 	    {
+		    _fakeUserProxy = Substitute.For<IUserProxy>();
 			_uut = new KontoController(_fakeUserProxy);
 
 			_rvm = new RegistorViewModel()
 		    {
 			    Username = "TestTango200",
 			    Email = "test@tango.dk",
-			    GivenName = "test",
-			    LastName = "tango",
+			    GivenName = "Test",
+			    LastName = "Tango",
 			    Password = "tangoPassword",
 			    ConfirmPassword = "tangoPassword"
-
+		    };
+		    _savedUser = new User()
+		    {
+			    Username = "savedUser",
+			    Email = "savedUser@Anothoer.dk",
+			    GivenName = "Saved",
+			    LastName = "User",
+			    Password = "savedUserPas",
 		    };
 		}
 
@@ -53,83 +65,77 @@ namespace WebserverUnitTests
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_Email()
 	    {
 			//Arrange
-
-			User savedUser = new User()
-			{
-				Username = "TestTango200",
-				Email = "pretest@Anothoer.dk",
-				GivenName = "test",
-				LastName = "tango",
-				Password = "tangoPassword",
-			};
-		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser.Email = x.Email));
+			
+			
+		    /*User savedUser = null;*/
+			_fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => _savedUser.Email = x.Email));
 
 			//Ack
 			_uut.OpretKonto(_rvm);
 		    //Assert
-		    Assert.That(savedUser.Email, Is.EqualTo(_rvm.Email));
+		    Assert.That(_savedUser.Email, Is.EqualTo(_rvm.Email));
 	    }
 
 	    [Test]
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_GivenName()
 	    {
 		    //Arrange
-
-		    User savedUser = null;
-		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
+			
+		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => _savedUser = x));
 
 		    //Ack
 		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.GivenName, Is.EqualTo(_rvm.GivenName));
+		    Assert.That(_savedUser.GivenName, Is.EqualTo(_rvm.GivenName));
 	    }
 
 	    [Test]
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_LastName()
 	    {
 		    //Arrange
+			
+		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => _savedUser = x));
 
-		    User savedUser = null;
-		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
-
-		    //Ack
-		    _uut.OpretKonto(_rvm);
+			//Ack
+			_uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.LastName, Is.EqualTo(_rvm.LastName));
+		    Assert.That(_savedUser.LastName, Is.EqualTo(_rvm.LastName));
 	    }
 
 	    [Test]
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_Username()
 	    {
 		    //Arrange
-
-		    User savedUser = null;
-		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
+			
+		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => _savedUser = x));
 
 		    //Ack
 		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.Username, Is.EqualTo(_rvm.Username));
+		    Assert.That(_savedUser.Username, Is.EqualTo(_rvm.Username));
 	    }
 	    [Test]
 	    public void OpretKonto_With_Correct_RVM_call_proxy_Right_Password()
 	    {
 		    //Arrange
-
-		    User savedUser = null;
-		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => savedUser = x));
+			
+		    _fakeUserProxy.CreateInstanceAsync(Arg.Do<User>(x => _savedUser = x));
 
 		    //Ack
 		    _uut.OpretKonto(_rvm);
 		    //Assert
 
-		    Assert.That(savedUser.Password, Is.EqualTo(_rvm.Password));
+		    Assert.That(_savedUser.Password, Is.EqualTo(_rvm.Password));
 	    }
 
-
+	   /* [Test]
+	    public void Chexh stort begyn()
+	    {
+		    
+	    }*/
 
 	}
 }

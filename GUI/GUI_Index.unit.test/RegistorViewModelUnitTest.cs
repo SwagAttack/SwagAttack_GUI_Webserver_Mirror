@@ -48,8 +48,8 @@ namespace WebserverUnitTests
 		//Less than 8 charactor
 		[TestCase("AUser", false)]
 		//Between 8 and 20
-		[TestCase("AUsername", true)]
-		public void Username(string username, bool localresult)
+		[TestCase("aUsername", true)]
+		public void Username_validation(string username, bool localresult)
 		{
 			_uut.Username = username;
 
