@@ -36,7 +36,7 @@ namespace GUI_Index.Controllers
                 //find brugeren der har lavet lobby
                 var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
                 //save as a lobby
-                ILobby nyLobby = new Lobby(currentUser)
+                ILobby nyLobby = new Lobby(currentUser.Username)
                 {
                     Id = lobby.Id
                 };
@@ -72,7 +72,7 @@ namespace GUI_Index.Controllers
             //add user to the lobby if it isent on list already.
             if (!_lobbyList.Find(x => x.Id == lobbyId.Id).Usernames.Any(x => x.Contains(currentUser.Username)))
             {
-                _lobbyList.Find(x => x.Id == lobbyId.Id).AddUser(currentUser);
+                _lobbyList.Find(x => x.Id == lobbyId.Id).AddUser(currentUser.Username);
             }
 
             ////go to the lobby
@@ -82,7 +82,7 @@ namespace GUI_Index.Controllers
         public IActionResult ForladLobby(string lobbyId)
         {
             var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
-            _lobbyList.Find(x => x.Id == lobbyId).RemoveUser(currentUser);
+            _lobbyList.Find(x => x.Id == lobbyId).RemoveUser(currentUser.Username);
 
             //need method to check if its admin, and update a new admin.
             if (_lobbyList.Find(x => x.Id == lobbyId).AdminUserName == currentUser.Username)
