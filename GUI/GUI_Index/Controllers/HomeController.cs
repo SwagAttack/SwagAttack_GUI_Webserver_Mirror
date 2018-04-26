@@ -12,11 +12,11 @@ namespace GUI_Index.Controllers
 {
     public class HomeController : Controller, IHomeController
     {
-        private UserProxy _proxy;
+        private IUserProxy _proxy;
 
         public HomeController(IUserProxy userProxy)
         {
-            _proxy = userProxy as UserProxy;
+            _proxy = userProxy;
         }
 
         public IActionResult LogInd()
