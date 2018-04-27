@@ -19,7 +19,7 @@ namespace GUICommLayer.Proxies.Utilities
         private static string _usernameCredentials = "username";
         private static string _passwordCredentials = "password";
 
-        private IClientWrapper _client;
+        private readonly IClientWrapper _client;
         private HttpMethod _method = null;
         private string _requestUri = "";
         private string _uriQuery = "";
@@ -82,13 +82,14 @@ namespace GUICommLayer.Proxies.Utilities
             var request = new HttpRequestMessage
             {
                 Method = _method,
-                RequestUri = new Uri(_requestUri + _uriQuery)
+                RequestUri = new Uri(_client.GetInstance().BaseAddress, _requestUri + _uriQuery),
             };
 
             if (_content != null)
                 request.Content = _content;
 
             request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             if (_authenticationDictionary.Count == 2)
             {
                 request.Headers.Add(_usernameCredentials, _authenticationDictionary[_usernameCredentials]);
