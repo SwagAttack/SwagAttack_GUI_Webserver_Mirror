@@ -32,11 +32,16 @@ namespace GUI_Index
                 options.Filters.Add(new RequireHttpsAttribute());
             });
 
-            services.AddSingleton(s => new Client().GetInstance());
-            services.AddTransient<IUserProxy, UserProxy>(s =>
-            {
-                return new UserProxy(new Client());
-            });
+            services.AddTransient<IClientWrapper, Client>();
+
+            var sp = services.BuildServiceProvider();
+            services.AddTransient<IHttpRequestFactory, HttpRequestFactory>(f =>
+                new HttpRequestFactory(sp.GetService<IClientWrapper>(),
+                    "https://swagattackapi.azurewebsites.net/"));
+
+            services.AddTransient<IUserProxy, UserProxy>();
+
+
             //services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
 

@@ -5,59 +5,44 @@ using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer.Interfaces;
+using GUICommLayer.Proxies.Utilities;
 using Newtonsoft.Json.Linq;
 
 namespace GUICommLayer.Proxies
 {
     public class UserProxy : IUserProxy
     {
-        private static IClientWrapper _client;
+        private readonly IHttpRequestFactory _httpRequestFactory;
 
-        public UserProxy(IClientWrapper client)
+        public UserProxy(IHttpRequestFactory httpRequestFactory)
         {
-            _client = client;
+            _httpRequestFactory = httpRequestFactory;
         }
         
-        public static async Task<IUser> CreateInstance(IUser user)
-        {
-            var jsonObject = Utilities.Utility.ComposeJson(null, null, user);
-
-            var httpContent = new StringContent(jsonObject.ToString());
-            
-            HttpResponseMessage response = await _client.GetInstance().PostAsync("api/User", httpContent);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsAsync<User>();
-            }
-
-            return null;
-        }
-
-        public static async Task<IUser> RequestInstance(string username, string password )
-        {
-            var jsonObject = Utilities.Utility.ComposeJson<IUser>(username, password, null);
-
-            var httpContent = new StringContent(jsonObject.ToString());
-
-            HttpResponseMessage response = await _client.GetInstance().PostAsync("api/User/Login", httpContent);
-
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsAsync<User>();
-            }
-
-            return null;
-        }
-
         public async Task<IUser> CreateInstanceAsync(IUser user)
         {
-            return await CreateInstance(user);
+            var request = _httpRequestFactory.Post("api/User", user);
+            var response = await request.SendAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return response.ReadBodyAsType<User>();           
         }
 
         public async Task<IUser> RequestInstanceAsync(string username, string password)
         {
-            return await RequestInstance(username, password);
+            var request = _httpRequestFactory.Get("api/User/Login").AddAuthentication(username, password);
+            var response = await request.SendAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            return response.ReadBodyAsType<User>();
         }
         
     }

@@ -9,18 +9,13 @@ namespace GUICommLayer.Proxies.Utilities
 {
     public class Client : IClientWrapper
     {
-        private static System.Net.Http.HttpClient _httpClient;
-
-        private Uri _uri = new Uri("https://swagattackapi.azurewebsites.net/");
+        private static HttpClient _httpClient;
 
         public HttpClient GetInstance()
         {
             if (_httpClient == null)
             {
-                _httpClient = new System.Net.Http.HttpClient
-                {
-                    BaseAddress = _uri
-                };
+                _httpClient = new HttpClient();
                 _httpClient.DefaultRequestHeaders.Accept.Clear();
                 _httpClient.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));

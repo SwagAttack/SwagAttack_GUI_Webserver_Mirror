@@ -14,6 +14,7 @@ namespace GUI_Index.Controllers
 {
     public class LobbyController : Controller
     {
+        
         private static List<ILobby> _lobbyList = new List<ILobby>();
         private UserProxy _proxy;
 
@@ -21,7 +22,7 @@ namespace GUI_Index.Controllers
         {
             _proxy = userProxy as UserProxy;
         }
-
+        [HttpGet]
         public IActionResult OpretLobby()
         {
             return View("OpretLobby");
@@ -34,7 +35,8 @@ namespace GUI_Index.Controllers
             try
             {
                 //find brugeren der har lavet lobby
-                var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
+                var currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+
                 //save as a lobby
                 ILobby nyLobby = new Lobby(currentUser.Username)
                 {
@@ -52,7 +54,7 @@ namespace GUI_Index.Controllers
             }
             
         }
-
+        [HttpGet]
         public IActionResult TilslutLobby()
         {
             var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
@@ -65,7 +67,7 @@ namespace GUI_Index.Controllers
         {
             return RedirectToAction("Lobby", model);
         }
-
+        [HttpGet]
         public IActionResult Lobby(LobbyViewModel lobbyId)
         {
             var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
@@ -78,7 +80,7 @@ namespace GUI_Index.Controllers
             ////go to the lobby
             return View(_lobbyList.Find(x => x.Id == lobbyId.Id));
         }
-
+        [HttpGet]
         public IActionResult ForladLobby(string lobbyId)
         {
             var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
