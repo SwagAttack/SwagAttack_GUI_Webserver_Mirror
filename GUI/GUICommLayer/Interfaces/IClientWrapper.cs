@@ -8,6 +8,6 @@ namespace GUICommLayer.Interfaces
         /// Singleton -> returns of system.net.http.httpclient
         /// </summary>
         /// <returns></returns>
-        HttpClient GetInstance(string uri = null);
+        HttpClient GetInstance();
     }
 }

@@ -14,59 +14,56 @@ namespace GUICommLayer.Proxies.Utilities
     /// Inspired by:
     /// https://github.com/TahirNaushad/Fiver.Api.HttpClient/blob/master/Fiver.Api.HttpClient/HttpRequestBuilder.cs
     /// </summary>
-    public class HttpRequestBuilder
+    public class HttpRequestBuilder : IHttpRequestBuilder
     {
         private static string _usernameCredentials = "username";
         private static string _passwordCredentials = "password";
 
         private readonly IClientWrapper _client;
-        private HttpMethod _method = null;
-        private string _requestUri = "";
+        private readonly HttpMethod _method = null;
+        private string _requestUriPath = "";
+        private string _requestUriBase = "";
         private string _uriQuery = "";
         private HttpContent _content = null;
         private readonly Dictionary<string, string> _authenticationDictionary;
 
         public HttpMethod Method => _method;
-        public string RequestUri => _requestUri;
+        public string RequestUriPath => _requestUriPath;
         public string UriQuery => _uriQuery;
         public HttpContent Content => _content;
         public Dictionary<string, string> AuthenticationDictionary => _authenticationDictionary;
 
-        public HttpRequestBuilder(IClientWrapper client)
+        public HttpRequestBuilder(IClientWrapper client, HttpMethod method, string baseUri)
         {
+            _method = method ?? throw new ArgumentNullException(nameof(method));
+            _requestUriBase = baseUri ?? throw new ArgumentNullException(nameof(baseUri));
             _client = client;
             _authenticationDictionary = new Dictionary<string, string>();
         }
 
-        public HttpRequestBuilder AddMethod(HttpMethod method)
+        public IHttpRequestBuilder AddUriPath(string path)
         {
-            _method = method;
+            _requestUriPath = path;
             return this;
         }
 
-        public HttpRequestBuilder AddRequestUri(string requestUri)
-        {
-            _requestUri = requestUri;
-            return this;
-        }
-
-        public HttpRequestBuilder AddContent(object content)
+        public IHttpRequestBuilder AddContent(object content)
         {
             _content = new JsonContent(content);
             return this;
         }
 
-        public HttpRequestBuilder AddUriQuery(string name, string value)
+        public IHttpRequestBuilder AddUriQuery(string name, string value)
         {
             var builder = new UriBuilder { Query = _uriQuery };
             var query = HttpUtility.ParseQueryString(builder.Query);
             query[name] = value;
             builder.Query = query.ToString();
-            _uriQuery += builder.Query;
+            _uriQuery = builder.Query;
             return this;
         }
 
-        public HttpRequestBuilder AddAuthentication(string username, string password)
+        public IHttpRequestBuilder AddAuthentication(string username, string password)
         {
             _authenticationDictionary[_usernameCredentials] = username;
             _authenticationDictionary[_passwordCredentials] = password;
@@ -75,21 +72,21 @@ namespace GUICommLayer.Proxies.Utilities
 
         public async Task<HttpResponseMessage> SendAsync()
         {
-            // Check required arguments
-            EnsureArguments();
+            // If request uri is null throw
+            if (string.IsNullOrEmpty(_requestUriPath))
+                throw new ArgumentNullException(nameof(_requestUriPath));
 
             // Set up request
             var request = new HttpRequestMessage
             {
                 Method = _method,
-                RequestUri = new Uri(_client.GetInstance().BaseAddress, _requestUri + _uriQuery),
+                RequestUri = new Uri(_requestUriBase + _requestUriPath + _uriQuery),
             };
 
             if (_content != null)
                 request.Content = _content;
 
             request.Headers.Accept.Clear();
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             if (_authenticationDictionary.Count == 2)
             {
                 request.Headers.Add(_usernameCredentials, _authenticationDictionary[_usernameCredentials]);
@@ -101,15 +98,6 @@ namespace GUICommLayer.Proxies.Utilities
         }
 
         #region Utility
-
-        private void EnsureArguments()
-        {
-            if (_method == null)
-                throw new ArgumentNullException(nameof(_method));
-
-            if (string.IsNullOrEmpty(_requestUri))
-                throw new ArgumentNullException(nameof(_requestUri));
-        }
 
         private class JsonContent : StringContent
         {

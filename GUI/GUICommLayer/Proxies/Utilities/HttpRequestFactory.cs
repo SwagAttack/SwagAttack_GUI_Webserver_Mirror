@@ -7,27 +7,26 @@ namespace GUICommLayer.Proxies.Utilities
 {
     public class HttpRequestFactory : IHttpRequestFactory
     {
-        public static IClientWrapper Client { get; set; }
+        public IClientWrapper Client { get; }
+        public string BaseAddress { get; }
 
-        public HttpRequestFactory(IClientWrapper client)
+        public HttpRequestFactory(IClientWrapper client, string baseAddress)
         {
+            BaseAddress = baseAddress ?? throw new ArgumentNullException(nameof(baseAddress));
             Client = client ?? throw new ArgumentNullException(nameof(client));
         }
 
-        public HttpRequestBuilder Get(string uri)
+        public IHttpRequestBuilder Get(string path)
         {
-            var builder = new HttpRequestBuilder(Client)
-                .AddMethod(HttpMethod.Get)
-                .AddRequestUri(uri);
-
+            var builder = new HttpRequestBuilder(Client, HttpMethod.Get, BaseAddress);
+            builder.AddUriPath(path);
             return builder;
         }
 
-        public HttpRequestBuilder Post(string uri, object obj = null)
+        public IHttpRequestBuilder Post(string path, object obj = null)
         {
-            var builder = new HttpRequestBuilder(Client)
-                .AddMethod(HttpMethod.Post)
-                .AddRequestUri(uri);
+            var builder = new HttpRequestBuilder(Client, HttpMethod.Post, BaseAddress)
+                .AddUriPath(path);
 
             if (obj != null)
                 builder.AddContent(obj);
@@ -35,11 +34,10 @@ namespace GUICommLayer.Proxies.Utilities
             return builder;
         }
 
-        public HttpRequestBuilder Put(string uri, object obj = null)
+        public IHttpRequestBuilder Put(string path, object obj = null)
         {
-            var builder = new HttpRequestBuilder(Client)
-                .AddMethod(HttpMethod.Put)
-                .AddRequestUri(uri);
+            var builder = new HttpRequestBuilder(Client, HttpMethod.Put, BaseAddress)
+                .AddUriPath(path);
 
             if (obj != null)
                 builder.AddContent(obj);
@@ -47,12 +45,10 @@ namespace GUICommLayer.Proxies.Utilities
             return builder;
         }
 
-        public HttpRequestBuilder Delete(string uri)
+        public IHttpRequestBuilder Delete(string path)
         {
-            var builder = new HttpRequestBuilder(Client)
-                .AddMethod(HttpMethod.Delete)
-                .AddRequestUri(uri);
-
+            var builder = new HttpRequestBuilder(Client, HttpMethod.Delete, BaseAddress)
+                .AddUriPath(path);
             return builder;
         }
     }

@@ -4,9 +4,10 @@ namespace GUICommLayer.Interfaces
 {
     public interface IHttpRequestFactory
     {
-        HttpRequestBuilder Get(string uri);
-        HttpRequestBuilder Post(string uri, object obj = null);
-        HttpRequestBuilder Put(string uri, object obj = null);
-        HttpRequestBuilder Delete(string uri);
+        string BaseAddress { get; }
+        IHttpRequestBuilder Get(string path);
+        IHttpRequestBuilder Post(string path, object obj = null);
+        IHttpRequestBuilder Put(string path, object obj = null);
+        IHttpRequestBuilder Delete(string path);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Domain.Models;
@@ -10,7 +11,7 @@ using NUnit.Framework;
 
 namespace GUICommLayerUnitTests.Proxies
 {
-    // Bemærk at alle nedenstående tests er passed d. 27/04 14.00
+    // Bemærk at alle nedenstående tests er passed d. 27/04 16.00
     // Attributter er blevet fjernet for at gøre Travis glad
     public class HttpRequestBuilderUnitTests
     {
@@ -31,7 +32,7 @@ namespace GUICommLayerUnitTests.Proxies
 
             _fakeClient = Substitute.For<IClientWrapper>();
             _fakeClient.GetInstance().Returns(_client);
-            _uut = new HttpRequestBuilder(_fakeClient);
+           
         }
 
         public void TearDown()
@@ -41,8 +42,8 @@ namespace GUICommLayerUnitTests.Proxies
 
         public void GetRequest_ReturnsCorrectInfo()
         {
-            _uut.AddMethod(HttpMethod.Get)
-                .AddRequestUri("/api/User/Login")
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Get, "http://localhost:50244");
+            _uut.AddUriPath("/api/User/Login")
                 .AddAuthentication("jonasna1993", "tablespoon1335");
 
             var response = _uut.SendAsync().Result;
@@ -52,8 +53,8 @@ namespace GUICommLayerUnitTests.Proxies
 
         public void GetRequest_ReturnsCorrectObject()
         {
-            _uut.AddMethod(HttpMethod.Get)
-                .AddRequestUri("/api/User/Login")
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Get, "http://localhost:50244");
+            _uut.AddUriPath("/api/User/Login")
                 .AddAuthentication("jonasna1993", "tablespoon1335");
 
             var response = _uut.SendAsync().Result;
@@ -75,9 +76,8 @@ namespace GUICommLayerUnitTests.Proxies
                 Password = "MyRandomPassword",
                 Username = "DerpBoy1335"
             };
-
-            _uut.AddMethod(HttpMethod.Post)
-                .AddRequestUri("/api/User")
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Post, "http://localhost:50244");
+            _uut.AddUriPath("/api/User")
                 .AddContent(userToCreate);
 
             var response = _uut.SendAsync().Result;
@@ -99,9 +99,8 @@ namespace GUICommLayerUnitTests.Proxies
                 Password = "MyRandomPassword",
                 Username = "DerpBoy1335"
             };
-
-            _uut.AddMethod(HttpMethod.Put)
-                .AddRequestUri("/api/User")
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Put, "http://localhost:50244");
+            _uut.AddUriPath("/api/User")
                 .AddAuthentication(userToUpdate.Username, userToUpdate.Password)
                 .AddContent(userToUpdate);
 
@@ -113,6 +112,57 @@ namespace GUICommLayerUnitTests.Proxies
 
 
             Assert.That(user.GivenName == "ThisIsADopeBoy");
+        }
+
+        public void AddQuery_ReturnsCorrectObject()
+        {
+            string username = "DerpBoy1335";
+            string password = "MyRandomPassword";
+
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Post, "http://localhost:50244");
+            _uut.AddUriPath("/api/Lobby/Create").AddAuthentication(username, password).AddUriQuery("lobbyId", "MyLobby");
+
+            var response = _uut.SendAsync().Result;
+
+            Assert.That(response.IsSuccessStatusCode);
+
+            var lobby = response.ReadBodyAsType<Lobby>();
+
+            Assert.That(lobby.Id == "MyLobby");
+        }
+
+        public void AddQuery_ReturnsCorrectObject_VersionTwo()
+        {
+            string username = "jonasna1993";
+            string password = "tablespoon1335";
+
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Post, "http://localhost:50244");
+            _uut.AddUriPath("/api/Lobby/Join").AddAuthentication(username, password).AddUriQuery("lobbyId", "MyLobby");
+
+            var response = _uut.SendAsync().Result;
+
+            Assert.That(response.IsSuccessStatusCode);
+
+            var lobby = response.ReadBodyAsType<Lobby>();
+
+            Assert.That(lobby.Id == "MyLobby");
+        }
+
+        public void AddQuery_ReturnsCorrectObject_VersionThree()
+        {
+            string username = "jonasna1993";
+            string password = "tablespoon1335";
+
+            _uut = new HttpRequestBuilder(_fakeClient, HttpMethod.Post, "http://localhost:50244");
+            _uut.AddUriPath("/api/Lobby/Leave").AddAuthentication(username, password).AddUriQuery("lobbyId", "MyLobby");
+
+            var response = _uut.SendAsync().Result;
+
+            Assert.That(response.IsSuccessStatusCode);
+
+            var lobby = response.ReadBodyAsType<Lobby>();
+
+            Assert.That(!lobby.Usernames.Contains(username));
         }
     }
 
