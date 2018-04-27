@@ -48,7 +48,7 @@ namespace WebserverUnitTests
         //public void HomeControllerOpretIncorrectUser_ExceptionThrownFromDomainLayer()
         //{
         //    var uut = new KontoController(FakeSwagCommunication);
-            
+
         //    Assert.Throws<ArgumentException>(() =>
         //    {
         //        var wrongUser = new User() { Username = "†gagge1233121" };
@@ -56,14 +56,13 @@ namespace WebserverUnitTests
         //    });
         //}
 
-        //[Test]
-        //public void HomeControllerPostLogInd_ViewNameCorrect()
-        //{
-        //    var uut = new HomeController(FakeSwagCommunication);
-        //    var result = uut.PostLogInd() as ViewResult;
+        [Test]
+        public void HomeControllerPostLogInd_ViewNameCorrect()
+        {
+            var uut = new HomeController(FakeSwagCommunication);
+            var result = uut.PostLogInd() as ViewResult;
 
-
-        //    Assert.AreEqual("PostLogInd", result.ViewName);
-        //}
+            Assert.AreEqual("PostLogInd", result.ViewName);
+        }
     }
 }

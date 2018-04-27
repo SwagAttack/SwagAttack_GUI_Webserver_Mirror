@@ -79,7 +79,8 @@ namespace GUI_Index.Controllers
 
         public IActionResult PostLogInd()
         {
-            ViewData.Model = HttpContext.Session.GetObjectFromJson<User>("user");
+            if (HttpContext != null)
+                ViewData.Model = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
             return View("PostLogInd");
         }
 
