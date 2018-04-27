@@ -37,10 +37,8 @@ namespace GUI_Index.Controllers
             
             try
             {
-                var currentUser = _userSession.User;
-                _userSession.
                 //find brugeren der har lavet lobby
-                //var currentUser = SessionExtension.GetObjectFromJson<User>(, "user");
+                var currentUser = _userSession.User;
 
                 //save as a lobby
                 ILobby nyLobby = new Lobby(currentUser.Username)

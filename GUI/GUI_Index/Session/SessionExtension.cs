@@ -33,15 +33,6 @@ namespace GUI_Index.Session
         }
     }
 
-    //public static class SessionExtensions
-    //{
-    //    public static User GetObjectFromJson<User>(
-    //        this ISession sesson, string json) where User : new()
-    //    {
-    //        return new User(); // Dummy extension method just to test OP's code
-    //    }
-    //}
-
     public static class SessionExtension
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)
