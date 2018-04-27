@@ -10,6 +10,8 @@ using GUICommLayer.Proxies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using GUI_Index.Hubs;
+using GUI_Index.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace GUI_Index
 {
@@ -40,7 +42,10 @@ namespace GUI_Index
                     "https://swagattackapi.azurewebsites.net/"));
 
             services.AddTransient<IUserProxy, UserProxy>();
-
+            //for sessions
+            services.AddScoped<IUserSession, UserSession>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //
 
             //services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");

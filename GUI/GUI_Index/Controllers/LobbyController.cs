@@ -14,13 +14,16 @@ namespace GUI_Index.Controllers
 {
     public class LobbyController : Controller
     {
-        
+        //sessions
+        private readonly IUserSession _userSession;
+        //
         private static List<ILobby> _lobbyList = new List<ILobby>();
         private UserProxy _proxy;
 
-        public LobbyController(IUserProxy userProxy)
+        public LobbyController(IUserProxy userProxy, IUserSession userSession)
         {
             _proxy = userProxy as UserProxy;
+            _userSession = userSession;
         }
         [HttpGet]
         public IActionResult OpretLobby()
@@ -31,18 +34,19 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult OpretLobby(LobbyViewModel lobby)
         {
-
+            
             try
             {
+                var currentUser = _userSession.User;
                 //find brugeren der har lavet lobby
-                var currentUser = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
+                //var currentUser = SessionExtension.GetObjectFromJson<User>(, "user");
 
                 //save as a lobby
                 ILobby nyLobby = new Lobby(currentUser.Username)
                 {
                     Id = lobby.Id
                 };
-                SessionExtension.SetObjectAsJson(HttpContext.Session, lobby.Id, nyLobby);
+                //SessionExtension.SetObjectAsJson(HttpContext.Session, lobby.Id, nyLobby);
                 //add to the list
                 _lobbyList.Add(nyLobby);
                 return RedirectToAction("Lobby","Lobby",lobby);

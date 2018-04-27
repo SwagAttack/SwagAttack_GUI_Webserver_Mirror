@@ -82,7 +82,6 @@ namespace GUI_Index.Controllers
             return View("PostLogInd");
         }
 
-       
     }
 }
 

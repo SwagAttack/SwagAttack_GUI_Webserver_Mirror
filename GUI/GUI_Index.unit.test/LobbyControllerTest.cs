@@ -8,6 +8,7 @@ using GUI_Index.Session;
 using GUI_Index.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -18,7 +19,7 @@ namespace WebserverUnitTests
     {
 
         private IUserProxy FakeSwagCommunication = Substitute.For<IUserProxy>();
-        private LobbyViewModel lobbyViewModel = new LobbyViewModel();
+        private LobbyViewModel _lobbyViewModel = new LobbyViewModel();
         private LobbyController uut;
 
         private User _savedUser = new User()
@@ -35,22 +36,27 @@ namespace WebserverUnitTests
         public void setup()
         {
 
-            lobbyViewModel.Id = "test";
-            uut = new LobbyController(FakeSwagCommunication);
-
+            _lobbyViewModel.Id = "test";
+            
         }
 
         [Test]
         public void TestIsWorking()
-        {
+        {            
+            
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication,mockUserSession.Object);
 
-            SessionExtension.SetObjectAsJson(uut.HttpContext.Session, "user", _savedUser);
+            // Act
+            var result = sut.OpretLobby() as ViewResult;
 
-            Assert.AreEqual(1, 1);
+            // Assert
 
-            //ViewResult result = uut.OpretLobby(lobbyViewModel) as ViewResult;
+            var user = (User)result.Model;
+            Assert.AreEqual(_savedUser.Username, user.Username);
 
-            //Assert.AreEqual("OpretLobby", result.ViewName);
         }
     }
 }

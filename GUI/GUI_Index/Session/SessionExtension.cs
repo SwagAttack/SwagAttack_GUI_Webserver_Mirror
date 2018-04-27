@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -9,6 +10,33 @@ using Newtonsoft.Json;
 
 namespace GUI_Index.Session
 {
+
+    public interface IUserSession
+    {
+        User User { get; }
+    }
+
+    public class UserSession : IUserSession
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public UserSession(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        public User User => _httpContextAccessor.HttpContext.Session.GetObjectFromJson<User>("user");
+    }
+
+    //public static class SessionExtensions
+    //{
+    //    public static User GetObjectFromJson<User>(
+    //        this ISession sesson, string json) where User : new()
+    //    {
+    //        return new User(); // Dummy extension method just to test OP's code
+    //    }
+    //}
+
     public static class SessionExtension
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)
