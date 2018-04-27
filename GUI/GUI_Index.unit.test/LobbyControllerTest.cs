@@ -41,7 +41,7 @@ namespace WebserverUnitTests
         }
 
         [Test]
-        public void TestIsWorking()
+        public void OpretLobby_Post()
         {            
             
             // Arrange
@@ -50,13 +50,31 @@ namespace WebserverUnitTests
             var sut = new LobbyController(FakeSwagCommunication,mockUserSession.Object);
 
             // Act
+            var result = sut.OpretLobby(_lobbyViewModel) as ViewResult;
+
+            // Assert
+
+            //var user = (User)result.Model;
+            Assert.AreEqual("Lobby",result.ViewName);
+
+        }
+
+        [Test]
+        public void OpretLobby_GoToOpretLobby()
+        {
+
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication, mockUserSession.Object);
+
+            // Act
             var result = sut.OpretLobby() as ViewResult;
 
             // Assert
 
-            var user = (User)result.Model;
-            Assert.AreEqual(_savedUser.Username, user.Username);
-
+            //var user = (User)result.Model;
+            Assert.AreEqual("OpretLobby", result.ViewName);
         }
     }
 }

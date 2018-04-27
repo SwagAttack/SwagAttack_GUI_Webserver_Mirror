@@ -13,7 +13,8 @@ namespace GUI_Index.Session
 
     public interface IUserSession
     {
-        User User { get; }
+        User User { get; set; }
+
     }
 
     public class UserSession : IUserSession
@@ -25,7 +26,11 @@ namespace GUI_Index.Session
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public User User => _httpContextAccessor.HttpContext.Session.GetObjectFromJson<User>("user");
+        public User User
+        {
+            get => _httpContextAccessor.HttpContext.Session.GetObjectFromJson<User>("user");
+            set => _httpContextAccessor.HttpContext.Session.SetObjectAsJson("user", value);
+        }
     }
 
     //public static class SessionExtensions
