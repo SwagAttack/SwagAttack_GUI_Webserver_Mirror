@@ -16,7 +16,7 @@ namespace WebserverIntegrationTests
         [Test]
         public void HomeControllerLogInd_ViewNameCorrect()
         {
-            var uut = new HomeController(new UserProxy(new Client()));
+            var uut = new HomeController(new UserProxy(new HttpRequestFactory(new Client(), "https://swagattackapi.azurewebsites.net/")));
             var result = uut.LogInd() as ViewResult;
             
             Assert.AreEqual("LogInd", result.ViewName);
@@ -25,7 +25,7 @@ namespace WebserverIntegrationTests
         [Test]
         public void HomeControllerLogIndWithIncorrectUser_ViewNameCorrect()
         {
-            var uut = new HomeController(new UserProxy(new Client()));
+            var uut = new HomeController(new UserProxy(new HttpRequestFactory(new Client(), "https://swagattackapi.azurewebsites.net/")));
             var wrongUser = new User();
             var result = uut.LogInd(wrongUser) as ViewResult;
             
@@ -57,7 +57,7 @@ namespace WebserverIntegrationTests
         [Test]
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
-            var uut = new HomeController(new UserProxy(new Client()));
+            var uut = new HomeController(new UserProxy(new HttpRequestFactory(new Client(), "https://swagattackapi.azurewebsites.net/")));
             var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
 
 
