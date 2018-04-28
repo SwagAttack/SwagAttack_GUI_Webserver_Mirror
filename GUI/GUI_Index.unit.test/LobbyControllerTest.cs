@@ -35,11 +35,13 @@ namespace WebserverUnitTests
         {
 
             _lobbyViewModel.Id = "test";
-            
+            _lobbyViewModel.Admin = _savedUser.Username;
+            _lobbyViewModel.Usernames.Add(_savedUser.Username);
+
         }
 
         [Test]
-        public void OpretLobby_PostRedirectToAction()
+        public void OpretLobby_PostRedirectToAction_Redirects()
         {            
             // Arrange
             var mockUserSession = new Mock<IUserSession>();
@@ -54,7 +56,22 @@ namespace WebserverUnitTests
         }
 
         [Test]
-        public void OpretLobby_GoToOpretLobby()
+        public void OpretLobby_PostRedirectToAction_CorrectViewModel()
+        {
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication, mockUserSession.Object);
+
+            // Act
+            var result = sut.OpretLobby(_lobbyViewModel) as ViewResult;
+
+            // Assert
+            Assert.IsInstanceOf<LobbyViewModel>(result.Model);
+        }
+
+        [Test]
+        public void OpretLobby_GoToOpretLobby_ReturnsCorrectViewName()
         {
 
             // Arrange
@@ -70,7 +87,7 @@ namespace WebserverUnitTests
         }
 
         [Test]
-        public void TilslutLobby_GotoTilslutLobby()
+        public void TilslutLobby_GotoTilslutLobby_ReturnsCorrectViewModel()
         {
             // Arrange
             var mockUserSession = new Mock<IUserSession>();
@@ -81,7 +98,8 @@ namespace WebserverUnitTests
             var result = sut.TilslutLobby() as ViewResult;
 
             // Assert
-            Assert.AreEqual("Tilslut Lobby", result.ViewName);
+            Assert.IsInstanceOf<TilslutLobbyViewModel>(result.Model);
+
         }
 
     }

@@ -7,5 +7,6 @@ namespace GUI_Index.ViewModels
 {
     public class TilslutLobbyViewModel
     {
+        public List<string> Lobbies { get; set; }
     }
 }
