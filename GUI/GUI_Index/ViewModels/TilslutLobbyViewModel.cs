@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 
 namespace GUI_Index.ViewModels
 {
-    public class LobbyViewModel
+    public class TilslutLobbyViewModel
     {
-        public string Id { get; set; }
-        public List<string> Usernames { get; set; }
     }
 }

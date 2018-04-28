@@ -45,12 +45,15 @@ namespace GUI_Index.Controllers
                 {
                     Id = lobby.Id
                 };
-                //SessionExtension.SetObjectAsJson(HttpContext.Session, lobby.Id, nyLobby);
+
                 //add to the list
                 _lobbyList.Add(nyLobby);
 
                 LobbyViewModel returns = new LobbyViewModel();
                 returns.Id = nyLobby.Id;
+                returns.Admin = currentUser.Username;
+                returns.Usernames.Add(currentUser.Username);
+
                 return RedirectToAction("Lobby","Lobby",returns);
 
             }
@@ -63,9 +66,13 @@ namespace GUI_Index.Controllers
         [HttpGet]
         public IActionResult TilslutLobby()
         {
-            var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
-
-            return View(_lobbyList);
+            //get lobby list
+            TilslutLobbyViewModel returns = new TilslutLobbyViewModel();
+            foreach (var varLobby in _lobbyList)
+            {
+                returns.Lobbies.Add(varLobby.Id);
+            }
+            return View(returns);
         }
 
         [HttpPost]
@@ -74,17 +81,16 @@ namespace GUI_Index.Controllers
             return RedirectToAction("Lobby", model);
         }
         [HttpGet]
-        public IActionResult Lobby(LobbyViewModel lobbyId)
+        public IActionResult Lobby(LobbyViewModel model)
         {
             var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
             //add user to the lobby if it isent on list already.
-            if (!_lobbyList.Find(x => x.Id == lobbyId.Id).Usernames.Any(x => x.Contains(currentUser.Username)))
+            if (!_lobbyList.Find(x => x.Id == model.Id).Usernames.Any(x => x.Contains(currentUser.Username)))
             {
-                _lobbyList.Find(x => x.Id == lobbyId.Id).AddUser(currentUser.Username);
+                _lobbyList.Find(x => x.Id == model.Id).AddUser(currentUser.Username);
             }
 
-            ////go to the lobby
-            return View(_lobbyList.Find(x => x.Id == lobbyId.Id));
+            return View(model);
         }
         [HttpGet]
         public IActionResult ForladLobby(string lobbyId)

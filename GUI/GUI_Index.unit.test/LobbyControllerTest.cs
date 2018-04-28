@@ -20,8 +20,6 @@ namespace WebserverUnitTests
 
         private IUserProxy FakeSwagCommunication = Substitute.For<IUserProxy>();
         private LobbyViewModel _lobbyViewModel = new LobbyViewModel();
-        private LobbyController uut;
-
         private User _savedUser = new User()
 
         {
@@ -41,9 +39,8 @@ namespace WebserverUnitTests
         }
 
         [Test]
-        public void OpretLobby_Post()
+        public void OpretLobby_PostRedirectToAction()
         {            
-            
             // Arrange
             var mockUserSession = new Mock<IUserSession>();
             mockUserSession.Setup(x => x.User).Returns(_savedUser);
@@ -54,7 +51,6 @@ namespace WebserverUnitTests
 
             // Assert
             Assert.IsInstanceOf<RedirectToActionResult>(result);
-
         }
 
         [Test]
@@ -70,9 +66,23 @@ namespace WebserverUnitTests
             var result = sut.OpretLobby() as ViewResult;
 
             // Assert
-            
-            var user = (User)result.Model;
-            //Assert.AreEqual("OpretLobby", result.ViewName);
+            Assert.AreEqual("OpretLobby", result.ViewName);
         }
+
+        [Test]
+        public void TilslutLobby_GotoTilslutLobby()
+        {
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication, mockUserSession.Object);
+
+            // Act
+            var result = sut.TilslutLobby() as ViewResult;
+
+            // Assert
+            Assert.AreEqual("Tilslut Lobby", result.ViewName);
+        }
+
     }
 }

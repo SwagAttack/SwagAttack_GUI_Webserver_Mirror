@@ -6,11 +6,9 @@ using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-//from: https://benjii.me/2016/07/using-sessions-and-httpcontext-in-aspnetcore-and-mvc-core/
-
 namespace GUI_Index.Session
 {
-
+    //make abstraction for testing purposes
     public interface IUserSession
     {
         User User { get; set; }
@@ -33,6 +31,7 @@ namespace GUI_Index.Session
         }
     }
 
+    //from: https://benjii.me/2016/07/using-sessions-and-httpcontext-in-aspnetcore-and-mvc-core/
     public static class SessionExtension
     {
         public static void SetObjectAsJson(this ISession session, string key, object value)
