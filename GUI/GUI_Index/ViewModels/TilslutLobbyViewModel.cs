@@ -7,6 +7,6 @@ namespace GUI_Index.ViewModels
 {
     public class TilslutLobbyViewModel
     {
-        public List<string> Lobbies { get; set; }
+        public List<string> Lobbies { get; set; } = new List<string>();
     }
 }
