@@ -31,7 +31,7 @@ namespace GUI_Index
             services.AddMvc();
             services.Configure<MvcOptions>(options =>
             {
-                options.Filters.Add(new RequireHttpsAttribute());
+                //options.Filters.Add(new RequireHttpsAttribute());
             });
 
             services.AddTransient<IClientWrapper, Client>();
@@ -42,6 +42,8 @@ namespace GUI_Index
                     "https://swagattackapi.azurewebsites.net/"));
 
             services.AddTransient<IUserProxy, UserProxy>();
+            services.AddTransient<ILobbyProxy, LobbyProxy>();
+
             //for sessions
             services.AddScoped<IUserSession, UserSession>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -72,8 +74,8 @@ namespace GUI_Index
             app.UseSession();
             app.UseStaticFiles();
 
-            var options = new RewriteOptions().AddRedirectToHttps();
-            app.UseRewriter(options);
+            //var options = new RewriteOptions().AddRedirectToHttps();
+            //app.UseRewriter(options);
 
             app.UseSignalR(routes =>
             {
