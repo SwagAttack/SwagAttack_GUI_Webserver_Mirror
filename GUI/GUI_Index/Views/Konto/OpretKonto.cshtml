@@ -4,127 +4,117 @@
     ViewData["Title"] = "OpretKonto";
 }
 
-<style>
-    label {
-        font-weight: bold;
-        display: block;
-    }
-</style>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="absolute-center is-responsive">
+<div class="container"> 
+    <div class="row">
+        <div class="absolute-center is-responsive" align="right">
+            <form method="post" asp-controller="Konto" asp-action="OpretKonto">
+                <div asp-validation-summary="All"></div>
+                <!--Username -->
+                <div class="form-group row">
+                    <label asp-for="Username" class="col-sm-5 col-form-label">Brugernavn</label>
+                    <div class="col-sm-6" align="left">
+                        <input asp-for="Username" placeholder="E.g. 'Vladimir'" />
+                        <span asp-validation-for="Username"></span>
+                    </div>
+                </div>
 
-				<form method="post" asp-controller="Konto" asp-action="OpretKonto">
-					<div asp-validation-summary="All"></div>
-					<div>
-						<!--Username -->
-						<div class="form-group row">
-							<label asp-for="Username"></label>
-							<div class="col-sm-8">
-								<input asp-for="Username" placeholder="E.g. 'Vladimir'" />
-								<span asp-validation-for="Username"></span>
-							</div>
-						</div>
+                <!--Given name -->
+                <div class="form-group row">
+                    <label asp-for="GivenName" class="col-sm-5 col-form-label">Fornavn</label>
+                    <div class="col-sm-6" align="left">
+                        <input asp-for="GivenName" placeholder="E.g. 'Putin'" />
+                        <span asp-validation-for="GivenName"></span>
+                    </div>
+                </div>
 
-						<!--Given name -->
-						<div class="form-group row">
-							<label asp-for="GivenName"></label>
-							<div class="col-sm-8">
-								<input asp-for="GivenName" placeholder="E.g. 'Putin'" />
-								<span asp-validation-for="GivenName"></span>
-							</div>
-						</div>
+                <!--Last name -->
+                <div class="form-group row">
+                    <label asp-for="LastName" class="col-sm-5 col-form-label">Efternavn</label>
+                    <div class="col-sm-6" align="left">
+                        <input asp-for="LastName" placeholder="E.g. 'swagmeister5000'" />
+                        <span asp-validation-for="LastName"></span>
+                    </div>
+                </div>
 
-						<!--Last name -->
-						<div class="form-group row">
-							<label asp-for="LastName"></label>
-							<div class="col-sm-8">
-								<input asp-for="LastName" placeholder="E.g. 'swagmeister5000'" />
-								<span asp-validation-for="LastName"></span>
-							</div>
-						</div>
+                <!-- Email -->
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-sm-5 col-form-label">E-mail</label>
+                    <div class="col-sm-6" align="left">
+                        <input asp-for="Email" placeholder="E.g. 'swag@swagattack.com'" />
+                        <span asp-validation-for="Email"></span>
+                    </div>
+                </div>
 
-						<!-- Email -->
-						<div class="form-group row">
-							<label asp-for="Email"></label>
-							<div class="col-sm-8">
-								<input asp-for="Email" placeholder="E.g. 'swag@swagattack.com'" />
-								<span asp-validation-for="Email"></span>
-							</div>
-						</div>
-						
-						<!-- Password -->
-						<div class="form-group row">
-							<label asp-for="Password"></label>
-							<div class="col-sm-8">
-								<input asp-for="Password" placeholder="Something unguessable..." />
-								<span asp-validation-for="Password"></span>
-							</div>
-						</div>
+                <!-- Password -->
+                <div class="form-group row">
+                    <label asp-for="Password" class="col-sm-5 col-form-label">Password</label>
+                    <div class="col-sm-6" align="left">
+                        <input asp-for="Password" placeholder="Something unguessable..." />
+                        <span asp-validation-for="Password"></span>
+                    </div>
+                </div>
 
-						<!--Confirm password -->
-						<div class="form-group row">
-							<label asp-for="ConfirmPassword"></label>
-							<div class="col-sm-8">
-								<input asp-for="ConfirmPassword" placeholder="Type password again" />
-								<span asp-validation-for="ConfirmPassword"></span>
-							</div>
-						</div>
+                <!--Confirm password -->
+                <div class="form-group row">
+                    <label asp-for="ConfirmPassword" class="col-sm-5 col-form-label">Gentag password</label>
+                    <div class="col-sm-6" align="left">
+                        <input asp-for="ConfirmPassword" placeholder="Type password again" />
+                        <span asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                </div>
 
-					</div>
-					<!-- buttoms-->
-					<div>
-						<div class="col-sm-10 offset-sm-2">
-							<div class=".btn-group-vertical">
-								<input type="Submit" value="Opret konto" />
-								<button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Tilbage</button>
-							</div>
-						</div>
-					</div>
-
-				</form>
-			</div>
-		</div>
-	</div>
+                <!-- buttoms-->
+                <div class="form-group row">
+                <div class="col-sm-6 offset-sm-5" align="left">
+                    <div class=".btn-group-vertical">
+                        <input type="Submit" class="btn btn-post" value="Opret konto" />
+                        <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Tilbage</button>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 @*<div class="container">
         <div class="row">
             <div class="absolute-center is-responsive">
                 <form method="post" formaction="@Url.Action("OpretKonto", "Home")">
                     <div class="form-group row">
-                        <label for="GivenName" class="col-sm-2 col-form-label">Fornavn</label>
-                        <div class="col-sm-10">
+                        <label for="GivenName" class="col-sm-6 col-form-label">Fornavn</label>
+                        <div class="col-sm-6">
                             <input type="text" class="form-control" name="GivenName" placeholder="E.g. 'Vladimir'">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="LastName" class="col-sm-2 col-form-label">Efternavn</label>
-                        <div class="col-sm-10">
+                        <label for="LastName" class="col-sm-6 col-form-label">Efternavn</label>
+                        <div class="col-sm-6">
                             <input type="text" class="form-control" name="LastName" placeholder="E.g. 'Putin'">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Username" class="col-sm-2 col-form-label">Brugernavn</label>
-                        <div class="col-sm-10">
+                        <label for="Username" class="col-sm-6 col-form-label">Brugernavn</label>
+                        <div class="col-sm-6">
                             <input type="text" class="form-control" name="Username" placeholder="E.g. 'swagmeister5000'">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="id" class="col-sm-2 col-form-label">E-mail</label>
-                        <div class="col-sm-10">
+                        <label for="id" class="col-sm-6 col-form-label">E-mail</label>
+                        <div class="col-sm-6">
                             <input type="email" class="form-control" name="Email" placeholder="E.g. 'swag@swagattack.com'">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="Password" class="col-sm-2 col-form-label">Password</label>
-                        <div class="col-sm-10">
+                        <label for="Password" class="col-sm-6 col-form-label">Password</label>
+                        <div class="col-sm-6">
                             <input type="password" class="form-control" name="Password" placeholder="Something unguessable...">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <div class="col-sm-10 offset-sm-2">
+                        <div class="col-sm-6 offset-sm-2">
                             <div class=".btn-group-vertical">
                                 <button type="submit" class="btn btn-post">Opret konto</button>
                                 <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Tilbage</button>
