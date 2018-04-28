@@ -48,7 +48,7 @@ namespace WebserverUnitTests
         //public void HomeControllerOpretIncorrectUser_ExceptionThrownFromDomainLayer()
         //{
         //    var uut = new KontoController(FakeSwagCommunication);
-            
+
         //    Assert.Throws<ArgumentException>(() =>
         //    {
         //        var wrongUser = new User() { Username = "†gagge1233121" };
@@ -60,8 +60,7 @@ namespace WebserverUnitTests
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
             var uut = new HomeController(FakeSwagCommunication);
-            var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
-
+            var result = uut.PostLogInd() as ViewResult;
 
             Assert.AreEqual("PostLogInd", result.ViewName);
         }

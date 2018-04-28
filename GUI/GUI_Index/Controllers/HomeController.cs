@@ -38,7 +38,7 @@ namespace GUI_Index.Controllers
                     //set user to session
                     SessionExtension.SetObjectAsJson(HttpContext.Session, "user", tmp);
 
-                    return RedirectToAction("PostLogInd", tmp);
+                    return RedirectToAction("PostLogInd");
                 }
 
             }
@@ -77,8 +77,10 @@ namespace GUI_Index.Controllers
         //    }
         //}
 
-        public IActionResult PostLogInd(User user)
+        public IActionResult PostLogInd()
         {
+            if (HttpContext != null)
+                ViewData.Model = SessionExtension.GetObjectFromJson<User>(HttpContext.Session, "user");
             return View("PostLogInd");
         }
 
