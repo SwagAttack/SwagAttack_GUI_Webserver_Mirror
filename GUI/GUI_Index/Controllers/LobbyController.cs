@@ -17,12 +17,14 @@ namespace GUI_Index.Controllers
         //sessions
         private readonly IUserSession _userSession;
         //
-        private static List<ILobby> _lobbyList = new List<ILobby>();
-        private UserProxy _proxy;
+        //private static List<ILobby> _lobbyList = new List<ILobby>();
+        private LobbyProxy _lobbyProxy;
+        private UserProxy _userproxy;
 
-        public LobbyController(IUserProxy userProxy, IUserSession userSession)
+        public LobbyController(IUserProxy userProxy, ILobbyProxy lobbyProxy, IUserSession userSession)
         {
-            _proxy = userProxy as UserProxy;
+            _userproxy = userProxy as UserProxy;
+            _lobbyProxy = lobbyProxy as LobbyProxy;
             _userSession = userSession;
         }
         [HttpGet]
@@ -40,17 +42,11 @@ namespace GUI_Index.Controllers
                 //find brugeren der har lavet lobby
                 var currentUser = _userSession.User;
 
-                //save as a lobby
-                ILobby nyLobby = new Lobby(currentUser.Username)
-                {
-                    Id = lobby.Id
-                };
-
-                //add to the list
-                _lobbyList.Add(nyLobby);
+                //add lobby
+                _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Wait();
 
                 LobbyViewModel returns = new LobbyViewModel();
-                returns.Id = nyLobby.Id;
+                returns.Id = lobby.Id;
                 returns.Admin = currentUser.Username;
                 returns.Usernames.Add(currentUser.Username);
 
@@ -66,11 +62,16 @@ namespace GUI_Index.Controllers
         [HttpGet]
         public IActionResult TilslutLobby()
         {
-            //get lobby list
+            //make new viewmodel
             TilslutLobbyViewModel returns = new TilslutLobbyViewModel();
-            foreach (var varLobby in _lobbyList)
+            //get user
+            var currentUser = _userSession.User;
+            //get lobbylist
+            List<string> lobbies = _lobbyProxy.GetAllLobbyIdsAsync(currentUser.Username, currentUser.Password).Result;
+
+            foreach (var varLobby in lobbies)
             {
-                returns.Lobbies.Add(varLobby.Id);
+                returns.Lobbies.Add(varLobby);
             }
             return View(returns);
         }
@@ -78,37 +79,32 @@ namespace GUI_Index.Controllers
         [HttpPost]
         public IActionResult TilslutLobby(LobbyViewModel model)
         {
-            return RedirectToAction("Lobby", model);
+            var currentuser = _userSession.User;
+            ILobby concreateLobby = _lobbyProxy.JoinLobbyAsync(model.Id, currentuser.Username, currentuser.Password).Result;
+
+            if (concreateLobby != null)
+            {
+                LobbyViewModel updatedModel = new LobbyViewModel();
+
+                updatedModel.Id = concreateLobby.Id;
+                updatedModel.Admin = concreateLobby.AdminUserName;
+                updatedModel.Usernames = concreateLobby.Usernames.ToList();
+                return RedirectToAction("Lobby", updatedModel);
+            }
+                return RedirectToAction("TilslutLobby");
+
         }
         [HttpGet]
         public IActionResult Lobby(LobbyViewModel model)
         {
-            var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
-            //add user to the lobby if it isent on list already.
-            if (!_lobbyList.Find(x => x.Id == model.Id).Usernames.Any(x => x.Contains(currentUser.Username)))
-            {
-                _lobbyList.Find(x => x.Id == model.Id).AddUser(currentUser.Username);
-            }
-
             return View(model);
         }
         [HttpGet]
         public IActionResult ForladLobby(string lobbyId)
         {
-            var currentUser = HttpContext.Session.GetObjectFromJson<User>("user");
-            _lobbyList.Find(x => x.Id == lobbyId).RemoveUser(currentUser.Username);
-
-            //need method to check if its admin, and update a new admin.
-            if (_lobbyList.Find(x => x.Id == lobbyId).AdminUserName == currentUser.Username)
-            {
-                _lobbyList.Find(x=> x.Id == lobbyId).UpdateAdmin();
-            }
-
-            //remove lobby if empty
-            if (_lobbyList.Find(x => x.Id == lobbyId).Usernames.Any())
-            {
-                _lobbyList.RemoveAt(_lobbyList.FindIndex(x => x.Id == lobbyId));
-            }
+            var currentUser = _userSession.User;
+            _lobbyProxy.LeaveLobbyAsync(lobbyId, currentUser.Username, currentUser.Password).Wait();
+           
             return RedirectToAction("TilslutLobby");
         }
 
