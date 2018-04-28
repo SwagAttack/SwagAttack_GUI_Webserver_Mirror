@@ -48,7 +48,10 @@ namespace GUI_Index.Controllers
                 //SessionExtension.SetObjectAsJson(HttpContext.Session, lobby.Id, nyLobby);
                 //add to the list
                 _lobbyList.Add(nyLobby);
-                return RedirectToAction("Lobby","Lobby",lobby);
+
+                LobbyViewModel returns = new LobbyViewModel();
+                returns.Id = nyLobby.Id;
+                return RedirectToAction("Lobby","Lobby",returns);
 
             }
             catch (ArgumentException)

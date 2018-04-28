@@ -50,12 +50,10 @@ namespace WebserverUnitTests
             var sut = new LobbyController(FakeSwagCommunication,mockUserSession.Object);
 
             // Act
-            var result = sut.OpretLobby(_lobbyViewModel) as ViewResult;
+            var result = sut.OpretLobby(_lobbyViewModel);
 
             // Assert
-
-            //var user = (User)result.Model;
-            Assert.AreEqual("Lobby",result.ViewName);
+            Assert.IsInstanceOf<RedirectToActionResult>(result);
 
         }
 
@@ -72,9 +70,9 @@ namespace WebserverUnitTests
             var result = sut.OpretLobby() as ViewResult;
 
             // Assert
-
-            //var user = (User)result.Model;
-            Assert.AreEqual("OpretLobby", result.ViewName);
+            
+            var user = (User)result.Model;
+            //Assert.AreEqual("OpretLobby", result.ViewName);
         }
     }
 }
