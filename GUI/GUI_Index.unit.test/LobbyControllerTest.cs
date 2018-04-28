@@ -8,6 +8,7 @@ using GUI_Index.Session;
 using GUI_Index.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -18,9 +19,8 @@ namespace WebserverUnitTests
     {
 
         private IUserProxy FakeSwagCommunication = Substitute.For<IUserProxy>();
-        private LobbyViewModel lobbyViewModel = new LobbyViewModel();
-        private LobbyController uut;
-
+        private ILobbyProxy FakeSwagLobby = Substitute.For<ILobbyProxy>();
+        private LobbyViewModel _lobbyViewModel = new LobbyViewModel();
         private User _savedUser = new User()
 
         {
@@ -35,22 +35,73 @@ namespace WebserverUnitTests
         public void setup()
         {
 
-            lobbyViewModel.Id = "test";
-            uut = new LobbyController(FakeSwagCommunication);
+            _lobbyViewModel.Id = "test";
+            _lobbyViewModel.Admin = _savedUser.Username;
+            _lobbyViewModel.Usernames.Add(_savedUser.Username);
 
         }
 
         [Test]
-        public void TestIsWorking()
+        public void OpretLobby_PostRedirectToAction_Redirects()
+        {            
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication,FakeSwagLobby,mockUserSession.Object);
+
+            // Act
+            var result = sut.OpretLobby(_lobbyViewModel);
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToActionResult>(result);
+        }
+
+        [Test]
+        public void OpretLobby_PostRedirectToAction_CorrectViewModel()
+        {
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication,FakeSwagLobby, mockUserSession.Object);
+
+            // Act
+            var result = sut.OpretLobby(_lobbyViewModel) as ViewResult;
+
+            // Assert
+            Assert.IsInstanceOf<LobbyViewModel>(result.Model);
+        }
+
+        [Test]
+        public void OpretLobby_GoToOpretLobby_ReturnsCorrectViewName()
         {
 
-            SessionExtension.SetObjectAsJson(uut.HttpContext.Session, "user", _savedUser);
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+            var sut = new LobbyController(FakeSwagCommunication,FakeSwagLobby, mockUserSession.Object);
 
-            Assert.AreEqual(1, 1);
+            // Act
+            var result = sut.OpretLobby() as ViewResult;
 
-            //ViewResult result = uut.OpretLobby(lobbyViewModel) as ViewResult;
-
-            //Assert.AreEqual("OpretLobby", result.ViewName);
+            // Assert
+            Assert.AreEqual("OpretLobby", result.ViewName);
         }
+
+        ////[Test]
+        ////public void TilslutLobby_GotoTilslutLobby_ReturnsCorrectViewModel()
+        ////{
+        ////    // Arrange
+        ////    var mockUserSession = new Mock<IUserSession>();
+        ////    mockUserSession.Setup(x => x.User).Returns(_savedUser);
+        ////    var sut = new LobbyController(FakeSwagCommunication,FakeSwagLobby, mockUserSession.Object);
+
+        ////    // Act
+        ////    var result = sut.TilslutLobby() as ViewResult;
+
+        ////    // Assert
+        ////    Assert.IsInstanceOf<TilslutLobbyViewModel>(result.Model);
+
+        ////}
+
     }
 }

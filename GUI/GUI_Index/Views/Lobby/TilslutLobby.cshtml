@@ -1,5 +1,5 @@
 ﻿@using GUI_Index.ViewModels
-@model IEnumerable<Domain.Interfaces.ILobby>
+@model TilslutLobbyViewModel
 @{
     ViewData["Title"] = "Tilslut Lobby";
 }
@@ -11,15 +11,16 @@
         <div class="form-group left-Align ingamebox">
             <table>
                 <th>Lobbies online</th>
-                @foreach (var item in Model)
+
+                @foreach (var item in Model.Lobbies)
                 {
                     <tr>
                         <td>
                             <form method="post" formaction="@Url.Action("TilslutLobby", "Lobby")">
                                     <div class="form-group">
-                                        <input type="hidden" name="Id" class="form-control" value="@item.Id"/>
+                                        <input type="hidden" name="Id" class="form-control" value="@item"/>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">@item.Id</button>       
+                                    <button type="submit" class="btn btn-primary">@item</button>       
                             </form> 
                         </td>
                      </tr>

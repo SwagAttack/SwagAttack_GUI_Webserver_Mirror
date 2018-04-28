@@ -10,6 +10,8 @@ using GUICommLayer.Proxies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using GUI_Index.Hubs;
+using GUI_Index.Session;
+using Microsoft.AspNetCore.Http;
 
 namespace GUI_Index
 {
@@ -29,7 +31,7 @@ namespace GUI_Index
             services.AddMvc();
             services.Configure<MvcOptions>(options =>
             {
-                options.Filters.Add(new RequireHttpsAttribute());
+                //options.Filters.Add(new RequireHttpsAttribute());
             });
 
             services.AddTransient<IClientWrapper, Client>();
@@ -40,7 +42,12 @@ namespace GUI_Index
                     "https://swagattackapi.azurewebsites.net/"));
 
             services.AddTransient<IUserProxy, UserProxy>();
+            services.AddTransient<ILobbyProxy, LobbyProxy>();
 
+            //for sessions
+            services.AddScoped<IUserSession, UserSession>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //
 
             //services.AddSingleton<ISwagCommunication>(s => SwagCommunication.GetInstance("https://swagattkapi.azurewebsites.net/"));
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
@@ -67,8 +74,8 @@ namespace GUI_Index
             app.UseSession();
             app.UseStaticFiles();
 
-            var options = new RewriteOptions().AddRedirectToHttps();
-            app.UseRewriter(options);
+            //var options = new RewriteOptions().AddRedirectToHttps();
+            //app.UseRewriter(options);
 
             app.UseSignalR(routes =>
             {
