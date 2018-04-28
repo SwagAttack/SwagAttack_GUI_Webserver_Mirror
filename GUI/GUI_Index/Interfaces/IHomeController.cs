@@ -40,6 +40,6 @@ namespace GUI_Index.Interfaces
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        IActionResult PostLogInd();
+        IActionResult PostLogInd(User user);
     }
 }

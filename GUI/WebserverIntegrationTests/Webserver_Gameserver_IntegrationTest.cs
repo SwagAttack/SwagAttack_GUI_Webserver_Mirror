@@ -58,7 +58,7 @@ namespace WebserverIntegrationTests
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
             var uut = new HomeController(new UserProxy(new HttpRequestFactory(new Client(), "https://swagattackapi.azurewebsites.net/")));
-            var result = uut.PostLogInd() as ViewResult;
+            var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
 
 
             Assert.AreEqual("PostLogInd", result.ViewName);
