@@ -103,8 +103,8 @@ namespace GUI_Index.Controllers
         public IActionResult ForladLobby(string lobbyId)
         {
             var currentUser = _userSession.User;
-            _lobbyProxy.LeaveLobbyAsync(lobbyId, currentUser.Username, currentUser.Password).Wait();
-           
+            var lobby = _lobbyProxy.LeaveLobbyAsync(lobbyId, currentUser.Username, currentUser.Password).Result;
+            
             return RedirectToAction("TilslutLobby");
         }
 
