@@ -10,7 +10,7 @@
 <body>
 <div class="container">
 
-    <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("ForladLobby", "Lobby")'">Ud af lobby</button>
+    <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("ForladLobby", "Lobby", Model)'">Ud af lobby</button>
 
     <div class="form-group left-Align ingamebox">
         
@@ -67,7 +67,7 @@
                         <button type="submit" class="btn btn-primary">Start spil</button>
                         <div class="divider"></div>
                         <br />
-                        <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("TilslutLobby", "Lobby")'">
+                        <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("ForladLobby", "Lobby", Model)'">
                             find anden lobby
                         </button>
                     </div>
