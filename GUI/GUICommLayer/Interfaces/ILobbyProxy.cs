@@ -7,18 +7,18 @@ namespace GUICommLayer.Interfaces
     public interface ILobbyProxy
     {
         /// <summary>
-        /// Creates an instance of lobby asynchronously. 
+        /// Creates an instance of lobby asynchronously and makes the user join the newly created lobby
         /// </summary>
-        /// <param name="lobby"></param>
-        /// <param name="user"></param>
+        /// <param name="username">Username of requesting user</param>
+        /// <param name="password">Password of requesting user</param>
         /// <returns></returns>
         Task<ILobby> CreateInstanceAsync(string lobbyId, string username, string password);
 
         /// <summary>
-        /// Requests an instance of lobby asynchronously
+        /// Requests an instance of lobby asynchronously. Does NOT make a user join a lobby
         /// </summary>
-        /// <param name="lobbyId"></param>
-        /// <param name="user"></param>
+        /// <param name="username">Username of requesting user</param>
+        /// <param name="password">Password of requesting user</param>
         /// <returns></returns>
         Task<ILobby> RequestInstanceAsync(string lobbyId, string username, string password);
 
