@@ -57,14 +57,21 @@ namespace GUI_Index.Controllers
                 var currentUser = _userSession.User;
 
                 //add lobby
-                _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Wait();
+                var lobbyReturn = _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Result;
+                if (lobbyReturn != null)
+                {
+                    LobbyViewModel returns = new LobbyViewModel();
+                    returns.Id = lobby.Id;
+                    returns.Admin = currentUser.Username;
+                    returns.Usernames.Add(currentUser.Username);
 
-                LobbyViewModel returns = new LobbyViewModel();
-                returns.Id = lobby.Id;
-                returns.Admin = currentUser.Username;
-                returns.Usernames.Add(currentUser.Username);
+                    return RedirectToAction("Lobby", "Lobby", returns);
 
-                return RedirectToAction("Lobby","Lobby",returns);
+                }
+                else
+                {
+                    return RedirectToAction("LogInd", "Home");
+                }
 
             }
             catch (ArgumentException)
@@ -87,11 +94,16 @@ namespace GUI_Index.Controllers
             //get lobbylist
             List<string> lobbies = _lobbyProxy.GetAllLobbyIdsAsync(currentUser.Username, currentUser.Password).Result;
 
-            foreach (var varLobby in lobbies)
+            if (lobbies != null)
             {
-                returns.Lobbies.Add(varLobby);
+                foreach (var varLobby in lobbies)
+                {
+                    returns.Lobbies.Add(varLobby);
+                }
+                return View(returns);
             }
-            return View(returns);
+
+            return RedirectToAction("LogInd", "Home");
         }
 
         /// <summary>
