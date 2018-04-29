@@ -77,8 +77,12 @@ namespace GUI_Index.Controllers
         //    }
         //}
 
-        public IActionResult PostLogInd(User user)
+        public IActionResult PostLogInd()
         {
+            if (HttpContext != null)
+            {
+                ViewData.Model = HttpContext.Session.GetObjectFromJson<User>("user");
+            }
             return View("PostLogInd");
         }
 

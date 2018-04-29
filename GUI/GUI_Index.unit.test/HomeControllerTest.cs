@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Interfaces;
 using GUICommLayer;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,9 @@ using NSubstitute;
 using NUnit.Framework;
 using Domain.Models;
 using GUICommLayer.Interfaces;
+using GUICommLayer.Proxies;
+using GUICommLayer.Proxies.Utilities;
+using NUnit.Framework.Internal;
 
 namespace WebserverUnitTests
 {
@@ -60,10 +64,14 @@ namespace WebserverUnitTests
         public void HomeControllerPostLogInd_ViewNameCorrect()
         {
             var uut = new HomeController(FakeSwagCommunication);
-            var result = uut.PostLogInd(new User(){Username="PatrickBjerregaard"}) as ViewResult;
+            var tmp = Substitute.For<IUser>();
+            tmp.Username = "lellefader";
+            tmp.Password = "123456789";
+            tmp.Email = "gobbenobber@gmail.com";
+            tmp.GivenName = "Patrick";
+            tmp.LastName = "Bjerregaard";
 
-
-            Assert.AreEqual("PostLogInd", result.ViewName);
+            if (uut.PostLogInd() is ViewResult result) Assert.AreEqual("PostLogInd", result.ViewName);
         }
     }
 }
