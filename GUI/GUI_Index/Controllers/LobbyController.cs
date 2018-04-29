@@ -14,25 +14,39 @@ namespace GUI_Index.Controllers
 {
     public class LobbyController : Controller
     {
-        //sessions
+        //session
         private readonly IUserSession _userSession;
-        //
-        //private static List<ILobby> _lobbyList = new List<ILobby>();
+        
+        //proxies for the api
         private LobbyProxy _lobbyProxy;
         private UserProxy _userproxy;
-
+        /// <summary>
+        /// setup everything for the LobbyController
+        /// </summary>
+        /// <param name="userProxy">Instance of user proxy</param>
+        /// <param name="lobbyProxy">Instance of Lobby proxy</param>
+        /// <param name="userSession">Instance of user session</param>
         public LobbyController(IUserProxy userProxy, ILobbyProxy lobbyProxy, IUserSession userSession)
         {
             _userproxy = userProxy as UserProxy;
             _lobbyProxy = lobbyProxy as LobbyProxy;
             _userSession = userSession;
         }
+
+        /// <summary>
+        /// Action that goes to opret lobby view
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult OpretLobby()
         {
             return View("OpretLobby");
         }
-
+        /// <summary>
+        /// Action that makes a lobby
+        /// </summary>
+        /// <param name="lobby">the lobbyviewmodel sent from csthml</param>
+        /// <returns>succes goes to lobby, failure goes back to opretlobby</returns>
         [HttpPost]
         public IActionResult OpretLobby(LobbyViewModel lobby)
         {
@@ -59,6 +73,10 @@ namespace GUI_Index.Controllers
             }
             
         }
+        /// <summary>
+        /// Goes to tilslut lobby, also gets the list of active lobbies
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult TilslutLobby()
         {
@@ -76,6 +94,11 @@ namespace GUI_Index.Controllers
             return View(returns);
         }
 
+        /// <summary>
+        /// Goes to selected lobby, posted by the tilslut lobby view
+        /// </summary>
+        /// <param name="model">sent from tilslutlobby.cshtml</param>
+        /// <returns>sucess goes to the lobby, failure goes back to tilslutlobby</returns>
         [HttpPost]
         public IActionResult TilslutLobby(LobbyViewModel model)
         {
@@ -94,16 +117,27 @@ namespace GUI_Index.Controllers
                 return RedirectToAction("TilslutLobby");
 
         }
+        /// <summary>
+        /// goes to lobby
+        /// </summary>
+        /// <param name="model">the concreate lobby user entered</param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Lobby(LobbyViewModel model)
         {
             return View(model);
         }
+
+        /// <summary>
+        /// When exiting lobby
+        /// </summary>
+        /// <param name="model">the lobby that got exited</param>
+        /// <returns>back to tilslut lobby</returns>
         [HttpGet]
-        public IActionResult ForladLobby(string lobbyId)
+        public IActionResult ForladLobby(LobbyViewModel model)
         {
             var currentUser = _userSession.User;
-            var lobby = _lobbyProxy.LeaveLobbyAsync(lobbyId, currentUser.Username, currentUser.Password).Result;
+            var lobby = _lobbyProxy.LeaveLobbyAsync(model.Id, currentUser.Username, currentUser.Password).Result;
             
             return RedirectToAction("TilslutLobby");
         }

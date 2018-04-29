@@ -44,7 +44,7 @@ namespace GUI_Index
             services.AddTransient<IUserProxy, UserProxy>();
             services.AddTransient<ILobbyProxy, LobbyProxy>();
 
-            //for sessions
+            //for sessions injects to constructor
             services.AddScoped<IUserSession, UserSession>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //
@@ -53,7 +53,7 @@ namespace GUI_Index
             //SwagCommunication client = new SwagCommunication("https://swagattkapi.azurewebsites.net/");
 
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
-            services.AddSession();
+            services.AddSession();  //enables sessions for the asp.net 
             services.AddSignalR();
 
         }
@@ -79,7 +79,7 @@ namespace GUI_Index
 
             app.UseSignalR(routes =>
             {
-                routes.MapHub<LobbyHub>("/Hubs/LobbyHub");
+                routes.MapHub<LobbyHub>("/Hubs/LobbyHub"); //route to path of hub
             });
 
             app.UseMvc(routes =>
