@@ -18,8 +18,8 @@ namespace GUI_Index.Controllers
         private readonly IUserSession _userSession;
         
         //proxies for the api
-        private LobbyProxy _lobbyProxy;
-        private UserProxy _userproxy;
+        private ILobbyProxy _lobbyProxy;
+        private IUserProxy _userproxy;
         /// <summary>
         /// setup everything for the LobbyController
         /// </summary>
@@ -28,8 +28,8 @@ namespace GUI_Index.Controllers
         /// <param name="userSession">Instance of user session</param>
         public LobbyController(IUserProxy userProxy, ILobbyProxy lobbyProxy, IUserSession userSession)
         {
-            _userproxy = userProxy as UserProxy;
-            _lobbyProxy = lobbyProxy as LobbyProxy;
+            _userproxy = userProxy;
+            _lobbyProxy = lobbyProxy;
             _userSession = userSession;
         }
 
@@ -51,34 +51,26 @@ namespace GUI_Index.Controllers
         public IActionResult OpretLobby(LobbyViewModel lobby)
         {
             
-            try
+            //find brugeren der har lavet lobby
+            var currentUser = _userSession.User;
+
+            //add lobby
+            ILobby lobbyReturn = _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Result;
+            if (lobbyReturn != null)
             {
-                //find brugeren der har lavet lobby
-                var currentUser = _userSession.User;
+                LobbyViewModel returns = new LobbyViewModel();
+                returns.Id = lobby.Id;
+                returns.Admin = currentUser.Username;
+                returns.Usernames.Add(currentUser.Username);
 
-                //add lobby
-                var lobbyReturn = _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Result;
-                if (lobbyReturn != null)
-                {
-                    LobbyViewModel returns = new LobbyViewModel();
-                    returns.Id = lobby.Id;
-                    returns.Admin = currentUser.Username;
-                    returns.Usernames.Add(currentUser.Username);
-
-                    return RedirectToAction("Lobby", "Lobby", returns);
-
-                }
-                else
-                {
-                    return RedirectToAction("LogInd", "Home");
-                }
+                return RedirectToAction("Lobby", "Lobby", returns);
 
             }
-            catch (ArgumentException)
+            else
             {
-                return RedirectToAction("OpretLobby");
+                return RedirectToAction("LogInd", "Home");
             }
-            
+
         }
         /// <summary>
         /// Goes to tilslut lobby, also gets the list of active lobbies
