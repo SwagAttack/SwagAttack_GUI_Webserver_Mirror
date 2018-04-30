@@ -51,9 +51,7 @@ namespace GUI_Index.Controllers
         public IActionResult OpretLobby(LobbyViewModel lobby)
         {
             
-            try
-            {
-                //find brugeren der har lavet lobby
+//find brugeren der har lavet lobby
                 var currentUser = _userSession.User;
 
                 //add lobby
@@ -73,12 +71,6 @@ namespace GUI_Index.Controllers
                     return RedirectToAction("LogInd", "Home");
                 }
 
-            }
-            catch (ArgumentException)
-            {
-                return RedirectToAction("OpretLobby");
-            }
-            
         }
         /// <summary>
         /// Goes to tilslut lobby, also gets the list of active lobbies

@@ -97,9 +97,6 @@ namespace WebserverUnitTests
             var mockUserSession = new Mock<IUserSession>();
             mockUserSession.Setup(x => x.User).Returns(_savedUser);
 
-            //ILobby MockedLobby = new Lobby(_savedUser.Username);
-            //MockedLobby.Id = _lobbyViewModel.Id;
-
             var mockLobbyProxy = new Mock<ILobbyProxy>();
             mockLobbyProxy
                 .Setup(x => x.CreateInstanceAsync(_lobbyViewModel.Id, _savedUser.Username, _savedUser.Password))
