@@ -203,5 +203,39 @@ namespace WebserverUnitTests
             Assert.AreEqual("TilslutLobby", result.ActionName);
         }
 
+        [Test]
+        public void Lobby_ReturnsView()
+        {
+
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+
+            var sut = new LobbyController(FakeSwagCommunication, FakeSwagLobby, mockUserSession.Object);
+
+            // Act
+            var result = sut.Lobby(_lobbyViewModel) as ViewResult;
+
+            // Assert
+            Assert.IsInstanceOf<LobbyViewModel>(result.Model);
+        }
+
+        [Test]
+        public void ForladLobby_UserOKreturnsLobbyView()
+        {
+
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+
+            var sut = new LobbyController(FakeSwagCommunication, FakeSwagLobby, mockUserSession.Object);
+
+            // Act
+            var result = (RedirectToActionResult) sut.ForladLobby(_lobbyViewModel);
+
+            // Assert
+            Assert.AreEqual("TilslutLobby", result.ActionName);
+        }
+
     }
 }
