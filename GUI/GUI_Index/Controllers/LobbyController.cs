@@ -51,25 +51,25 @@ namespace GUI_Index.Controllers
         public IActionResult OpretLobby(LobbyViewModel lobby)
         {
             
-//find brugeren der har lavet lobby
-                var currentUser = _userSession.User;
+            //find brugeren der har lavet lobby
+            var currentUser = _userSession.User;
 
-                //add lobby
-                ILobby lobbyReturn = _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Result;
-                if (lobbyReturn != null)
-                {
-                    LobbyViewModel returns = new LobbyViewModel();
-                    returns.Id = lobby.Id;
-                    returns.Admin = currentUser.Username;
-                    returns.Usernames.Add(currentUser.Username);
+            //add lobby
+            ILobby lobbyReturn = _lobbyProxy.CreateInstanceAsync(lobby.Id, currentUser.Username, currentUser.Password).Result;
+            if (lobbyReturn != null)
+            {
+                LobbyViewModel returns = new LobbyViewModel();
+                returns.Id = lobby.Id;
+                returns.Admin = currentUser.Username;
+                returns.Usernames.Add(currentUser.Username);
 
-                    return RedirectToAction("Lobby", "Lobby", returns);
+                return RedirectToAction("Lobby", "Lobby", returns);
 
-                }
-                else
-                {
-                    return RedirectToAction("LogInd", "Home");
-                }
+            }
+            else
+            {
+                return RedirectToAction("LogInd", "Home");
+            }
 
         }
         /// <summary>
