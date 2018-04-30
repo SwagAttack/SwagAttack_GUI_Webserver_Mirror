@@ -17,7 +17,7 @@ script:
 
 - nuget install OpenCover -Version 4.6.519 -OutputDirectory packages
 - nuget install ReportGenerator -Version 3.1.2 -OutputDirectory packages
-- ./packages/OpenCover.4.6.519/tools/OpenCover.Console.exe -oldstyle -output:opencover.xml -register:user -filter:"+[SwagAttack*]* -[*Tests]*" -target:dotnet -targetargs:"test --no-build ../SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll"
+- ./packages/OpenCover.4.6.519/tools/OpenCover.Console.exe -oldStyle -output:opencover.xml -register:user -filter:"+[SwagAttack*]* -[*Tests]*" -target:dotnet -targetargs:"test --no-build ../SwagAttack_GUI_Webserver_Mirror/**/*.test/bin/Debug/netcoreapp2.0/*Tests.dll"
 - ./packages/ReportGenerator.3.1.2/tools/ReportGenerator.exe -reports:opencover.xml -targetdir:coverage
 
 #- dotnet vstest ./SwagAttack_GUI_Webserver_Mirror/**/*Tests/bin/Debug/netcoreapp2.0/*Tests.dll --ListTests #--logger:"trx;LogFileName=testresultz.trx" --ResultsDirectory:./TestRetults
