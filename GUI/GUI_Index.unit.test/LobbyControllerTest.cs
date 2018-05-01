@@ -180,7 +180,34 @@ namespace WebserverUnitTests
             var result = (RedirectToActionResult)sut.TilslutLobby(_lobbyViewModel);
 
             //Assert
-            Assert.AreEqual("Lobby", result.ActionName);
+            Assert.AreEqual("Lobby", result.ActionName); //check that it redirects to lobby
+
+        }
+
+        [Test]
+        public void TilslutLobby_PostRedirectToActionUserLogged_on_LobbyVMOK()
+        {
+            // Arrange
+            var mockUserSession = new Mock<IUserSession>();
+            mockUserSession.Setup(x => x.User).Returns(_savedUser);
+
+            ILobby MockedLobby = new Lobby(_savedUser.Username);
+            MockedLobby.Id = _lobbyViewModel.Id;
+
+            var mockLobbyProxy = new Mock<ILobbyProxy>();
+            mockLobbyProxy
+                .Setup(x => x.JoinLobbyAsync(_lobbyViewModel.Id, _savedUser.Username, _savedUser.Password))
+                .Returns(Task.FromResult(MockedLobby));
+
+            var sut = new LobbyController(FakeSwagCommunication, mockLobbyProxy.Object, mockUserSession.Object);
+
+            // Act
+            var result = (RedirectToActionResult)sut.TilslutLobby(_lobbyViewModel);
+
+            //Assert
+            Assert.That(result.RouteValues.Values.Contains("test")); //see that lobby id is indeed test
+            Assert.That(result.RouteValues.Values.Contains(_savedUser.Username)); //see that the username is in the lobbyVM
+
         }
 
         [Test]
