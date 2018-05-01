@@ -16,6 +16,7 @@ using Moq;
 using NSubstitute;
 using NSubstitute.Core.Arguments;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace WebserverUnitTests
@@ -129,11 +130,12 @@ namespace WebserverUnitTests
 
             var sut = new LobbyController(FakeSwagCommunication, mockLobbyProxy.Object, mockUserSession.Object);
 
-            // Act
+            //act
             var result = sut.TilslutLobby() as ViewResult;
+            var viewModel = result.Model as TilslutLobbyViewModel;
+            //assert
+            Assert.That(viewModel.Lobbies.Count, Is.EqualTo(lobbies.Count));
 
-            // Assert
-            Assert.IsInstanceOf<TilslutLobbyViewModel>(result.Model);
         }
 
         [Test]
