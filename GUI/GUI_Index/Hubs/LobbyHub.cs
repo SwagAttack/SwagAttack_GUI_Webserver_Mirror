@@ -5,6 +5,8 @@ using GUI_Index.Session;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR;
 
+// https://docs.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api
+
 namespace GUI_Index.Hubs
 {
     public class LobbyHub : Hub
@@ -12,29 +14,46 @@ namespace GUI_Index.Hubs
         
         private HttpContext context = new DefaultHttpContext();
         
+        /// <summary>
+        /// Called by SignalR on connection to page
+        /// </summary>
+        /// <returns></returns>
         public override async Task OnConnectedAsync()
         {
            await this.Clients.Caller.SendAsync("Connect");
         }
 
+        /// <summary>
+        /// called by Lobby.js
+        /// </summary>
+        /// <param name="username">The username of the user in the lobby</param>
+        /// <param name="Lobbyname">The lobbyname of the lobby where user is</param>
+        /// <returns></returns>
+        public async Task OnConnectedUserAsync(string username, string Lobbyname)
+        {
+            //add user to group
+            await Groups.AddAsync(Context.ConnectionId, Lobbyname);
+            
+            //send to others in the group
+            await this.Clients.OthersInGroup(Lobbyname).SendAsync("onConnectedUser", username);
+
+            //old
+            //await this.Clients.Others.SendAsync("OnConnectedUser", username);
+        }
+
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-
             await this.Clients.All.SendAsync("Disconnect");
         }
         public async Task SendMessageAsync(string user,string message)
         {
             await this.Clients.All.SendAsync("ReceiveMessage",user, message);
-            //x.LogNew(user, message);
-        }
 
-        public async Task OnConnectedUserAsync(string username)
-        {
-            await this.Clients.Others.SendAsync("OnConnectedUser", username);
         }
 
         public async Task OnDisconnectedUserAsync(string username)
         {
+            
             await this.Clients.Others.SendAsync("OnDisconnectedUser", username);
         }
     }

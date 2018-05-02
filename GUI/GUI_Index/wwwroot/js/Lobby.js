@@ -1,21 +1,26 @@
 ﻿const connection = new signalR.HubConnection("/Hubs/Lobbyhub", { logger: signalR.LogLevel.Information });
 
 connection.on("Connect", () => {
-    var  encodedMsg = document.getElementById("LobbyUser").textContent;
-    connection.invoke("OnConnectedUserAsync", encodedMsg);
+    //get the username
+    var Username = document.getElementById("LobbyUser").textContent;
+    //get the lobbyName
+    var Lobbyname = document.getElementById("LobbyId").textContent;
+    //send to hub
+    connection.invoke("OnConnectedUserAsync", Username,Lobbyname);
 });
 
 connection.on("OnConnectedUser",
     (user) => {
+        //create chat message
         var li = document.createElement("li");
         li.textContent = "User: " + user + " Signed On!";
         document.getElementById("Messages").appendChild(li);
-        //location.reload();
 
+        //update table
         const table = document.getElementById("UsersInLobby");
         const newrow = table.insertRow(table.rows.length);
         const newcell = newrow.insertCell(0);
-
+        //add user to table
         const newText = document.createTextNode(user);
         newcell.appendChild(newText);
     }); 
