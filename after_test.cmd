@@ -7,5 +7,4 @@ REM OpenCover.4.6.519\tools\OpenCover.Console.exe -target:"dotnet.exe" -oldStyle
 dotnet test C:\projects\swagattack-gui-webserver-mirror\GUI\GUI_Index.unit.test\WebserverUnitTests.csproj --no-build --no-restore --logger:Appveyor /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
 cd coveralls.net.0.412.0\tools
 dir
-coveralls.net.0.412.0\tools\csmacnz.Coveralls.exe --opencover
-REM --opencover ..\GUI\GUI_Index.unit.test\coverage.xml
+coveralls.net.0.412\tools\csmacnz.Coveralls.exe --opencover ..\GUI\GUI_Index.unit.test\coverage.xml
