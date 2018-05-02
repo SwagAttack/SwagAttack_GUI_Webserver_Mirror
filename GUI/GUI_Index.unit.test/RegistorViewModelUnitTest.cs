@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using GUI_Index.ViewModels;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
-using ValidationContext = Microsoft.Data.Edm.Validation.ValidationContext;
 
 namespace WebserverUnitTests
 {
