@@ -5,6 +5,7 @@ environment:
 before_build:
   - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror ../SwagAttack_Gameserver_Mirror
   - dotnet build ../SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
+  - dir
   - nuget restore GUI/GUI.sln
 build_script:
   - dotnet build GUI/GUI.sln
