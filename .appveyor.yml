@@ -1,0 +1,10 @@
+version: 0.0.{build}
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: yCIV3arujsrEYPNrM/x3D0shv90nbh4cU7XImXfiTzhjTqftUvW
+before_build:
+  - git clone https://github.com/SwagAttack/SwagAttack_Gameserver_Mirror ../
+  - dotnet build ../SwagAttack_Gameserver_Mirror/GameServer/Domain/Domain.csproj
+  - nuget restore
+after_test:
+  - cmd: .after_test.cmd
