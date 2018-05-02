@@ -12,7 +12,7 @@ namespace GUI_Index.Hubs
     public class LobbyHub : Hub
     {
         
-        private HttpContext context = new DefaultHttpContext();
+        //private HttpContext context = new DefaultHttpContext();
         
         /// <summary>
         /// Called by SignalR on connection to page
@@ -41,20 +41,34 @@ namespace GUI_Index.Hubs
             //await this.Clients.Others.SendAsync("OnConnectedUser", username);
         }
 
+        /// <summary>
+        /// Called by Lobby.js
+        /// </summary>
+        /// <param name="user"> the user in the lobby that sends</param>
+        /// <param name="LobbyName"> the lobby that the user is in</param>
+        /// <param name="message"> the message the user wishes to send</param>
+        /// <returns></returns>
+        public async Task SendMessageAsync(string user,string LobbyName, string message)
+        {
+            await this.Clients.Group(LobbyName).SendAsync("ReceiveMessage", user, message);
+
+            //old
+            //await this.Clients.All.SendAsync("ReceiveMessage", user, message);
+
+        }
+
+        /*
         public override async Task OnDisconnectedAsync(Exception exception)
         {
             await this.Clients.All.SendAsync("Disconnect");
         }
-        public async Task SendMessageAsync(string user,string message)
-        {
-            await this.Clients.All.SendAsync("ReceiveMessage",user, message);
-
-        }
 
         public async Task OnDisconnectedUserAsync(string username)
         {
-            
             await this.Clients.Others.SendAsync("OnDisconnectedUser", username);
         }
+
+        */
+
     }
 }
