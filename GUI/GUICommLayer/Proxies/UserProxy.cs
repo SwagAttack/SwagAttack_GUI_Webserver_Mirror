@@ -29,7 +29,7 @@ namespace GUICommLayer.Proxies
                 return null;
             }
 
-            return response.ReadBodyAsType<IUser>();           
+            return response.ReadBodyAsType<User>();           
         }
 
         public async Task<IUser> RequestInstanceAsync(string username, string password)
@@ -42,7 +42,7 @@ namespace GUICommLayer.Proxies
                 return null;
             }
 
-            return response.ReadBodyAsType<IUser>();
+            return response.ReadBodyAsType<User>();
         }
         
     }

@@ -22,14 +22,14 @@ namespace GUICommLayer.Proxies
             var request = _requestFactory.Post("/api/Lobby/Create").AddAuthentication(username, password)
                 .AddUriQuery("lobbyId", lobbyId);
             var response = await request.SendAsync();
-            return response.IsSuccessStatusCode ? response.ReadBodyAsType<ILobby>() : null;
+            return response.IsSuccessStatusCode ? response.ReadBodyAsType<Lobby>() : null;
         }
 
         public async Task<ILobby> RequestInstanceAsync(string lobbyId, string username, string password)
         {
             var request = _requestFactory.Get("/api/Lobby/" + lobbyId).AddAuthentication(username, password);
             var response = await request.SendAsync();
-            return response.IsSuccessStatusCode ? response.ReadBodyAsType<ILobby>() : null;
+            return response.IsSuccessStatusCode ? response.ReadBodyAsType<Lobby>() : null;
         }
 
         public async Task<List<string>> GetAllLobbyIdsAsync(string username, string password)
@@ -44,7 +44,7 @@ namespace GUICommLayer.Proxies
             var request = _requestFactory.Post("/api/Lobby/Join").AddAuthentication(username, password)
                 .AddUriQuery("lobbyId", lobbyId);
             var response = await request.SendAsync();
-            return response.IsSuccessStatusCode ? response.ReadBodyAsType<ILobby>() : null;
+            return response.IsSuccessStatusCode ? response.ReadBodyAsType<Lobby>() : null;
         }
 
         public async Task<ILobby> LeaveLobbyAsync(string lobbyId, string username, string password)
@@ -52,7 +52,7 @@ namespace GUICommLayer.Proxies
             var request = _requestFactory.Post("/api/Lobby/Leave").AddAuthentication(username, password)
                 .AddUriQuery("lobbyId", lobbyId);
             var response = await request.SendAsync();
-            return response.IsSuccessStatusCode ? response.ReadBodyAsType<ILobby>() : null;
+            return response.IsSuccessStatusCode ? response.ReadBodyAsType<Lobby>() : null;
         }
     }
 }
