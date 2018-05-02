@@ -9,4 +9,4 @@ before_build:
 build_script:
   - dotnet build GUI/GUI.sln
 after_test:
-  - cmd: .after_test.cmd
+  - cmd: after_test.cmd
