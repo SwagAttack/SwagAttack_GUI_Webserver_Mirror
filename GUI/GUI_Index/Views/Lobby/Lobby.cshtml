@@ -10,17 +10,17 @@
 <body>
 <div class="container">
 
-    <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("ForladLobby", "Lobby", Model)'">Ud af lobby</button>
+    <button id="ForLadLobby" type="button" class="btn btn-post" onclick="location.href = '@Url.Action("ForladLobby", "Lobby", Model)'">Ud af lobby</button>
 
     <div class="form-group left-Align ingamebox">
         
         <table id="UsersInLobby">
             <th>Users in Lobby: </th>
-            
+
             @{
                 foreach (var usernames in Model.Usernames)
                 {
-                    <tr>
+                    <tr id="@usernames">
                         <td>
                             @usernames
                         </td>
@@ -67,9 +67,7 @@
                         <button type="submit" class="btn btn-primary">Start spil</button>
                         <div class="divider"></div>
                         <br />
-                        <button type="button" class="btn btn-primary" onclick="location.href = '@Url.Action("ForladLobby", "Lobby", Model)'">
-                            find anden lobby
-                        </button>
+
                     </div>
                 </div>
             </tr>

@@ -57,6 +57,13 @@ namespace GUI_Index.Hubs
 
         }
 
+        public async Task UserLeftAsync(string username, string lobbyname)
+        {
+            await this.Groups.RemoveAsync(Context.ConnectionId, lobbyname);
+
+            await this.Clients.OthersInGroup(lobbyname).SendAsync("OnDisconnectedUser", username);
+        }
+
         /*
         public override async Task OnDisconnectedAsync(Exception exception)
         {

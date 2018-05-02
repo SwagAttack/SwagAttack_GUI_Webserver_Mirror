@@ -63,7 +63,7 @@ namespace GUI_Index.Controllers
                 returns.Admin = currentUser.Username;
                 returns.Usernames.Add(currentUser.Username);
 
-                return RedirectToAction("Lobby", "Lobby", returns);
+                return RedirectToAction("Lobby", returns);
 
             }
             else
