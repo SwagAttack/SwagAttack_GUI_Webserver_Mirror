@@ -122,14 +122,26 @@ namespace GUI_Index.Controllers
 
         }
         /// <summary>
-        /// goes to lobby
+        /// goes to lobby, makes sure reconnect works too
         /// </summary>
         /// <param name="model">the concreate lobby user entered</param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Lobby(LobbyViewModel model)
         {
-            return View(model);
+            //get the user
+            var currentUser = _userSession.User;
+
+            //get the concreate lobby again
+            ILobby thisLobby = _lobbyProxy.RequestInstanceAsync(model.Id, currentUser.Username, currentUser.Password).Result;
+
+            //make the model
+            LobbyViewModel thisModel = new LobbyViewModel();
+            thisModel.Admin = thisLobby.AdminUserName;
+            thisModel.Id = thisLobby.Id;
+            thisModel.Usernames = thisLobby.Usernames.ToList();
+
+            return View(thisModel);
         }
 
         /// <summary>

@@ -3,12 +3,18 @@
 /////////////////////////////////////Enter Lobby///////////////////////////////////////////
 
 connection.on("Connect", () => {
+
     //get the username
     var Username = document.getElementById("LobbyUser").textContent;
-    //get the lobbyName
-    var Lobbyname = document.getElementById("LobbyId").textContent;
-    //send to hub
-    connection.invoke("OnConnectedUserAsync", Username,Lobbyname);
+
+    //check if the user is in alredy (reconnect) //needs to be from the table
+    if (document.getElementById(Username) == null) {
+        //get the lobbyName
+        var Lobbyname = document.getElementById("LobbyId").textContent;
+        //send to hub
+        connection.invoke("OnConnectedUserAsync", Username, Lobbyname);
+    }
+
 });
 
 connection.on("OnConnectedUser",
@@ -82,12 +88,6 @@ connection.on("OnDisconnectedUser",
         row.deleteCell(0);
 
     });
-
-//connection.on("Disconnect", () => {
-//    //location.reload();
-//    var encodedMsg = document.getElementById("LobbyUser").textContent;
-//    connection.invoke("OnDisconnectedUserAsync", encodedMsg);
-//});
 
 connection.start().catch(err => console.error);
 

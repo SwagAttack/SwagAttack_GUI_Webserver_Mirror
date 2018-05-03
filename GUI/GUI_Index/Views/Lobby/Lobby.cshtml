@@ -63,10 +63,15 @@
                         <input type="hidden" class="form-control" name="Id">
                     </div>
                     <div class="btn-group-vertical">
-
-                        <button type="submit" class="btn btn-primary">Start spil</button>
-                        <div class="divider"></div>
-                        <br />
+                        
+                        @{
+                            if (Model.Admin == user)
+                            {
+                                <button type="submit" class="btn btn-primary">Start spil</button>
+                                <div class="divider"></div>
+                                <br />
+                            }
+                        }
 
                     </div>
                 </div>
