@@ -5,15 +5,13 @@ VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI_Index", "GUI_Index\GUI_Index.csproj", "{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebserverUnitTests", "GUI_Index.unit.test\WebserverUnitTests.csproj", "{63AEA6DF-64F8-4AF7-BE7F-7D7088B7857F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUICommLayer", "GUICommLayer\GUICommLayer.csproj", "{1516CA4C-6357-4F04-9D1B-FFF95EB2807B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebserverIntegrationTests", "WebserverIntegrationTests\WebserverIntegrationTests.csproj", "{DA581500-A113-4353-9100-D002D21FD0D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "..\..\SwagAttack_Gameserver_Mirror\GameServer\Domain\Domain.csproj", "{29378BF1-57B3-477D-A669-ED4C8FF47C50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUICommLayerUnitTests", "GUICommLayerUnitTests\GUICommLayerUnitTests.csproj", "{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{2A54D044-FBFA-42B2-A59B-4A299D408BEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF579287-56CC-40AD-BAEB-BE0B47A0CC74}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63AEA6DF-64F8-4AF7-BE7F-7D7088B7857F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63AEA6DF-64F8-4AF7-BE7F-7D7088B7857F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63AEA6DF-64F8-4AF7-BE7F-7D7088B7857F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63AEA6DF-64F8-4AF7-BE7F-7D7088B7857F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1516CA4C-6357-4F04-9D1B-FFF95EB2807B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1516CA4C-6357-4F04-9D1B-FFF95EB2807B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1516CA4C-6357-4F04-9D1B-FFF95EB2807B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,10 +35,10 @@ Global
 		{29378BF1-57B3-477D-A669-ED4C8FF47C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29378BF1-57B3-477D-A669-ED4C8FF47C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29378BF1-57B3-477D-A669-ED4C8FF47C50}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44EF7F4C-95AA-43A9-B147-5B52FEDAA51E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A54D044-FBFA-42B2-A59B-4A299D408BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A54D044-FBFA-42B2-A59B-4A299D408BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A54D044-FBFA-42B2-A59B-4A299D408BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A54D044-FBFA-42B2-A59B-4A299D408BEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
