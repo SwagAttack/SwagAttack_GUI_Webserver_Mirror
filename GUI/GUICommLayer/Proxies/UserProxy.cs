@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer.Interfaces;
 using GUICommLayer.Proxies.Utilities;
-using Newtonsoft.Json.Linq;
 
 namespace GUICommLayer.Proxies
 {

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Text;
 using Domain.Interfaces;
 using GUICommLayer.Interfaces;
 using GUICommLayer.Proxies;
-using GUICommLayer.Proxies.Utilities;
 using NSubstitute;
 using NUnit.Framework;
 

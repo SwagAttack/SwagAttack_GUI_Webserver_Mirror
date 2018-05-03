@@ -1,15 +1,10 @@
-﻿using System;
-using Domain.Interfaces;
-using GUICommLayer;
+﻿using Domain.Interfaces;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
 using NUnit.Framework;
 using Domain.Models;
 using GUICommLayer.Interfaces;
-using GUICommLayer.Proxies;
-using GUICommLayer.Proxies.Utilities;
-using NUnit.Framework.Internal;
 
 namespace WebserverUnitTests
 {

@@ -5,19 +5,13 @@ using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer.Interfaces;
-using GUICommLayer.Proxies;
-using GUICommLayer.Proxies.Utilities;
 using GUI_Index.Controllers;
 using GUI_Index.Session;
 using GUI_Index.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NSubstitute;
-using NSubstitute.Core.Arguments;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
-using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace WebserverUnitTests
 {

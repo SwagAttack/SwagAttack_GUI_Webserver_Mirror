@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Interfaces;
-using Domain.Models;
+﻿using Domain.Models;
 using GUICommLayer.Interfaces;
 using GUI_Index.Controllers;
 using GUI_Index.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NSubstitute;
-using NSubstitute.Core.Arguments;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 //https://dotnetliberty.com/index.php/2016/01/04/how-to-unit-test-asp-net-5-mvc-6-modelstate/
 
