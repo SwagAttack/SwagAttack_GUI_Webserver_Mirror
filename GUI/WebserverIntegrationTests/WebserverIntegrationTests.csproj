@@ -14,7 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\SwagAttack_Gameserver_Mirror\GameServer\Domain\Domain.csproj" />
+    <Reference Include="Domain">
+      <HintPath>..\..\..\SwagAttack_Gameserver_Mirror\GameServer\Domain\bin\Debug\netcoreapp2.0\Domain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GUICommLayer\GUICommLayer.csproj" />
     <ProjectReference Include="..\GUI_Index\GUI_Index.csproj" />
   </ItemGroup>
