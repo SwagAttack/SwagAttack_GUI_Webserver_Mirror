@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GUI_Index.Interfaces
 {
-    interface IHomeController
+    public interface IHomeController
     {
         /// <summary>
         /// LogIndView
