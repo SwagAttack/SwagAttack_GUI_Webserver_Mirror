@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using Castle.Core.Configuration;
 using Domain.Interfaces;
 using Domain.Misc;
@@ -24,11 +27,16 @@ using NSubstitute.Core.Arguments;
 using NUnit.Framework;
 using GUI_Index.Interfaces;
 using GUI_Index.Session;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Rest;
+using MvcIntegrationTestFramework.Browsing;
+using MvcIntegrationTestFramework.Hosting;
 using RestEase;
+using Xunit;
+using Assert = NUnit.Framework.Assert;
 
 namespace WebserverIntegrationTests
 {
@@ -94,6 +102,7 @@ namespace WebserverIntegrationTests
         private IHttpRequestBuilder _fakeHttpRequestBuilder;
         private IUserProxy _fakeUserProxy;
         private IHttpRequestFactory _fakeFactory;
+        private IClientWrapper _fakeClientWrapper;
         private readonly IUser _person = Substitute.For<IUser>();
 
 
@@ -171,6 +180,9 @@ namespace WebserverIntegrationTests
             Assert.That(sendUser.Result, Is.Not.Null);
         }
 
+
+        //Test CreateUser
+
         [Test]
         public async Task UsersApi_Create_User()
         {
@@ -185,9 +197,43 @@ namespace WebserverIntegrationTests
             Assert.AreEqual(sendUser.Result, Is.Null);
         }
 
+
+        //[Test]
+        //public async Task Server_Recived()
+        //{
+        //    ////act
+
+        //    var recived = _server.CreateHandler().
+        //    sendUser.Wait();
+
+        //    ////assert
+
+
+        //    Assert.AreEqual(sendUser.Result, Is.Null);
+        //}
+
+
+        [Test]
+         public async Task LogInProcess()
+        {
+            var sendUser = _fakeUserProxy.CreateInstanceAsync(user);
+            sendUser.Wait();
+
+            var response = _client.GetAsync("api/User/Login" + user);
+
+
+            var request = _fakeFactory.Get("api/User/Login").AddAuthentication(_person.Username, _person.Password);
+            var outputModel = response.Result.Content.AsString();
+            ////assert
+
+
+            Assert.True(outputModel.Contains(Arg.Any<string>()));
+        }
+
+
     }
 
 
 
-    
+
 }
