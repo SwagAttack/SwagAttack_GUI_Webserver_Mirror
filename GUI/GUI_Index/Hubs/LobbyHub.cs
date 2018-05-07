@@ -23,6 +23,7 @@ namespace GUI_Index.Hubs
            await this.Clients.Caller.SendAsync("Connect");
         }
 
+
         /// <summary>
         /// called by Lobby.js
         /// </summary>

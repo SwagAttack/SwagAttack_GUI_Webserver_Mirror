@@ -1,4 +1,4 @@
-﻿const connection = new signalR.HubConnection("/Hubs/Lobbyhub", { logger: signalR.LogLevel.Information });
+﻿const connection = new signalR.HubConnection("/Hubs/LobbyHub", { logger: signalR.LogLevel.Information });
 
 /////////////////////////////////////Enter Lobby///////////////////////////////////////////
 
@@ -6,33 +6,36 @@ connection.on("Connect", () => {
 
     //get the username
     var Username = document.getElementById("LobbyUser").textContent;
-
-    //check if the user is in alredy (reconnect) //needs to be from the table
-    if (document.getElementById(Username) == null) {
         //get the lobbyName
         var Lobbyname = document.getElementById("LobbyId").textContent;
         //send to hub
         connection.invoke("OnConnectedUserAsync", Username, Lobbyname);
-    }
+    //}
 
 });
 
+
+
 connection.on("OnConnectedUser",
     (user) => {
-        //create chat message
-        var li = document.createElement("li");
-        li.textContent = "User: " + user + " Signed On!";
-        document.getElementById("Messages").appendChild(li);
 
-        //update table
-        const table = document.getElementById("UsersInLobby");
-        const newrow = table.insertRow(table.rows.length);
-        //set the id of the row
-        newrow.id = user;
-        const newcell = newrow.insertCell(0);
-        //add user to table
-        const newText = document.createTextNode(user);
-        newcell.appendChild(newText);
+
+        if (!document.getElementById(user)) {
+            var li = document.createElement("li");
+            li.textContent = "User: " + user + " Signed On!";
+            document.getElementById("Messages").appendChild(li);
+
+            //update table
+            const table = document.getElementById("UsersInLobby");
+            const newrow = table.insertRow(table.rows.length);
+            //set the id of the row
+            newrow.id = user;
+            const newcell = newrow.insertCell(0);
+            //add user to table
+            const newText = document.createTextNode(user);
+            newcell.appendChild(newText);
+        }
+
     }); 
 
 ///////////////////////////////////////Messages///////////////////////////////////////////////
@@ -85,7 +88,11 @@ connection.on("OnDisconnectedUser",
 
         //update table of online users
         var row = document.getElementById(user);
-        row.deleteCell(0);
+        //get the table and delete the row!
+        row.parentNode.removeChild(row);
+        //old
+        //row.deleteCell(0);
+
 
     });
 
