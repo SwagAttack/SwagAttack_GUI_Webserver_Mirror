@@ -34,6 +34,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Rest;
 using MvcIntegrationTestFramework.Browsing;
 using MvcIntegrationTestFramework.Hosting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
 using RestEase;
 using Xunit;
 using Assert = NUnit.Framework.Assert;
@@ -162,72 +164,46 @@ namespace WebserverIntegrationTests
         //    return (atrrUser);
         //}
 
-        
+
 
         //Test if user was logged in
         [Test]
-        public async Task UsersApi_LoginUser()
-        {                   
-            ////act
-            var sendUser = _fakeUserProxy.RequestInstanceAsync(user.Username, user.Password);
-            sendUser.Wait();
-
-            //var request = "api/User/Login";
-            //var response = await _client.GetAsync(request);
-
-            
-            ////assert
-            Assert.That(sendUser.Result, Is.Not.Null);
-        }
-
-
-        //Test CreateUser
-
-        [Test]
-        public async Task UsersApi_Create_User()
+        public void HomeControllerLogInd_ViewNameCorrect()
         {
-            ////act
+            FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(
+                @"C:\Users\maxbj\Documents\GitHub\SwagAttack_GUI_Webserver_Mirror\GUI\WebserverIntegrationTests\bin\Debug\netcoreapp2.0", "geckodriver.exe");
 
-            var sendUser = _fakeUserProxy.CreateInstanceAsync(user);
-            sendUser.Wait();
+            FirefoxProfile profile = new FirefoxProfile();
 
-            ////assert
-
-
-            Assert.AreEqual(sendUser.Result, Is.Null);
-        }
-
-
-        //[Test]
-        //public async Task Server_Recived()
-        //{
-        //    ////act
-
-        //    var recived = _server.CreateHandler().
-        //    sendUser.Wait();
-
-        //    ////assert
+            var op = new FirefoxOptions
+            {
+                AcceptInsecureCertificates = true
+            };
 
 
-        //    Assert.AreEqual(sendUser.Result, Is.Null);
-        //}
+
+            service.FirefoxBinaryPath = @"C:\Program Files\Mozilla Firefox\firefox.exe";
 
 
-        [Test]
-         public async Task LogInProcess()
-        {
-            var sendUser = _fakeUserProxy.CreateInstanceAsync(user);
-            sendUser.Wait();
 
-            var response = _client.GetAsync("api/User/Login" + user);
+            System.Environment.SetEnvironmentVariable("webdriver.gecko.driver", @"C:\Users\maxbj\Documents\GitHub\SwagAttack_GUI_Webserver_Mirror\GUI\WebserverIntegrationTests\bin\Debug\netcoreapp2.0");
 
+            IWebDriver driver = new FirefoxDriver(service, op, TimeSpan.FromSeconds(5));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Navigate().GoToUrl("https://localhost:44321/");
 
-            var request = _fakeFactory.Get("api/User/Login").AddAuthentication(_person.Username, _person.Password);
-            var outputModel = response.Result.Content.AsString();
-            ////assert
+            IWebElement typeUser = driver.FindElement(By.Name("Username"));
+            IWebElement typePass = driver.FindElement(By.Name("Password"));
 
+            typeUser.SendKeys("apiuserh");
+            typePass.SendKeys("Maxmaxmax");
 
-            Assert.True(outputModel.Contains(Arg.Any<string>()));
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.Quit();
+
+            _fakeUserProxy.Received(1).RequestInstanceAsync(Arg.Any<string>(), Arg.Any<string>());
+
         }
 
 
