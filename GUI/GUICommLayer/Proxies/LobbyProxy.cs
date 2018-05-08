@@ -19,7 +19,7 @@ namespace GUICommLayer.Proxies
         public async Task<ILobby> CreateInstanceAsync(string lobbyId, string username, string password)
         {
 
-            var request = _requestFactory.Post("/api/Lobby/Create").AddAuthentication(username, password)
+            var request = _requestFactory.Post("/api/Lobby/Create")
                 .AddUriQuery("lobbyId", lobbyId);
             var response = await request.SendAsync();
             return response.IsSuccessStatusCode ? response.ReadBodyAsType<Lobby>() : null;
