@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
 using GUICommLayer.Interfaces;
@@ -50,7 +51,7 @@ namespace WebserverIntegrationTests
         }
 
         [Test]
-        public void HomeControllerLogInd_ViewNameCorrect()
+        public async Task HomeControllerLogInd_ViewNameCorrect()
         {
             FirefoxDriverService service = FirefoxDriverService.CreateDefaultService(
                 @"C:\Users\maxbj\Documents\GitHub\SwagAttack_GUI_Webserver_Mirror\GUI\WebserverIntegrationTests\bin\Debug\netcoreapp2.0" ,"geckodriver.exe");
@@ -84,7 +85,7 @@ namespace WebserverIntegrationTests
 
             driver.Quit();
 
-            _fakeUserProxy.Received(1).RequestInstanceAsync(Arg.Any<string>(),Arg.Any<string>());
+            await _fakeUserProxy.Received(1).RequestInstanceAsync(Arg.Any<string>(),Arg.Any<string>());
 
         }
 
