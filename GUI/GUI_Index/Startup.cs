@@ -31,7 +31,7 @@ namespace GUI_Index
             services.AddMvc();
             services.Configure<MvcOptions>(options =>
             {
-                //options.Filters.Add(new RequireHttpsAttribute());
+                options.Filters.Add(new RequireHttpsAttribute());
             });
 
             services.AddTransient<IClientWrapper, Client>();
@@ -74,8 +74,8 @@ namespace GUI_Index
             app.UseSession();
             app.UseStaticFiles();
 
-            //var options = new RewriteOptions().AddRedirectToHttps();
-            //app.UseRewriter(options);
+            var options = new RewriteOptions().AddRedirectToHttps();
+            app.UseRewriter(options);
 
             app.UseSignalR(routes =>
             {
