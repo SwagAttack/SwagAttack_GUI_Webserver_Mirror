@@ -10,7 +10,6 @@
     <div class="row">
         <div class="absolute-center is-responsive" align="right">
             <form method="post" asp-controller="Konto" asp-action="OpretKonto">
-                <div asp-validation-summary="All"></div>
                 <!--Username -->
                 <div class="form-group row">
                     <label asp-for="Username" class="col-sm-5 col-form-label">Brugernavn</label>
@@ -79,52 +78,3 @@
     </div>
 </div>
 </body>
-@*<div class="container">
-        <div class="row">
-            <div class="absolute-center is-responsive">
-                <form method="post" formaction="@Url.Action("OpretKonto", "Home")">
-                    <div class="form-group row">
-                        <label for="GivenName" class="col-sm-6 col-form-label">Fornavn</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="GivenName" placeholder="E.g. 'Vladimir'">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="LastName" class="col-sm-6 col-form-label">Efternavn</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="LastName" placeholder="E.g. 'Putin'">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="Username" class="col-sm-6 col-form-label">Brugernavn</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="Username" placeholder="E.g. 'swagmeister5000'">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="id" class="col-sm-6 col-form-label">E-mail</label>
-                        <div class="col-sm-6">
-                            <input type="email" class="form-control" name="Email" placeholder="E.g. 'swag@swagattack.com'">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="Password" class="col-sm-6 col-form-label">Password</label>
-                        <div class="col-sm-6">
-                            <input type="password" class="form-control" name="Password" placeholder="Something unguessable...">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6 offset-sm-2">
-                            <div class=".btn-group-vertical">
-                                <button type="submit" class="btn btn-post">Opret konto</button>
-                                <button type="button" class="btn btn-post" onclick="location.href = '@Url.Action("LogInd", "Home")'">Tilbage</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>*@
-
-
