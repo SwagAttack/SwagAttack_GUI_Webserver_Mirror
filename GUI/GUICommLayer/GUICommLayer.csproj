@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.5" />
+    <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.38.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.38.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Domain">

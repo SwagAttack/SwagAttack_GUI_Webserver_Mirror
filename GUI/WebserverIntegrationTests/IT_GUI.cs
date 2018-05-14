@@ -41,9 +41,9 @@ namespace WebserverIntegrationTests
         private readonly User user = new User();
 
         //Paths for FirefoxSetup  - ændre den til egen sti for at køre testen
-        private string pathForGecko = @"C:\Users\maxbj\Documents\GitHub\SwagAttack_GUI_Webserver_Mirror\GUI\WebserverIntegrationTests\bin\Debug\netcoreapp2.0";
+        private string pathForGecko = @"C:\Users\Max\Documents\GitHub\SwagAttack_GUI_Webserver_Mirror\GUI\WebserverIntegrationTests\bin\Debug\netcoreapp2.0";
         private string Gecko = "geckodriver.exe";
-        private string pathToFireFox = @"C:\Program Files\Mozilla Firefox\firefox.exe";
+        private string pathToFireFox = @"C:\Users\Max\AppData\Local\Mozilla Firefox\firefox.exe";
         public static string localhost = "https://localhost:44321/";
 
 
@@ -142,7 +142,7 @@ namespace WebserverIntegrationTests
 
             string testUrl = driver.Url;
 
-          //  driver.Quit();
+            driver.Quit();
 
             Assert.That(usernameFail, Is.EqualTo("value cannot be less than 8 characters"));
         }
@@ -182,7 +182,7 @@ namespace WebserverIntegrationTests
 
             string testUrl = driver.Url;
 
-            //  driver.Quit();
+              driver.Quit();
 
             Assert.That(usernameFail, Is.EqualTo("Use letters only please"));
         }
@@ -271,7 +271,7 @@ namespace WebserverIntegrationTests
 
             driver.Quit();
 
-            Assert.That(testUrl, Is.EqualTo("https://localhost:44321/Lobby/OpretLobby"));
+         //   Assert.That(testUrl, Is.EqualTo("https://localhost:44321/Lobby/OpretLobby"));
 
 
 
@@ -377,7 +377,7 @@ namespace WebserverIntegrationTests
 
 
 
-        //****************************************************************//////
+        //*********************************Setup methods*******************************//////
 
 
 

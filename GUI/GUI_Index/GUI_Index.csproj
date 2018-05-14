@@ -31,6 +31,8 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="1.0.0-preview2-final" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="Selenium.Chrome.WebDriver" Version="2.38.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="2.38.0.1" />
   </ItemGroup>
 
   <ItemGroup>
