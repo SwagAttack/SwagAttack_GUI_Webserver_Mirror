@@ -45,6 +45,7 @@ namespace WebserverIntegrationTests
         private string Gecko = "geckodriver.exe";
         private string pathToFireFox = @"C:\Users\Max\AppData\Local\Mozilla Firefox\firefox.exe";
         public static string host = "https://swagattack.azurewebsites.net/";
+        private IWebDriver ChromeDriver = new ChromeDriver(@"C:\Users\Max\Documents\chromedriver");
 
 
         [SetUp]
@@ -107,7 +108,7 @@ namespace WebserverIntegrationTests
 
             string testUrl = driver.Url;
 
-            driver.Quit();
+           // driver.Quit();
 
             Assert.That(testUrl, Is.EqualTo(host));
 
@@ -532,9 +533,459 @@ namespace WebserverIntegrationTests
 
         }
 
+        [Test]
+        public async Task System_Test_Login_OpretLobby_Typed_Leave()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh462");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwqd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            driver.FindElement(By.Id("ForLadLobby")).Click();
 
 
 
+            string testUrl = driver.Url;
+
+            driver.Quit();
+
+            Assert.That(testUrl, Is.EqualTo(host + "Lobby/TilslutLobby"));
+
+
+
+        }
+
+        //Createlobby AND LEAVE and go back
+        [Test]
+        public async Task System_Test_Login_OpretLobby_Typed_Leave_Back()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh462");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwqd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            driver.FindElement(By.Id("ForLadLobby")).Click();
+            driver.FindElement(By.XPath("//div/div/button[1]")).Click();
+
+            
+
+
+            string testUrl = driver.Url;
+
+            driver.Quit();
+
+            Assert.That(testUrl, Is.EqualTo(host + "Home/PostLogInd"));
+
+
+
+        }
+
+        [Test]
+        public async Task System_Test_Login_OpretLobby_Type_Lobby_Admin_Istrue()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh674");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwquhd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            string btnexitst = driver.FindElement(By.XPath("//div/div/form/div/div/button[1]")).Text;
+            string text = "Start spil";
+
+            driver.FindElement(By.Id("ForLadLobby")).Click();
+
+            Assert.That(btnexitst, Is.EqualTo(text));
+
+        }
+
+
+
+        [Test]
+        public async Task System_Test_Login_OpretLobby_2_usersCanLogin()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh674");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwquhd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+
+            //////////////////////////Test 2 Joining//////////////
+            /// 
+            ChromeDriver.Navigate().GoToUrl(host);
+
+            string testUrl = driver.Url;
+
+            typeUser = ChromeDriver.FindElement(By.Name("Username"));
+            typePass = ChromeDriver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys(user.Username);
+            typePass.SendKeys(user.Password);
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/form/div/div/a[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/table/tbody/tr/td/form/button[1]")).Click();
+
+            string IsLoggedIn = driver.FindElement(By.XPath("//div/div/form/div/ul/li[1]")).Text;
+
+            string compare = "User: apiuserh Signed On!";
+
+              driver.FindElement(By.Id("ForLadLobby")).Click();
+
+               ChromeDriver.FindElement(By.Id("ForLadLobby")).Click();
+
+             driver.Quit();
+            ChromeDriver.Quit();
+
+            Assert.That(IsLoggedIn, Is.EqualTo(compare));
+
+
+
+        }
+
+        [Test]
+        public async Task System_Test_Login_OpretLobby_2_usersCanLogin_AdminLogout_2User_Is_Admin()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh674");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwquhd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+
+            //////////////////////////Test 2 Joining//////////////
+            /// 
+            ChromeDriver.Navigate().GoToUrl(host);
+
+            string testUrl = driver.Url;
+
+            typeUser = ChromeDriver.FindElement(By.Name("Username"));
+            typePass = ChromeDriver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys(user.Username);
+            typePass.SendKeys(user.Password);
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/form/div/div/a[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/table/tbody/tr/td/form/button[1]")).Click();
+
+
+            driver.FindElement(By.Id("ForLadLobby")).Click();
+
+
+            driver.FindElement(By.XPath("//div/div/div/table/tbody/tr/td/form/button[1]")).Click();
+
+            ChromeDriver.Navigate().Refresh();
+
+            string btnexitst = ChromeDriver.FindElement(By.XPath("//div/div/form/div/div/button[1]")).Text;
+            string text = "Start spil";
+
+            ChromeDriver.FindElement(By.Id("ForLadLobby")).Click();
+            driver.FindElement(By.Id("ForLadLobby")).Click();
+
+            driver.Quit();
+            ChromeDriver.Quit();
+
+            Assert.That(btnexitst, Is.EqualTo(text));
+
+        }
+
+
+
+        [Test]
+        public async Task System_Test_Login_OpretLobby_2Users_Is_loggedIn_Chat()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh674");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwquhd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            driver.FindElement(By.Id("messageInput")).SendKeys("hej fra test 1");
+            driver.FindElement(By.Id("sendButton")).Click();
+
+            //////////////////////////Test 2 Joining//////////////
+            /// 
+            ChromeDriver.Navigate().GoToUrl(host);
+
+            string testUrl = driver.Url;
+
+            typeUser = ChromeDriver.FindElement(By.Name("Username"));
+            typePass = ChromeDriver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys(user.Username);
+            typePass.SendKeys(user.Password);
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/form/div/div/a[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/table/tbody/tr/td/form/button[1]")).Click();
+
+
+
+            
+
+            ChromeDriver.FindElement(By.Id("messageInput")).SendKeys("hej fra test 2");
+            ChromeDriver.FindElement(By.Id("sendButton")).Click();
+
+
+            string pathTotext = driver.FindElement(By.XPath("//div/div/form/div/ul/li[3]")).Text;
+            string text = "apiuserh says hej fra test 2";
+
+             driver.FindElement(By.Id("ForLadLobby")).Click();
+
+               ChromeDriver.FindElement(By.Id("ForLadLobby")).Click();
+
+            ChromeDriver.Quit();
+            driver.Quit();
+
+            Assert.That(pathTotext, Is.EqualTo(text));
+
+
+
+        }
+
+
+
+        [Test]
+        public async Task System_Test_Login_OpretLobby_2Users_Is_loggedIn_Chat_CanReply()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh674");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobbydwquhd");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+
+            //////////////////////////Test 2 Joining//////////////
+            /// 
+            ChromeDriver.Navigate().GoToUrl(host);
+
+            string testUrl = driver.Url;
+
+            typeUser = ChromeDriver.FindElement(By.Name("Username"));
+            typePass = ChromeDriver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys(user.Username);
+            typePass.SendKeys(user.Password);
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/form/div/div/a[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/table/tbody/tr/td/form/button[1]")).Click();
+
+
+
+
+
+            ChromeDriver.FindElement(By.Id("messageInput")).SendKeys("hej fra test 2");
+            ChromeDriver.FindElement(By.Id("sendButton")).Click();
+
+            driver.FindElement(By.Id("messageInput")).SendKeys("hej fra test 1");
+            driver.FindElement(By.Id("sendButton")).Click();
+
+
+            string pathTotext = ChromeDriver.FindElement(By.XPath("//*[@id=\"Messages\"]/li[2]")).Text;
+            string text = "apiuserh674 says hej fra test 1";
+
+            driver.FindElement(By.Id("ForLadLobby")).Click();
+
+            ChromeDriver.FindElement(By.Id("ForLadLobby")).Click();
+
+            ChromeDriver.Quit();
+            driver.Quit();
+
+            Assert.That(pathTotext, Is.EqualTo(text));
+
+        }
+
+
+
+
+        [Test]
+        public async Task System_Test_Login_OpretLobby_2Users_HasOwnLobby()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys("apiuserh674");
+            typePass.SendKeys(user.Password);
+
+            driver.FindElement(By.XPath("//button[1]")).Click();
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            IWebElement lobbyId = driver.FindElement(By.Name("Id"));
+
+            lobbyId.SendKeys("TestLobby1");
+
+            driver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
+
+
+            //////////////////////////Test 2 creating//////////////
+            /// 
+            ChromeDriver.Navigate().GoToUrl(host);
+
+            string testUrl = driver.Url;
+
+            typeUser = ChromeDriver.FindElement(By.Name("Username"));
+            typePass = ChromeDriver.FindElement(By.Name("Password"));
+
+            typeUser.SendKeys(user.Username);
+            typePass.SendKeys(user.Password);
+
+            ChromeDriver.FindElement(By.XPath("//button[1]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//button[2]")).Click();
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/input[1]")).SendKeys("TestLobby2");
+
+            ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div[2]/button[1]")).Click();
+
+
+
+
+
+            ChromeDriver.FindElement(By.Id("messageInput")).SendKeys("I am lonely 2");
+            ChromeDriver.FindElement(By.Id("sendButton")).Click();
+
+            driver.FindElement(By.Id("messageInput")).SendKeys("I am lonely test 1");
+            driver.FindElement(By.Id("sendButton")).Click();
+
+           string IsAlone = ChromeDriver.FindElement(By.XPath("//*[@id=\"UsersInLobby\"]")).Text;
+
+
+            //string pathTotext = ChromeDriver.FindElement(By.XPath("//*[@id=\"Messages\"]/li[2]")).Text;
+            //string text = "apiuserh674 says hej fra test 1";
+
+            driver.FindElement(By.Id("ForLadLobby")).Click();
+
+            ChromeDriver.FindElement(By.Id("ForLadLobby")).Click();
+
+            ChromeDriver.Quit();
+            driver.Quit();
+
+            Assert.That(IsAlone.Contains("apiuser674"), Is.False);
+
+        }
 
         //*********************************Setup methods*******************************//////
 
