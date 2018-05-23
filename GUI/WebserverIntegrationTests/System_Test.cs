@@ -12,7 +12,6 @@ using GUICommLayer.Proxies.Utilities;
 using GUI_Index.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using NSubstitute;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
@@ -27,7 +26,7 @@ namespace WebserverIntegrationTests
    
 
     [TestFixture]
-    public class IT_GUI
+    public class System_Test
     {
         //Services setup
         IWebDriver driver;
