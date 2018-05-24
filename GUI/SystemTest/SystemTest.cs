@@ -498,7 +498,7 @@ namespace SystemTest
 
             driver.Quit();
 
-             Assert.That(testUrl, Is.EqualTo(host+"Lobby/TilslutLobby"));
+             Assert.That(testUrl, Is.EqualTo(host+ "Home/PostLogInd"));
 
 
 
@@ -642,6 +642,8 @@ namespace SystemTest
             string text = "Start spil";
 
             driver.FindElement(By.Id("ForLadLobby")).Click();
+
+            driver.Quit();
 
             Assert.That(btnexitst, Is.EqualTo(text));
 
