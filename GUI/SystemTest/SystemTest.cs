@@ -39,6 +39,7 @@ namespace SystemTest
         private IUserProxy _fakeUserProxy = Substitute.For<IUserProxy>();
         private readonly IUser _person = Substitute.For<IUser>();
         private readonly User user = new User();
+        private readonly User user2 = new User();
 
         //Paths for FirefoxSetup  - ændre den til egen sti for at køre testen
         private string pathForGecko = @"C:\Users\Max\Documents\GitHub\SwagAttack_GUI_Webserver_Mirror\GUI\WebserverIntegrationTests\bin\Debug\netcoreapp2.0";
@@ -47,6 +48,9 @@ namespace SystemTest
         public static string host = "https://swagattack.azurewebsites.net/";
         private IWebDriver ChromeDriver = new ChromeDriver(@"C:\Users\Max\Documents\chromedriver");
 
+        public string FirefoxUser;
+        public string ChromeUser;
+
 
         [SetUp]
         public void Setup()
@@ -54,19 +58,31 @@ namespace SystemTest
 
             //TestUser
 
-            user.Username = "apiuserh";
+            user.Username = FirefoxUser;
             user.Password = "Maxmaxmax";
-            user.Email = "apiuser@123.dk";
-            user.GivenName = "Apiuser";
-            user.LastName = "Apiuser";
+            user.Email = "SystemTest@123.dk";
+            user.GivenName = "SystemTest";
+            user.LastName = "SystemTest";
+
+            //TestUser2
+
+            user2.Username = ChromeUser;
+            user2.Password = "Maxmaxmax";
+            user2.Email = "SystemTest@123.dk";
+            user2.GivenName = "SystemTest";
+            user.LastName = "SystemTest";
+
 
 
             //TestPersUI
-            _person.Username = "apiuserh";
+            _person.Username = "SystemTest";
             _person.Password = "Maxmaxmax";
-            _person.Email = "apiuser@123.dk";
-            _person.GivenName = "Apiuser";
-            _person.LastName = "Apiuser";
+            _person.Email = "SystemTest@123.dk";
+            _person.GivenName = "SystemTest";
+            _person.LastName = "SystemTest";
+
+            //The New User created in Create 1:
+            
         }
 
 
@@ -92,7 +108,9 @@ namespace SystemTest
 
             Random rnd = new Random();
             int usernum = rnd.Next(1, 1000);
-            string random_user = "apiuserh" + usernum;
+            string random_user = "SystemTest" + usernum;
+            FirefoxUser = random_user;
+            
 
             typeUser.SendKeys(random_user);
             typePass.SendKeys(user.Password);
@@ -112,9 +130,53 @@ namespace SystemTest
 
             Assert.That(testUrl, Is.EqualTo(host));
 
+        }
 
+
+        [Test]
+        public async Task CreateTheSecondUserForOurTest()
+        {
+
+            FireFoxSetup(out service, out op);
+
+            setUp(service, op, out driver);
+
+            driver.FindElement(By.XPath("//button[2]")).Click();
+
+            typeUser = driver.FindElement(By.Name("Username"));
+            typePass = driver.FindElement(By.Name("Password"));
+            typePass2 = driver.FindElement(By.Name("ConfirmPassword"));
+            GivenName = driver.FindElement(By.Name("GivenName"));
+            LastName = driver.FindElement(By.Name("LastName"));
+            Email = driver.FindElement(By.Name("Email"));
+
+
+            Random rnd = new Random();
+            int usernum = rnd.Next(1, 1000);
+            string random_user = "SystemTest" + usernum;
+            ChromeUser = random_user;
+
+
+            typeUser.SendKeys(random_user);
+            typePass.SendKeys(user.Password);
+            typePass2.SendKeys(user.Password);
+            GivenName.SendKeys(user.Username);
+            LastName.SendKeys(user.GivenName);
+            Email.SendKeys(user.Email);
+
+            driver.FindElement(By.XPath("//div/div/div/div/form/div/div/div/input[1]")).Click();
+
+
+
+
+            string testUrl = driver.Url;
+
+            driver.Quit();
+
+            Assert.That(testUrl, Is.EqualTo(host));
 
         }
+
 
         //Test Opret Fail
         [Test]
@@ -371,7 +433,7 @@ namespace SystemTest
 
            driver.Quit();
 
-           Assert.That(testUrl, Is.EqualTo(host+ "Home/PostLogInd?Username=apiuserh&Password=Maxmaxmax&Email=apiuser@123.dk&GivenName=Apiuserh&LastName=Apiuser"));
+           Assert.That(testUrl, Is.EqualTo(host+ "Home/PostLogInd?Username=SystemTest&Password=Maxmaxmax&Email=SystemTest@123.dk&GivenName=SystemTest&LastName=SystemTest"));
 
            
 
@@ -529,7 +591,7 @@ namespace SystemTest
 
             driver.Quit();
 
-            Assert.That(testUrl, Is.EqualTo(host+"Lobby/TilslutLobby?password=Maxmaxmax&username=apiuserh"));
+            Assert.That(testUrl, Is.EqualTo(host+"Lobby/TilslutLobby?password=Maxmaxmax&username=SystemTest"));
 
 
 
@@ -546,7 +608,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh462");
+            typeUser.SendKeys("SystemTest462");
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -585,7 +647,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh462");
+            typeUser.SendKeys("SystemTest462");
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -625,7 +687,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh674");
+            typeUser.SendKeys("SystemTest674");
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -662,7 +724,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh674");
+            typeUser.SendKeys("SystemTest674");
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -696,7 +758,7 @@ namespace SystemTest
 
             string IsLoggedIn = driver.FindElement(By.XPath("//div/div/form/div/ul/li[1]")).Text;
 
-            string compare = "User: apiuserh Signed On!";
+            string compare = "User: SystemTest Signed On!";
 
               driver.FindElement(By.Id("ForLadLobby")).Click();
 
@@ -722,7 +784,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh674");
+            typeUser.SendKeys("SystemTest674");
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -788,7 +850,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh674");
+            typeUser.SendKeys(user.Username);
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -813,8 +875,8 @@ namespace SystemTest
             typeUser = ChromeDriver.FindElement(By.Name("Username"));
             typePass = ChromeDriver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys(user.Username);
-            typePass.SendKeys(user.Password);
+            typeUser.SendKeys(user2.Username);
+            typePass.SendKeys(user2.Password);
 
             ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
 
@@ -831,7 +893,7 @@ namespace SystemTest
 
 
             string pathTotext = driver.FindElement(By.XPath("//div/div/form/div/ul/li[3]")).Text;
-            string text = "apiuserh says hej fra test 2";
+            string text = "SystemTest says hej fra test 2";
 
              driver.FindElement(By.Id("ForLadLobby")).Click();
 
@@ -859,7 +921,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh674");
+            typeUser.SendKeys(user.Username);
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -882,8 +944,8 @@ namespace SystemTest
             typeUser = ChromeDriver.FindElement(By.Name("Username"));
             typePass = ChromeDriver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys(user.Username);
-            typePass.SendKeys(user.Password);
+            typeUser.SendKeys(user2.Username);
+            typePass.SendKeys(user2.Password);
 
             ChromeDriver.FindElement(By.XPath("//div/div/div/form/div/div/button[1]")).Click();
 
@@ -903,7 +965,7 @@ namespace SystemTest
 
 
             string pathTotext = ChromeDriver.FindElement(By.XPath("//*[@id=\"Messages\"]/li[2]")).Text;
-            string text = "apiuserh674 says hej fra test 1";
+            string text = "SystemTest674 says hej fra test 1";
 
             driver.FindElement(By.Id("ForLadLobby")).Click();
 
@@ -930,7 +992,7 @@ namespace SystemTest
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys("apiuserh674");
+            typeUser.SendKeys(user.Username);
             typePass.SendKeys(user.Password);
 
             driver.FindElement(By.XPath("//button[1]")).Click();
@@ -953,8 +1015,8 @@ namespace SystemTest
             typeUser = ChromeDriver.FindElement(By.Name("Username"));
             typePass = ChromeDriver.FindElement(By.Name("Password"));
 
-            typeUser.SendKeys(user.Username);
-            typePass.SendKeys(user.Password);
+            typeUser.SendKeys(user2.Username);
+            typePass.SendKeys(user2.Password);
 
             ChromeDriver.FindElement(By.XPath("//button[1]")).Click();
 
@@ -978,7 +1040,7 @@ namespace SystemTest
 
 
             //string pathTotext = ChromeDriver.FindElement(By.XPath("//*[@id=\"Messages\"]/li[2]")).Text;
-            //string text = "apiuserh674 says hej fra test 1";
+            //string text = "SystemTest674 says hej fra test 1";
 
             driver.FindElement(By.Id("ForLadLobby")).Click();
 
@@ -987,7 +1049,7 @@ namespace SystemTest
             ChromeDriver.Quit();
             driver.Quit();
 
-            Assert.That(IsAlone.Contains("apiuser674"), Is.False);
+            Assert.That(IsAlone.Contains("SystemTest674"), Is.False);
 
         }
 
