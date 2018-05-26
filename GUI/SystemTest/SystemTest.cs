@@ -48,8 +48,18 @@ namespace SystemTest
         public static string host = "https://swagattack.azurewebsites.net/";
         private IWebDriver ChromeDriver = new ChromeDriver(@"C:\Users\Max\Documents\chromedriver");
 
-        public string FirefoxUser;
-        public string ChromeUser;
+        static Random rnd = new Random();
+        static int usernum = rnd.Next(1, 1000);
+        static string random_user = "SystemTest" + usernum;
+
+
+        Random rnd2 = new Random();
+        static int usernum2 = rnd.Next(1, 1000);
+        static string random_user2 = "SystemTest" + usernum2;
+       
+
+        public string FirefoxUser = random_user;
+        public string ChromeUser = random_user2;
 
 
         [SetUp]
@@ -89,7 +99,7 @@ namespace SystemTest
         //test opret konto OBS; husk at ændre brugernavne!
 
         [Test]
-        public async Task System_Test_Opret()
+        public async Task a1System_Test_Opret()
         {
 
             FireFoxSetup(out service, out op);
@@ -105,11 +115,6 @@ namespace SystemTest
             LastName = driver.FindElement(By.Name("LastName"));
             Email = driver.FindElement(By.Name("Email"));
 
-
-            Random rnd = new Random();
-            int usernum = rnd.Next(1, 1000);
-            string random_user = "SystemTest" + usernum;
-            FirefoxUser = random_user;
             
 
             typeUser.SendKeys(random_user);
@@ -134,7 +139,7 @@ namespace SystemTest
 
 
         [Test]
-        public async Task CreateTheSecondUserForOurTest()
+        public async Task a2CreateTheSecondUserForOurTest()
         {
 
             FireFoxSetup(out service, out op);
@@ -151,10 +156,6 @@ namespace SystemTest
             Email = driver.FindElement(By.Name("Email"));
 
 
-            Random rnd = new Random();
-            int usernum = rnd.Next(1, 1000);
-            string random_user = "SystemTest" + usernum;
-            ChromeUser = random_user;
 
 
             typeUser.SendKeys(random_user);
