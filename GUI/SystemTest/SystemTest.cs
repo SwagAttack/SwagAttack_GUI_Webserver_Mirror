@@ -441,7 +441,7 @@ namespace SystemTest
 
            driver.Quit();
 
-           Assert.That(testUrl, Is.EqualTo(host+ "Home/PostLogInd?username="+user.Username+"&Password=Maxmaxmax&Email=SystemTest@123.dk&GivenName=SystemTest&LastName=SystemTest"));
+           Assert.That(testUrl, Is.EqualTo(host+ "Home/PostLogInd?Username="+user.Username+"&Password=Maxmaxmax&Email=SystemTest@123.dk&GivenName=SystemTest&LastName=SystemTest"));
 
            
 
