@@ -775,6 +775,7 @@ namespace SystemTest
              driver.Quit();
             ChromeDriver.Quit();
 
+
             Assert.That(IsLoggedIn, Is.EqualTo(compare));
 
 
@@ -1083,8 +1084,8 @@ namespace SystemTest
 
         private static void setUp(FirefoxDriverService service, FirefoxOptions op, out IWebDriver driver)
         {
-            driver = new FirefoxDriver(service, op, TimeSpan.FromSeconds(5));
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver = new FirefoxDriver(service, op, TimeSpan.FromSeconds(10));
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             driver.Navigate().GoToUrl(host);
         }
     }
