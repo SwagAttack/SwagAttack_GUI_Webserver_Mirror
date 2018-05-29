@@ -487,7 +487,7 @@ namespace SystemTest
 
             typeUser = driver.FindElement(By.Name("Username"));
             typePass = driver.FindElement(By.Name("Password"));
-            typeUser.SendKeys("fwqf2q3fafwf");
+            typeUser.SendKeys(user.Username);
             typePass.SendKeys("fw3fwsefewf");
 
 
