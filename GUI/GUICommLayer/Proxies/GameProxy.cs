@@ -7,7 +7,7 @@ using GUICommLayer.Proxies.Utilities;
 
 namespace GUICommLayer.Proxies
 {
-	class GameProxy : IGameProxy
+	public class GameProxy : IGameProxy
 	{
 		private string _apiPath = "/api/Game";
 		private readonly IHttpRequestFactory _requestFactory;
