@@ -45,13 +45,14 @@ namespace SystemTest
 
         //set path til chromedriver
 
-        private IWebDriver driver = new ChromeDriver(@"C:\Users\Max\Documents\chromedriver");
+        private IWebDriver driver = new ChromeDriver(@"C:\Users\Max\Documents\chromedriver", new ChromeOptions(), TimeSpan.FromSeconds(10));
+
 
 
 
         public static string setrandoms()
         {
-
+            
 
             Random rnd = new Random();
             int usernum = rnd.Next(1, 1000);
@@ -68,7 +69,7 @@ namespace SystemTest
         [SetUp]
         public void Setup()
         {
-
+            
 
 
 
@@ -89,7 +90,9 @@ namespace SystemTest
         [Test]
         public async Task demo()
         {
-           
+
+            driver.Manage().Window.FullScreen();
+
             driver.Navigate().GoToUrl(host);
 
             driver.FindElement(By.XPath("//button[2]")).Click();
