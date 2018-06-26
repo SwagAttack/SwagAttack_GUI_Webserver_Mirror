@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Models;
@@ -130,6 +131,8 @@ namespace SystemTest
 
             driver.FindElement(By.Id("messageInput")).SendKeys("I am a lonely Demo!");
             driver.FindElement(By.Id("sendButton")).Click();
+
+            Thread.Sleep(30000);
 
             driver.FindElement(By.Id("ForLadLobby")).Click();
 
